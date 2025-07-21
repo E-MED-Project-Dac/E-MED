@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 function Login(){
     //create state to get input from user
     const [email,setEmail] = useState('')
-    const [password,setPassword] = useSate('')
+    const [password,setPassword] = useState('')
 
     //get navigate function reference
     const navigate = useNavigate()
@@ -24,7 +24,6 @@ function Login(){
             //code to be specified
         }
     }
-}
 
 return(
     <div className="container">
@@ -55,7 +54,7 @@ return(
                     Don't have an account yet?<Link to='/register'>Register here</Link>
                 </div>
                 <button
-                    onClick={""}
+                    onClick={onLogin}
                     className="btn btn-success"
                 >
                     Login
@@ -64,5 +63,5 @@ return(
         </div>
     </div>
 )
-
+}
 export default Login

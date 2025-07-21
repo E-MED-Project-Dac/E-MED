@@ -1,3 +1,5 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 function Register() {
   // create state members
   const [firstName, setFirstName] = useState('')
@@ -115,15 +117,12 @@ function Register() {
             value={confirmPassword}
           />
         </div>
-         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown button
-          </button>
-         <ul class="role">
-         <li><a class="role-item" href="#">Patient </a></li>
-         <li><a class="role-item" href="#">Doctor</a></li>
-         <li><a class="role" href="#">Something else here</a></li>
-         </ul>
+       <div className='mb-3'>
+         <label htmlFor="roleSelect" className='form-label'>Role</label>
+         <select className='form-select' name="role" id="roleSelect">
+          <option value="patient">Patient</option>
+          <option value="doctor">Doctor</option>
+         </select>
         </div>
         <div className='mb-3'>
           <div className='mb-3'>
