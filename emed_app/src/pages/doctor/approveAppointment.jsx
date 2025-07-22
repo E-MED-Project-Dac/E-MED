@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AppointmentList = () => {
+const ApproveAppointmentList = () => {
   const [appointments, setAppointments] = useState([
     //dummy data 
     { appNo: 1, patientsName: 'John Doe', mobileNo: '1234567890', dateOfBirth: '1990-01-01', timeSlot: '10:00 AM', status: '' },
@@ -19,8 +19,10 @@ const AppointmentList = () => {
     };
 
   return (
-    <div>
-      <h2>Appointment List</h2>
+    <div >
+      <h2 style={{textAlign:'center'}}>Appointment List</h2>
+      <hr />
+      <div style={{margin:30}}>
       <table className='table table-stripped border-1'>
         <thead>
           <tr>
@@ -48,8 +50,9 @@ const AppointmentList = () => {
           )}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };
 
-export default AppointmentList;
+export default ApproveAppointmentList;
