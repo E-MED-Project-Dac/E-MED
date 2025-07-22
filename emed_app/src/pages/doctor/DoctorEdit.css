@@ -1,0 +1,85 @@
+/* Background colors and layout styles */
+.container {
+  max-width: 900px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.page-header {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.card {
+  background-color: #fdfdfd;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.card-header {
+  font-weight: 600;
+  background-color: #e9f1f7;
+  font-size: 18px;
+  color: #2e5d83;
+  border-bottom: 1px solid #cfdde6;
+  border-radius: 8px 8px 0 0;
+}
+
+label {
+  font-weight: 500;
+  color: #34495e;
+}
+
+input.form-control,
+textarea.form-control,
+select.form-control {
+  border-radius: 5px;
+}
+
+.custom-select {
+  appearance: none;
+  background: url("https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/caret-down-fill.svg")
+    no-repeat right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+textarea.form-control {
+  resize: none;
+}
+
+.input-group .form-control {
+  border-right: none;
+}
+
+.input-group .btn {
+  border-left: none;
+}
+
+/* Buttons */
+button {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+body {
+  background-color: #eef3f9 !important;
+}
