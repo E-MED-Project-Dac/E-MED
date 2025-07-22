@@ -4,7 +4,7 @@ import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import { ToastContainer } from 'react-toastify'
 import PatientNavbar from './pages/patient/PatientNavbar'
-import AppointmentList from './pages/doctor/approveAppointment'
+import ApproveAppointmentList from './pages/doctor/ApproveAppointment'
 import PatientProfile from './pages/patient/PatientProfile'
 import DoctorProfile from './pages/doctor/DoctorProfile'
 
@@ -26,7 +26,7 @@ function App() {
           />
           <Route 
             path='approveAppointment'
-            element={<AppointmentList/>}
+            element={<ApproveAppointmentList/>}
            />
           <Route 
             path='patientNavbar'
