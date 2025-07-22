@@ -4,6 +4,7 @@ import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import { ToastContainer } from 'react-toastify'
 import PatientNavbar from './pages/patient/PatientNavbar'
+import PatientProfile from './pages/patient/PatientProfile'
 //import { AuthContext } from './contexts/auth.context'
 function App() {
   // create a state member for keeping user details
@@ -20,7 +21,14 @@ function App() {
             path='register'
             element={<Register />}
           />
-          <Route path='patientNavbar' element={<PatientNavbar/>}/>
+          <Route 
+            path='patientNavbar'
+            element={<PatientNavbar/>}
+          />
+          <Route 
+            path='patientProfile'
+            element={<PatientProfile/>}
+          />
         </Routes>
 
       <ToastContainer />
