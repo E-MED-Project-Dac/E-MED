@@ -32,8 +32,11 @@ function PatientProfile(){
                     src=""
                     alt="Profile-image" 
                     className="profile-image"
-                   />
+                   />   
                  </div>
+                 <div style={{textAlign:'center'}}>
+                      <button className="btn update-img"  >Update Image</button>
+                   </div>
           
                  <div className="profile-details">
                   <h3>Girvindar</h3>
