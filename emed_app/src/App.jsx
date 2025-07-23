@@ -7,6 +7,7 @@ import PatientNavbar from './pages/patient/PatientNavbar'
 import ApproveAppointmentList from './pages/doctor/ApproveAppointment'
 import PatientProfile from './pages/patient/PatientProfile'
 import DoctorProfile from './pages/doctor/DoctorProfile'
+import PatientEditProfile from './pages/patient/PatientEditProfile'
 
 //import { AuthContext } from './contexts/auth.context'
 function App() {
@@ -39,6 +40,10 @@ function App() {
           <Route
             path='doctorProfile'
             element={<DoctorProfile/>}
+          />
+           <Route
+            path='patientEditProfile'
+            element={<PatientEditProfile/>}
           />
         </Routes>
 

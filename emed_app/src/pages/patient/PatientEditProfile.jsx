@@ -1,33 +1,27 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-function Register() {
-  // create state members
+function PatientEditProfile(){
+    // create state members
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [role, setRole] = useState('')
   const [showDob, setShowDob] = useState('')
   const [gender, setGender] = useState('')
-  // get the navigate function reference
+
   const navigate = useNavigate()
+  const onBack = () =>{
+     navigate(-1)
+   }
 
-  const onBack = () => {
-    // use back stack (which is implemented by browser)
-    // -1: previous screen
-    navigate(-1)
-  }
+   const onUpdate = async() => {
+    //write the logic
+   }  
 
-  // click event handler
-  const onRegister = async () => {
-   //write the logic
-  }
-
-  return (
+    return (
     <div className='container'>
-      <h2 className='page-header'>Register</h2>
+      <h2 className='page-header'>Edit Profile</h2>
       <div className='form'>
         <div className='mb-3'>
           <label htmlFor=''>First Name</label>
@@ -75,15 +69,6 @@ function Register() {
           />
         </div>
         <div className='mb-3'>
-          <label htmlFor=''>Confirm Password</label>
-          <input
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            type='password'
-            className='form-control'
-            value={confirmPassword}
-          />
-        </div>
-           <div className='mb-3'>
           <label htmlFor=''>Date of birth</label>
           <input
             onChange={(e) => setShowDob(e.target.value)}
@@ -94,41 +79,32 @@ function Register() {
         </div>
        <div className='mb-3'>
          <label htmlFor="gender" className='form-label'>Gender</label>
-         <select className='form-select' name="gender" id="genderselect" value={gender} onChange={(e) => setGender(e.target.value) }>
+         <select className='form-select' name="gender" id="genderselect" value={gender} onChange={(e) =>setGender(e.target.value) }>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
            <option value="Others">Others</option>
          </select>
         </div>
-       <div className='mb-3'>
-         <label htmlFor="roleSelect" className='form-label'>Role</label>
-         <select className='form-select' name="role" id="roleSelect" onChange={(e) => setRole(e.target.value)}>
-          <option value="patient">Patient</option>
-          <option value="doctor">Doctor</option>
-         </select>
-        </div>
-        <div style={{display:"flex" , justifyContent:"space-between"}}>
+        <div className='mb-3' style={{display:"flex" , justifyContent:"space-between"}}>
           <div className='mb-3'>
-            Already have an account?{' '}
             <button
               onClick={onBack}
-              className='btn btn-link'
+              className='btn btn-danger'
             >
-              Login here
+              Cancel
             </button>
           </div>
-          <div className='mb-3'>
+          <div className="mb-3">
           <button
-            onClick={onRegister}
+            onClick={onUpdate}
             className='btn btn-success'
           >
-            Register
+            Update
           </button>
+          </div>
         </div>
-       </div>
       </div>
     </div>
   )
 }
-
-export default Register
+ export default PatientEditProfile;
