@@ -53,7 +53,7 @@ function PatientNavbar(){
               <Link
                 className='nav-link'
                 aria-current='page'
-                to='/home/myAppointment'
+                to='/upcomingAppointmentList'
               >
                 My Appointment
               </Link>

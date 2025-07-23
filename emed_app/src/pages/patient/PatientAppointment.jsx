@@ -17,7 +17,7 @@ const navigate = useNavigate()
 
   };
   const onHistory=()=>{
-      navigate('appointmentHistory')
+      navigate('/appointmentHistory')
   };
   return (
     <div >

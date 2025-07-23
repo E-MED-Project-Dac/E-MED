@@ -5,21 +5,17 @@ import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import { ToastContainer } from 'react-toastify'
 import PatientNavbar from './pages/patient/PatientNavbar'
-import ApproveAppointmentList from './pages/doctor/approveAppointment'
+import ApproveAppointmentList from './pages/doctor/ApproveAppointments'
 import PatientProfile from './pages/patient/PatientProfile'
 import DoctorProfile from './pages/doctor/DoctorProfile'
 import PatientEditProfile from './pages/patient/PatientEditProfile'
 import DoctorEdit from './pages/doctor/DoctorEdit'
 import BookAppointment from './pages/patient/BookAppointment'
-import DoctorCards from './pages/patient/PatientHome'
 import EditAvailability from "./pages/doctor/EditAvailability";
-
-
-
-
-import DoctorCards from './pages/patient/PatientHome';
+import DoctorCards from './pages/patient/PatientHome'
 import DoctorNavbar from './pages/doctor/doctorNavbar'
 import AppointmentHistory from './pages/patient/AppointmentHistory'
+import PatientAppointment from './pages/patient/PatientAppointment';
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState(null);
@@ -37,24 +33,12 @@ function App() {
             element={<Register />}
           />
           <Route 
-            path='approveAppointment'
-            element={<ApproveAppointmentList/>}
-           />
-          <Route 
-            path='patientNavbar'
-            element={<PatientNavbar/>}
-          />
-           <Route 
             path='doctorNavbar'
             element={<DoctorNavbar/>}
           />
-           <Route 
-            path='patientHome'
-            element={<DoctorCards/>}
-          />
           <Route 
-            path='patientProfile'
-            element={<PatientProfile/>}
+            path='approveAppointment'
+            element={<ApproveAppointmentList/>}
           />
           <Route
             path='doctorProfile'
@@ -64,6 +48,22 @@ function App() {
             path='doctorEditProfile'
             element={<DoctorEdit/>}
           />
+          <Route 
+             path="editAvailability" 
+             element={<EditAvailability />} 
+          />
+          <Route 
+            path='patientNavbar'
+            element={<PatientNavbar/>}
+          />
+          <Route 
+            path='patientHome'
+            element={<DoctorCards/>}
+          />
+          <Route 
+            path='patientProfile'
+            element={<PatientProfile/>}
+          />
            <Route
             path='patientEditProfile'
             element={<PatientEditProfile/>}
@@ -72,14 +72,14 @@ function App() {
             path='bookAppointment'
             element={<BookAppointment/>}
           />
-
+          <Route
+            path='upcomingAppointmentList'
+            element={<PatientAppointment/>}
+            />
           <Route
             path='appointmentHistory'
             element={<AppointmentHistory/>}
-          <Route 
-             path="editAvailability" 
-             element={<EditAvailability />} 
-          />
+            />
         </Routes>
 
 
