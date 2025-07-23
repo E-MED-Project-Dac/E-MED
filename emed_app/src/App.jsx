@@ -19,6 +19,8 @@ import PatientAppointment from './pages/patient/PatientAppointment';
 import PatientHome from './pages/patient/PatientHome'
 import { AuthContext } from './context/auth.context'
 import DoctorHome from './pages/doctor/DoctorHome'
+import AboutUs from './pages/utils/AboutUs'
+import ContactUs from './pages/utils/ContactUs'
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState("null");
