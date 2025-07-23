@@ -163,10 +163,6 @@ function PatientNavbar({ doctors, setFilteredDoctors }) {
                 My Appointment
               </Link>
             </li>
-          </ul>
-          <ul className="navbar-nav ms-auto fs-5">
-            <li className='nav-item'>
-              <button className='btn' onClick={onLogout}>
             <li className="nav-item">
               <Link 
                 className="nav-link" 
@@ -185,7 +181,7 @@ function PatientNavbar({ doctors, setFilteredDoctors }) {
                 Contect-Us
               </Link>
             </li>
-            </ul>
+        </ul>
             <ul className="navbar-nav ms-auto fs-5">
             <li className='nav-item '>
               <button
@@ -201,5 +197,4 @@ function PatientNavbar({ doctors, setFilteredDoctors }) {
     </nav>
   );
 }
-
 export default PatientNavbar;
