@@ -14,15 +14,7 @@ function Login(){
 
     //button click event handler
     const onLogin = async () =>{
-        if(email.length == 0){
-            toast.warn("please enter email")
-        }
-        else if(password.length == 0){
-            toast.warn("please enter password")
-        }
-        else{
-            //code to be specified
-        }
+       //write logic
     }
 
 return(
