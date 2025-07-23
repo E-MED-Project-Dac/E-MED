@@ -10,6 +10,7 @@ import DoctorProfile from './pages/doctor/DoctorProfile'
 import PatientEditProfile from './pages/patient/PatientEditProfile'
 import DoctorEdit from './pages/doctor/DoctorEdit'
 import BookAppointment from './pages/patient/BookAppointment'
+import DoctorCards from './pages/patient/PatientHome'
 
 function App() {
   // create a state member for keeping user details
