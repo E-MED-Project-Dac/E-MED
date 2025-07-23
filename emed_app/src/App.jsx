@@ -1,21 +1,27 @@
+
 import React, { useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import { ToastContainer } from 'react-toastify'
 import PatientNavbar from './pages/patient/PatientNavbar'
-import AppointmentList from './pages/doctor/approveAppointment'
+import ApproveAppointmentList from './pages/doctor/ApproveAppointment'
 import PatientProfile from './pages/patient/PatientProfile'
 import DoctorProfile from './pages/doctor/DoctorProfile'
-import PatientAppointment from './pages/patient/PatientAppointment'
+import PatientEditProfile from './pages/patient/PatientEditProfile'
+import DoctorEdit from './pages/doctor/DoctorEdit'
+import BookAppointment from './pages/patient/BookAppointment'
+import DoctorCards from './pages/patient/PatientHome'
+import EditAvailability from "./pages/doctor/EditAvailability";
 
-//import { AuthContext } from './contexts/auth.context'
+
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState(null);
 
   return (
     <>
+
         <Routes>
           <Route
             path='/'
@@ -27,11 +33,19 @@ function App() {
           />
           <Route 
             path='approveAppointment'
-            element={<AppointmentList/>}
+            element={<ApproveAppointmentList/>}
            />
           <Route 
             path='patientNavbar'
             element={<PatientNavbar/>}
+          />
+           <Route 
+            path='doctorNavbar'
+            element={<PatientNavbar/>}
+          />
+           <Route 
+            path='patientHome'
+            element={<DoctorCards/>}
           />
           <Route 
             path='patientProfile'
@@ -41,33 +55,24 @@ function App() {
             path='doctorProfile'
             element={<DoctorProfile/>}
           />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
            <Route
-            path='patientAppointmentsList'
-            element={<PatientAppointment />}
+            path='doctorEditProfile'
+            element={<DoctorEdit/>}
+          />
+           <Route
+            path='patientEditProfile'
+            element={<PatientEditProfile/>}
+          />
+          <Route
+            path='bookAppointment'
+            element={<BookAppointment/>}
+          />
+          <Route 
+             path="editAvailability" 
+             element={<EditAvailability />} 
           />
         </Routes>
+
 
       <ToastContainer />
     </>

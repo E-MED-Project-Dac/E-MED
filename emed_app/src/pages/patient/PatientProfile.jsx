@@ -6,7 +6,8 @@ function PatientProfile(){
      const navigate = useNavigate();
      const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
      const onUpdate = () => {
-    navigate('/update-patientprofile'); //go to the update profile page 
+      //go to the update profile page
+    navigate('/patientEditProfile');  
   };
    const onBack = () => {
     navigate(-1); // Goes back to previous page
