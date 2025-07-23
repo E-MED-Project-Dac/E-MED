@@ -5,7 +5,7 @@ import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import { ToastContainer } from 'react-toastify'
 import PatientNavbar from './pages/patient/PatientNavbar'
-import ApproveAppointmentList from './pages/doctor/ApproveAppointment'
+import ApproveAppointmentList from './pages/doctor/approveAppointment'
 import PatientProfile from './pages/patient/PatientProfile'
 import DoctorProfile from './pages/doctor/DoctorProfile'
 import PatientEditProfile from './pages/patient/PatientEditProfile'
@@ -15,6 +15,11 @@ import DoctorCards from './pages/patient/PatientHome'
 import EditAvailability from "./pages/doctor/EditAvailability";
 
 
+
+
+import DoctorCards from './pages/patient/PatientHome';
+import DoctorNavbar from './pages/doctor/doctorNavbar'
+import AppointmentHistory from './pages/patient/AppointmentHistory'
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState(null);
@@ -41,7 +46,7 @@ function App() {
           />
            <Route 
             path='doctorNavbar'
-            element={<PatientNavbar/>}
+            element={<DoctorNavbar/>}
           />
            <Route 
             path='patientHome'
@@ -67,6 +72,10 @@ function App() {
             path='bookAppointment'
             element={<BookAppointment/>}
           />
+
+          <Route
+            path='appointmentHistory'
+            element={<AppointmentHistory/>}
           <Route 
              path="editAvailability" 
              element={<EditAvailability />} 

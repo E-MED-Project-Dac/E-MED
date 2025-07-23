@@ -1,10 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 
 function DoctorNavbar() {
+  const navigate = useNavigate()
+
+  const onLogout = () => {
+      //write logic
+      navigate('/')
+  }
   return (
     <nav className="navbar navbar-expand-lg bg-success" data-bs-theme="dark">
       <div className="container-fluid">
-        <Link className="navbar-brand fs-5" to="/home">
+        <Link 
+          className="navbar-brand fs-5" 
+          to="/doctorNavbar"
+        >
           Home
         </Link>
         <button
@@ -18,24 +27,36 @@ function DoctorNavbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div 
+          className="collapse navbar-collapse" 
+          id="navbarNav"
+        >
           <ul className="navbar-nav gap-4 fs-5">
             <li className="nav-item">
-              <Link className="nav-link" aria-current="page" to="/home/profile">
+              <Link 
+                className="nav-link" 
+                aria-current="page" 
+                to="/doctorProfile"
+              >
                 Profile
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/home/appointment">
+              <Link 
+                className="nav-link" 
+                to="/approveAppointment"
+              >
                 Appointment
               </Link>
             </li>
           </ul>
           <ul className="navbar-nav ms-auto fs-5">
             <li className="nav-item">
-              <Link className="btn btn-outline-light px-4" to="/home/logout">
+              <button 
+                className="btn btn-outline-light px-4" 
+                onClick={onLogout}>
                 Logout
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
