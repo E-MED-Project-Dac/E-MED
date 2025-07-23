@@ -5,10 +5,14 @@ import './DoctorProfile.css';
 function DoctorProfile(){
   const navigate = useNavigate();
   const [showDeleteConfirmation,setShowDeleteConfirmation] = useState(false);
-  const onUpdate = () => {
-    navigate('');
+  const onUpdateBasicDetails = () => {
+    navigate('/doctorEditProfile');
   };
 
+  const onUpdateAvaialability = () => {
+    navigate('');
+  };
+  
   const onBack = () => {
     navigate(-1);
   }
@@ -46,14 +50,14 @@ function DoctorProfile(){
                 </div>
                 <div className="profile-actions">
                   <button 
-                   onClick={onUpdate}
+                   onClick={onUpdateBasicDetails}
                    className="btn update-btn"
                   >
                   Update Basic Details
                   </button>
 
                    <button 
-                   onClick={onDeleteAccount}
+                   onClick={onUpdateAvaialability}
                    className="btn update-btn"
                   >
                   Avaialability Details
