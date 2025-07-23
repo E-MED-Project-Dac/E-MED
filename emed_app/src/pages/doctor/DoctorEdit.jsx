@@ -1,7 +1,17 @@
 import React from "react";
 import "./DoctorEdit.css";
+import { useNavigate } from 'react-router-dom';
 
 function DoctorEdit() {
+  const navigate = useNavigate()
+
+   const onCancel = () => {
+    navigate(-1)
+  }
+
+  const onUpdate = () => {
+    //write logic
+  }
   return (
     <>
       <div className="container">
@@ -131,10 +141,10 @@ function DoctorEdit() {
             </div>
           </div>
           <div className="mt-2 d-flex justify-content-between">
-            <button className="btn btn-success" style={{ width: "150px" }}>
+            <button className="btn btn-success" style={{ width: "150px" }} onClick={onUpdate}>
               Update
             </button>
-            <button className="btn btn-danger" style={{ width: "150px" }}>
+            <button className="btn btn-danger" style={{ width: "150px" }} onClick={onCancel}>
               Cancel
             </button>
           </div>

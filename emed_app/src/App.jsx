@@ -8,8 +8,9 @@ import ApproveAppointmentList from './pages/doctor/ApproveAppointment'
 import PatientProfile from './pages/patient/PatientProfile'
 import DoctorProfile from './pages/doctor/DoctorProfile'
 import PatientEditProfile from './pages/patient/PatientEditProfile'
+import DoctorEdit from './pages/doctor/DoctorEdit'
+import BookAppointment from './pages/patient/BookAppointment'
 
-//import { AuthContext } from './contexts/auth.context'
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState(null);
@@ -33,6 +34,14 @@ function App() {
             path='patientNavbar'
             element={<PatientNavbar/>}
           />
+           <Route 
+            path='doctorNavbar'
+            element={<PatientNavbar/>}
+          />
+           <Route 
+            path='patientHome'
+            element={<DoctorCards/>}
+          />
           <Route 
             path='patientProfile'
             element={<PatientProfile/>}
@@ -42,8 +51,16 @@ function App() {
             element={<DoctorProfile/>}
           />
            <Route
+            path='doctorEditProfile'
+            element={<DoctorEdit/>}
+          />
+           <Route
             path='patientEditProfile'
             element={<PatientEditProfile/>}
+          />
+          <Route
+            path='bookAppointment'
+            element={<BookAppointment/>}
           />
         </Routes>
 
