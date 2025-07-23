@@ -19,6 +19,7 @@ import PatientAppointment from './pages/patient/PatientAppointment';
 import PatientHome from './pages/patient/PatientHome'
 import { AuthContext } from './context/auth.context'
 import DoctorHome from './pages/doctor/DoctorHome'
+import RescheduleAppointment from './pages/patient/RescheduleAppointment'
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState("null");
@@ -79,6 +80,10 @@ function App() {
           <Route
             path='upcomingAppointmentList'
             element={<PatientAppointment/>}
+            />
+             <Route
+            path='rescheduleAppointment'
+            element={<RescheduleAppointment/>}
             />
           <Route
             path='appointmentHistory'
