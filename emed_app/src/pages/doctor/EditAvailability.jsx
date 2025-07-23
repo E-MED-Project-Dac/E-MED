@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import "./DoctorEdit.css";
 import { useNavigate } from "react-router-dom";
 function EditAvailability() {
+  const days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+  const [availability, setAvailability] = useState([]);
+
+  const handleCheckboxChange = (day) => {
+    setAvailability((prev) =>
+      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+    );
+  };
   const navigate = useNavigate();
   const onBack = () => {
-    navigate(-1)
-  }
+    navigate(-1);
+  };
   const onSubmit = () => {
-      // write logic here
-  }
+    // write logic here
+  };
   return (
     <>
       <div className="container">
@@ -19,25 +35,28 @@ function EditAvailability() {
             </div>
             <div className="card-body">
               <div className="row mb-3">
-                <div className="col custom-select-wrapper">
-                  <label htmlFor="">Availability</label>
-                  <br />
-                  <select className="form-control custom-select">
-                    <option value="">Select Availability</option>
-                    <option value="">Monday</option>
-                    <option value="">Tuesday</option>
-                    <option value="">Wednesday</option>
-                    <option value="">Thursday</option>
-                    <option value="">Friday</option>
-                    <option value="">Saturday</option>
-                    <option value="">Sunday</option>
-                  </select>
+                <label>Select Availability:</label>
+                <div className="d-flex flex-wrap gap-9 mt-2">
+                  {days.map((day) => (
+                    <div key={day} className="form-check form-check-inline">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id={day}
+                        checked={availability.includes(day)}
+                        onChange={() => handleCheckboxChange(day)}
+                      />
+                      <label className="form-check-label" htmlFor={day}>
+                        {day}
+                      </label>
+                    </div>
+                  ))}
                 </div>
                 <br />
               </div>
               <div className="row mb-3">
                 <div className="col">
-                  <label htmlFor="">Time Slot</label>
+                  <label htmlFor="">Time Slot:</label>
                   <br />
                   <div className="row mb-3">
                     <div className="col">
@@ -60,7 +79,7 @@ function EditAvailability() {
                 </div>
               </div>
               <div className="row mb-3">
-                <label htmlFor="">Consultant Fee</label>
+                <label htmlFor="">Consultant Fee:</label>
                 <input
                   type="number"
                   className="form-control"
