@@ -1,11 +1,17 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 function PatientNavbar(){
+  const navigate = useNavigate()
+
+  const onLogout = () => {
+    //write logic 
+    navigate('/')
+  }
   return (
      <nav className='navbar navbar-expand-lg bg-success' data-bs-theme='dark'>
      <div className='container-fluid'>
         <Link
           className='navbar-brand'
-          to='/home'
+          to='/patientHome'
         >
           Home
         </Link>
@@ -24,12 +30,12 @@ function PatientNavbar(){
           className='collapse navbar-collapse'
           id='navbarNav'
         >
-          <ul className='navbar-nav'>
+          <ul className='navbar-nav gap-4 fs-5'>
             <li className='nav-item'>
               <Link
                 className='nav-link'
                 aria-current='page'
-                to='/home/profile'
+                to='/patientProfile'
               >
                 Profile
               </Link>
@@ -52,9 +58,12 @@ function PatientNavbar(){
                 My Appointment
               </Link>
             </li>
-            <li className='nav-item'>
+            </ul>
+            <ul className="navbar-nav ms-auto fs-5">
+            <li className='nav-item '>
               <button
                 className='btn'
+                onClick={onLogout}
               >
                 Logout
               </button>
@@ -63,7 +72,7 @@ function PatientNavbar(){
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
 export default PatientNavbar
