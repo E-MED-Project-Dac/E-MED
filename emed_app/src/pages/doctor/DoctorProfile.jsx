@@ -10,7 +10,7 @@ function DoctorProfile(){
   };
 
   const onUpdateAvaialability = () => {
-    navigate('');
+    navigate('/editAvailability');
   };
   
   const onBack = () => {
@@ -18,10 +18,15 @@ function DoctorProfile(){
   }
 
   const onDeleteAccount = () => {
-    console.log("Account Deleted!!!");
-    navigate('/');
+    setShowDeleteConfirmation(true);
   };
 
+   const onConfirmDelete = () => {
+    //write the api for delete 
+    console.log('Account deleted');
+    navigate('/');
+  };
+  
   const onCancelDelete = () => {
     setShowDeleteConfirmation(false);
   }
