@@ -1,6 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function AboutUs() {
+  const navigate = useNavigate()
+  const onBack = () => {
+    navigate(-1)
+  }
   return (
     <div className="container mt-5">
       <h2 className="mb-4 text-primary" style={{textAlign:'center'}}>About Us – EMED Healthcare</h2>
@@ -41,6 +46,10 @@ function AboutUs() {
         convenience, and trust. Whether you're looking for a general physician, dermatologist, pediatrician, or any specialist — 
         eMed connects you with the right care in just a few clicks.
       </p>
+      <hr />
+      <div>
+        <button className='btn btn-secondary' onClick={onBack}>Back</button>
+      </div>
     </div>
   )
 }

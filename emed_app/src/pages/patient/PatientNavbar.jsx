@@ -58,6 +58,24 @@ function PatientNavbar(){
                 My Appointment
               </Link>
             </li>
+            <li className="nav-item">
+              <Link 
+                className="nav-link" 
+                aria-current="page" 
+                to="/patientHome/aboutUs"
+              >
+                About-Us
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link 
+                className="nav-link" 
+                aria-current="page" 
+                to="/patientHome/contectUs"
+              >
+                Contect-Us
+              </Link>
+            </li>
             </ul>
             <ul className="navbar-nav ms-auto fs-5">
             <li className='nav-item '>
