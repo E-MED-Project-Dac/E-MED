@@ -10,12 +10,11 @@ const ApproveAppointmentList = () => {
   ]);
 
   const onAccept = () => {
-        //write the logic
+        
     };
 
 
   const onReject = () => {
-    // write the logic
     };
 
   return (
