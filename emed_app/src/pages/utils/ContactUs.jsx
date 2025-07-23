@@ -1,6 +1,10 @@
 import React from 'react'
-
+import { useNavigate } from 'react-router-dom'
 function ContactUs() {
+  const navigate = useNavigate()
+  const onBack = () => {
+    navigate(-1)
+  }
   return (
     <div className='container mt-5'>
       <h2 className='mb-4' style={{textAlign:'center'}}>Contact Us</h2>
@@ -48,6 +52,10 @@ function ContactUs() {
             <button type='submit' className='btn btn-primary'>Send</button>
           </form>
         </div>
+      </div>
+      <hr />
+       <div>
+        <button className='btn btn-secondary' onClick={onBack}>Back</button>
       </div>
     </div>
   )

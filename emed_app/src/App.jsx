@@ -38,6 +38,14 @@ function App() {
             path='register'
             element={<Register />}
           />
+          <Route 
+             path="aboutUs" 
+             element={<AboutUs />} 
+          />
+          <Route 
+             path="contectUs" 
+             element={<ContactUs />} 
+          />
           <Route
             path='doctorHome'
             element={user ? <DoctorHome /> : <Navigate to='/' />}
@@ -58,6 +66,14 @@ function App() {
              path="editAvailability" 
              element={<EditAvailability />} 
           />
+          <Route 
+             path="aboutUs" 
+             element={<AboutUs />} 
+          />
+          <Route 
+             path="contectUs" 
+             element={<ContactUs />} 
+          />
           </Route>
           <Route
              path='patientHome'
@@ -74,6 +90,14 @@ function App() {
            <Route
             path='patientEditProfile'
             element={<PatientEditProfile/>}
+          />
+          <Route 
+             path="aboutUs" 
+             element={<AboutUs />} 
+          />
+          <Route 
+             path="contectUs" 
+             element={<ContactUs />} 
           />
           <Route
             path='bookAppointment'

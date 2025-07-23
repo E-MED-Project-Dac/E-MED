@@ -2,7 +2,6 @@ import React from "react";
 import { useContext , useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 function Login(){
     //create state to get input from user
@@ -18,9 +17,14 @@ function Login(){
     }
 
 return(
-    <div className="container">
-        <h2 className="page-header">Login</h2>
-
+<>
+ <div class="card text-center">
+  <div class="card-header">
+    Welcome to EMED
+  </div>
+  <div class="card-body">
+     <h2 className="page-header">Login</h2>
+     <div className="container">
         <div className="form">
             <div className="mb-3">
                 <label htmlFor="">Email</label>
@@ -41,7 +45,7 @@ return(
                     placeholder="########"
                 />
             </div>
-            <div className="mb-3">
+             <div style={{display:"flex" , justifyContent:"space-between"}}>     
                 <div className="mb-3">
                     Don't have an account yet?<Link to='/register'>Register here</Link>
                 </div>
@@ -54,6 +58,10 @@ return(
             </div>
         </div>
     </div>
+  </div>
+   <footer className="footer"> copyright CDAC@2025 EMED-Project <a href="/aboutUs" style={{marginRight:30,marginLeft:20}}>About-Us</a> <a href="/contectUs">Contact-Us</a></footer>
+ </div>
+</> 
 )
 }
 export default Login
