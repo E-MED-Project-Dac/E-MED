@@ -17,8 +17,13 @@ const navigate = useNavigate()
 
   };
   const onHistory=()=>{
-      navigate('/appointmentHistory')
+      navigate('/patientHome/appointmentHistory')
   };
+
+   const onBack= () =>{
+       navigate(-1)
+  };
+
   return (
     <div >
       <h2 style={{textAlign:'center'}}>Upcoming Appointment List</h2>
@@ -61,7 +66,7 @@ const navigate = useNavigate()
       </table>
       <div style={{display:'flex', justifyContent:'space-between'}}>
       <button className='btn btn-info' onClick={onHistory}>History</button>
-       <button className='btn btn-warning' onClick={onHistory}>Back</button>
+       <button className='btn btn-warning' onClick={onBack}>Back</button>
       </div>
     </div>
    </div>   

@@ -7,7 +7,7 @@ function PatientProfile(){
      const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
      const onUpdate = () => {
       //go to the update profile page
-    navigate('/patientEditProfile');  
+    navigate('/patientHome/patientEditProfile');  
   };
    const onBack = () => {
     navigate(-1); // Goes back to previous page
@@ -17,7 +17,6 @@ function PatientProfile(){
   };
   const onConfirmDelete = () => {
     //write the api for delete 
-    console.log('Account deleted');
     navigate('/');
   };
   const onCancelDelete = () => {

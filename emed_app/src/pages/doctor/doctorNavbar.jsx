@@ -36,7 +36,7 @@ function DoctorNavbar() {
               <Link 
                 className="nav-link" 
                 aria-current="page" 
-                to="/doctorProfile"
+                to="/doctorHome/doctorProfile"
               >
                 Profile
               </Link>
@@ -44,7 +44,7 @@ function DoctorNavbar() {
             <li className="nav-item">
               <Link 
                 className="nav-link" 
-                to="/approveAppointment"
+                to="/doctorHome/approveAppointment"
               >
                 Appointment
               </Link>

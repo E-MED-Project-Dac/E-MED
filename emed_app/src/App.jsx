@@ -12,17 +12,20 @@ import PatientEditProfile from './pages/patient/PatientEditProfile'
 import DoctorEdit from './pages/doctor/DoctorEdit'
 import BookAppointment from './pages/patient/BookAppointment'
 import EditAvailability from "./pages/doctor/EditAvailability";
-import DoctorCards from './pages/patient/PatientHome'
+import DoctorsList from './pages/patient/DoctorsList'
 import DoctorNavbar from './pages/doctor/doctorNavbar'
 import AppointmentHistory from './pages/patient/AppointmentHistory'
 import PatientAppointment from './pages/patient/PatientAppointment';
+import PatientHome from './pages/patient/PatientHome'
+import { AuthContext } from './context/auth.context'
+import DoctorHome from './pages/doctor/DoctorHome'
 function App() {
   // create a state member for keeping user details
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("null");
 
   return (
     <>
-
+      <AuthContext value={{user , setUser}}>
         <Routes>
           <Route
             path='/'
@@ -32,10 +35,10 @@ function App() {
             path='register'
             element={<Register />}
           />
-          <Route 
-            path='doctorNavbar'
-            element={<DoctorNavbar/>}
-          />
+          <Route
+            path='doctorHome'
+            element={user ? <DoctorHome /> : <Navigate to='/' />}
+          >
           <Route 
             path='approveAppointment'
             element={<ApproveAppointmentList/>}
@@ -52,13 +55,14 @@ function App() {
              path="editAvailability" 
              element={<EditAvailability />} 
           />
+          </Route>
+          <Route
+             path='patientHome'
+             element={user ? <PatientHome /> : <Navigate to='/' />}
+          >
           <Route 
-            path='patientNavbar'
-            element={<PatientNavbar/>}
-          />
-          <Route 
-            path='patientHome'
-            element={<DoctorCards/>}
+            path='doctorslist'
+            element={<DoctorsList/>}
           />
           <Route 
             path='patientProfile'
@@ -80,8 +84,9 @@ function App() {
             path='appointmentHistory'
             element={<AppointmentHistory/>}
             />
+          </Route>
         </Routes>
-
+      </AuthContext>
 
       <ToastContainer />
     </>
