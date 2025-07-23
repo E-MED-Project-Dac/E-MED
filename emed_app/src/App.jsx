@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from './pages/auth/Login'
@@ -10,6 +11,9 @@ import DoctorProfile from './pages/doctor/DoctorProfile'
 import PatientEditProfile from './pages/patient/PatientEditProfile'
 import DoctorEdit from './pages/doctor/DoctorEdit'
 import BookAppointment from './pages/patient/BookAppointment'
+import DoctorCards from './pages/patient/PatientHome'
+import EditAvailability from "./pages/doctor/EditAvailability";
+
 
 
 
@@ -22,6 +26,7 @@ function App() {
 
   return (
     <>
+
         <Routes>
           <Route
             path='/'
@@ -68,17 +73,15 @@ function App() {
             element={<BookAppointment/>}
           />
 
-
-
-
-
-
-
           <Route
             path='appointmentHistory'
             element={<AppointmentHistory/>}
+          <Route 
+             path="editAvailability" 
+             element={<EditAvailability />} 
           />
         </Routes>
+
 
       <ToastContainer />
     </>
