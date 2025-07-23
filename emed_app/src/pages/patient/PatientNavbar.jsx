@@ -11,7 +11,7 @@ function PatientNavbar(){
      <div className='container-fluid'>
         <Link
           className='navbar-brand'
-          to='/patientHome'
+          to='/patientHome/doctorsList'
         >
           Home
         </Link>
