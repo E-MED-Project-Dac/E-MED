@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
-import Login from './pages/auth/Login'
-import Register from './pages/auth/Register'
-import { ToastContainer } from 'react-toastify'
-import PatientNavbar from './pages/patient/PatientNavbar'
-import ApproveAppointmentList from './pages/doctor/ApproveAppointment'
-import PatientProfile from './pages/patient/PatientProfile'
-import DoctorProfile from './pages/doctor/DoctorProfile'
-import PatientEditProfile from './pages/patient/PatientEditProfile'
-import DoctorEdit from './pages/doctor/DoctorEdit'
-import BookAppointment from './pages/patient/BookAppointment'
+import React, { useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import { ToastContainer } from "react-toastify";
+import PatientNavbar from "./pages/patient/PatientNavbar";
+import ApproveAppointmentList from "./pages/doctor/ApproveAppointment";
+import PatientProfile from "./pages/patient/PatientProfile";
+import DoctorProfile from "./pages/doctor/DoctorProfile";
+import PatientEditProfile from "./pages/patient/PatientEditProfile";
+import EditAvailability from "./pages/doctor/EditAvailability";
 
 function App() {
   // create a state member for keeping user details
@@ -17,6 +16,7 @@ function App() {
 
   return (
     <>
+
         <Routes>
           <Route
             path='/'
@@ -62,7 +62,12 @@ function App() {
             path='bookAppointment'
             element={<BookAppointment/>}
           />
+          <Route 
+             path="editAvailability" 
+             element={<EditAvailability />} 
+          />
         </Routes>
+
 
       <ToastContainer />
     </>
