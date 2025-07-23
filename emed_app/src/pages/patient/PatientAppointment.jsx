@@ -9,12 +9,12 @@ const PatientAppointment =()=>{
   { patientName: "Pooja Mehta",age: 27,gender: "Female",doctorName: "Dr. Adarsh",date:"21-10-2025",timeSlot: "11:00 AM",fee:"1000",status:"accepted"}
 ]);
 const navigate = useNavigate()
-  const onCancle= () =>{
-
+  const onCancle= (appNo) =>{
+      //write logic 
   };
 
-   const onReschedule=()=>{
-
+   const onReschedule=(appNo)=>{
+       navigate('/patientHome/rescheduleAppointment')
   };
   const onHistory=()=>{
       navigate('/patientHome/appointmentHistory')
