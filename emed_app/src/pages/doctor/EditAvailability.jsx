@@ -3,6 +3,12 @@ import "./DoctorEdit.css";
 import { useNavigate } from "react-router-dom";
 function EditAvailability() {
   const navigate = useNavigate();
+  const onBack = () => {
+    navigate(-1)
+  }
+  const onSubmit = () => {
+      // write logic here
+  }
   return (
     <>
       <div className="container">
@@ -65,20 +71,14 @@ function EditAvailability() {
                 <button
                   className="btn btn-success"
                   style={{ width: "150px" }}
-                  onClick={() => {
-                    alert("Record Saved Successfully 😃"),
-                      navigate("/doctorProfile");
-                  }}
+                  onClick={onSubmit}
                 >
                   Submit
                 </button>
                 <button
                   className="btn btn-danger"
                   style={{ width: "150px" }}
-                  onClick={() => {
-                    alert("Are you Sure You Want To Cancel ?"),
-                      navigate("/doctorProfile");
-                  }}
+                  onClick={onBack}
                 >
                   Cancel
                 </button>

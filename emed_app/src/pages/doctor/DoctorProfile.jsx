@@ -6,11 +6,11 @@ function DoctorProfile(){
   const navigate = useNavigate();
   const [showDeleteConfirmation,setShowDeleteConfirmation] = useState(false);
   const onUpdateBasicDetails = () => {
-    navigate('/doctorEditProfile');
+    navigate('/doctorHome/doctorEditProfile');
   };
 
   const onUpdateAvaialability = () => {
-    navigate('/editAvailability');
+    navigate('/doctorHome/editAvailability');
   };
   
   const onBack = () => {

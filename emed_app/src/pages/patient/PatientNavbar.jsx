@@ -35,7 +35,7 @@ function PatientNavbar(){
               <Link
                 className='nav-link'
                 aria-current='page'
-                to='/patientProfile'
+                to='/patientHome/patientProfile'
               >
                 Profile
               </Link>
@@ -44,7 +44,7 @@ function PatientNavbar(){
               <Link
                 className='nav-link'
                 aria-current='page'
-                to='/home/doctorsList'
+                to='/patientHome/doctorsFilters'
               >
                 Doctor's List
               </Link>
@@ -53,7 +53,7 @@ function PatientNavbar(){
               <Link
                 className='nav-link'
                 aria-current='page'
-                to='/upcomingAppointmentList'
+                to='/patientHome/upcomingAppointmentList'
               >
                 My Appointment
               </Link>
