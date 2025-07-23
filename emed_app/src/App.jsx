@@ -19,6 +19,9 @@ import PatientAppointment from './pages/patient/PatientAppointment';
 import PatientHome from './pages/patient/PatientHome'
 import { AuthContext } from './context/auth.context'
 import DoctorHome from './pages/doctor/DoctorHome'
+import AboutUs from './pages/utils/AboutUs'
+import ContactUs from './pages/utils/ContactUs'
+import RescheduleAppointment from './pages/patient/RescheduleAppointment'
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState("null");
@@ -34,6 +37,14 @@ function App() {
           <Route
             path='register'
             element={<Register />}
+          />
+          <Route 
+             path="aboutUs" 
+             element={<AboutUs />} 
+          />
+          <Route 
+             path="contectUs" 
+             element={<ContactUs />} 
           />
           <Route
             path='doctorHome'
@@ -55,6 +66,14 @@ function App() {
              path="editAvailability" 
              element={<EditAvailability />} 
           />
+          <Route 
+             path="aboutUs" 
+             element={<AboutUs />} 
+          />
+          <Route 
+             path="contectUs" 
+             element={<ContactUs />} 
+          />
           </Route>
           <Route
              path='patientHome'
@@ -72,6 +91,14 @@ function App() {
             path='patientEditProfile'
             element={<PatientEditProfile/>}
           />
+          <Route 
+             path="aboutUs" 
+             element={<AboutUs />} 
+          />
+          <Route 
+             path="contectUs" 
+             element={<ContactUs />} 
+          />
           <Route
             path='bookAppointment'
             element={<BookAppointment/>}
@@ -79,6 +106,10 @@ function App() {
           <Route
             path='upcomingAppointmentList'
             element={<PatientAppointment/>}
+            />
+             <Route
+            path='rescheduleAppointment'
+            element={<RescheduleAppointment/>}
             />
           <Route
             path='appointmentHistory'
