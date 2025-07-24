@@ -25,6 +25,7 @@ import AdminProfile from './pages/admin/AdminProfile'
 import AdminEditProfile from './pages/admin/AdminEditProfile'
 import AddNewAdmin from './pages/admin/AddNewAdmin'
 import AllDoctorsList from './pages/admin/AllDoctorsList'
+import AcceptedAppointments from './pages/doctor/AcceptedAppointments';
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState("null");
@@ -84,7 +85,7 @@ function App() {
           >
             <Route 
             path='acceptedAppointments'
-            element={<AcceptedAppointment/>}
+            element={<AcceptedAppointments/>}
           />
           <Route 
             path='approveAppointment'
