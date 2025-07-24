@@ -28,6 +28,8 @@ import AcceptedAppointments from './pages/doctor/AcceptedAppointments';
 import Register from './pages/auth/register';
 import ViewDoctorDetails from './pages/patient/ViewDoctorDetails'
 import DoctorDetails from './pages/admin/DoctorDetails'
+import ApproveDoctor from './pages/admin/ApproveDoctor'
+import DoctorProfileBeforeVerifying from './pages/admin/DoctorProfileBeforeVerifying'
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState("null");
@@ -56,6 +58,14 @@ function App() {
             path='adminHome'
             element={user ? <AdminHome /> : <Navigate to='/' />}
           >
+          <Route 
+             path="approveDoctors" 
+             element={<ApproveDoctor />} 
+          />
+          <Route 
+             path="beforeVerifying" 
+             element={<DoctorProfileBeforeVerifying />} 
+          />
           <Route 
              path="adminProfile" 
              element={<AdminProfile />} 

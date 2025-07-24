@@ -5,12 +5,11 @@ import { useNavigate } from "react-router-dom";
 function DoctorProfileBeforeVerifying(){
     const navigate = useNavigate();
     const onAcceptRequest = () => {
-
+        //write logic
     };
 
     const onRejectRequest = () => {
-        console.log('Request Rejected');
-        navigate(-1);
+      //write logic
     };
 
     const onBack = () => {
@@ -20,7 +19,7 @@ function DoctorProfileBeforeVerifying(){
     return(
         <>
             <div className="container">
-                <h2>Doctor's Profile</h2>
+                <h2 className='page-header'>Doctor's Profile</h2>
                 <div className="profile-content">
                     <div className="profile-image-container">
                         <img
@@ -36,29 +35,32 @@ function DoctorProfileBeforeVerifying(){
                         <p><strong>Bio:</strong>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At, molestias. Molestiae assumenda, est dolorem excepturi fugiat eveniet, repudiandae esse cumque maxime veniam tempora quisquam accusantium ducimus praesentium vero voluptas, consequuntur dicta eius?</p>
                     </div>
 
-                    <div className="profile-actions">
+                    <div 
+                       className="profile-actions"
+                       style={{display:"flex" , justifyContent:"space-between"}}
+                    >
                         <button
                             onClick={''}
-                            className="btn update-btn"
+                            className="btn btn-success"
                         >
                             Accept Request
                         </button>
 
                         <button
                             onClick={onRejectRequest}
-                            className="btn update-btn"
+                            className="btn btn-danger"
                         >
                             Reject Request
                         </button>
-
-                        <button
-                            onClick={onBack}
-                            className="btn back-btn"
-                        >
-                            Back
-                        </button>
                     </div>
                 </div>
+                 <div style={{position: 'fixed', bottom: 70, left: 20, zIndex: 1000}}>
+                   <i 
+                    className="bi bi-arrow-left-circle-fill fs-1" 
+                    onClick={onBack}
+                    style={{cursor: 'pointer', color: '#212529'}}
+                   />
+                 </div>
             </div>
         </>
     )

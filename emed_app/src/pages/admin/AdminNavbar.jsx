@@ -8,7 +8,7 @@ function AdminNavbar(){
 return (
     <nav className='navbar navbar-expand-lg bg-success' data-bs-theme='dark'>
       <div className='container-fluid'>
-        <Link className='navbar-brand' to='/adminHome'>
+        <Link className='navbar-brand' to='/adminHome/approveDoctors'>
           Home
         </Link>
         <button
