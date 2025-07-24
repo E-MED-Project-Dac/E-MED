@@ -101,7 +101,7 @@ function DoctorProfile(){
                     onClick={onBack}
                     style={{cursor: 'pointer', color: '#212529'}}
                    />
-            </div>
+                  </div>
         </div>
     </>
   )

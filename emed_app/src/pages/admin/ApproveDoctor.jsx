@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DoctorProfileBeforeVerifying from './BeforeVerifying';
+import DoctorProfileBeforeVerifying from './DoctorProfileBeforeVerifying';
 function ApproveDoctor(){
   const navigate = useNavigate();
   const [registeredDoctors,setRegisteredDoctors]=useState([
@@ -31,8 +31,12 @@ function ApproveDoctor(){
     },
   ]);
 
+  const onBack = () => {
+    navigate(-1)
+  }
+
   const onViewDetails = () =>{
-    navigate('/beforeVerifying');
+    navigate('/adminHome/beforeVerifying');
   }
   return(
 <>
@@ -73,8 +77,8 @@ function ApproveDoctor(){
           </table>
           <div>
             <button
-              className='btn btn-warning'
-              onClick={''}
+              className='btn btn-danger'
+              onClick={onBack}
             >
                 Back
             </button>
