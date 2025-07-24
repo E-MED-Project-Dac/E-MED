@@ -44,7 +44,10 @@ function PatientProfile(){
                   <p><strong>Bio:</strong> xyz</p>
                  </div>
                 </div>
-                <div className="profile-actions">
+                <div 
+                   className="profile-actions"
+                   style={{display:"flex" , justifyContent:"space-between"}}
+                >
                   <button 
                    onClick={onUpdate}
                    className="btn update-btn"
@@ -57,13 +60,6 @@ function PatientProfile(){
                    className="btn delete-btn"
                   >
                   Delete Account
-                 </button>
-          
-                 <button 
-                 onClick={onBack}
-                 className="btn back-btn"
-                 >
-                  Back
                  </button>
                 </div>
                  {showDeleteConfirmation && (
@@ -88,6 +84,13 @@ function PatientProfile(){
                       </div>
                     </div>
                   )}
+                  <div style={{position: 'fixed', bottom: 70, left: 20, zIndex: 1000}}>
+                   <i 
+                    className="bi bi-arrow-left-circle-fill fs-1" 
+                    onClick={onBack}
+                    style={{cursor: 'pointer', color: '#212529'}}
+                   />
+                  </div>
         </div>
     </>
     )

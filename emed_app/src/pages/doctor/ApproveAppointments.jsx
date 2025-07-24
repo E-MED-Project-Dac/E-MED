@@ -62,7 +62,7 @@ const onBack = () => {
         </tbody>
       </table>
       <div>
-        <button className='btn btn-warning' onClick={onBack}>Back</button>
+        <button className='btn btn-secondary' onClick={onBack}>Back</button>
       </div>
       </div>
     </div>

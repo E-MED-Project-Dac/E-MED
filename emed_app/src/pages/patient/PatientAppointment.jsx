@@ -65,8 +65,8 @@ const navigate = useNavigate()
         </tbody>
       </table>
       <div style={{display:'flex', justifyContent:'space-between'}}>
-      <button className='btn btn-info' onClick={onHistory}>History</button>
        <button className='btn btn-warning' onClick={onBack}>Back</button>
+       <button className='btn btn-info' onClick={onHistory}>History</button>
       </div>
     </div>
    </div>   

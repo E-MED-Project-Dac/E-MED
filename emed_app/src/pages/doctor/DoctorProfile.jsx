@@ -1,7 +1,5 @@
 import React , {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import './DoctorProfile.css';
-
 function DoctorProfile(){
   const navigate = useNavigate();
   const [showDeleteConfirmation,setShowDeleteConfirmation] = useState(false);
@@ -56,30 +54,23 @@ function DoctorProfile(){
                 <div className="profile-actions">
                   <button 
                    onClick={onUpdateBasicDetails}
-                   className="btn update-btn"
+                   className="btn btn-info"
                   >
                   Update Basic Details
                   </button>
 
                    <button 
                    onClick={onUpdateAvaialability}
-                   className="btn update-btn"
+                   className="btn btn-info"
                   >
                   Avaialability Details
                  </button>
           
                   <button 
                    onClick={onDeleteAccount}
-                   className="btn delete-btn"
+                   className="btn btn-danger"
                   >
                   Delete Account
-                 </button>
-          
-                 <button 
-                 onClick={onBack}
-                 className="btn back-btn"
-                 >
-                  Back
                  </button>
                 </div>
                  {showDeleteConfirmation && (
@@ -104,6 +95,13 @@ function DoctorProfile(){
                       </div>
                     </div>
                   )}
+                  <div style={{position: 'fixed', bottom: 70, left: 20, zIndex: 1000}}>
+                   <i 
+                    className="bi bi-arrow-left-circle-fill fs-1" 
+                    onClick={onBack}
+                    style={{cursor: 'pointer', color: '#212529'}}
+                   />
+            </div>
         </div>
     </>
   )

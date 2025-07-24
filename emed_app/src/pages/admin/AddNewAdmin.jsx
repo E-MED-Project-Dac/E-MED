@@ -111,7 +111,7 @@ function AddNewAdmin() {
           <div className='mb-3'>
             <button
               onClick={onBack}
-              className='btn btn-warning'
+              className='btn btn-danger'
             >
              Back
             </button>

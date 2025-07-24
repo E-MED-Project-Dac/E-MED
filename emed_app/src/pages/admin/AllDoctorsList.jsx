@@ -12,6 +12,7 @@ const AllDoctorsList = () => {
 
 const onDetails = () => {
     //write logic
+    navigate('/adminHome/doctorDetails')
     }
 
   // Sample doctor data
@@ -60,7 +61,7 @@ const onDetails = () => {
 
   return (
     <>
-     <h3 style={{textAlign:'center',paddingTop:10}}>Doctors's</h3>
+     <h3 style={{textAlign:'center',paddingTop:10}}>Doctor's</h3>
     <hr />
     <div className="doctors-container">
       {doctors.map((doctor) => (

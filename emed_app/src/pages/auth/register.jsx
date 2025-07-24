@@ -26,11 +26,11 @@ function Register() {
   }
 
   return (
-  <div className="card text-center">
-  <div className="card-header">
-    Welcome to EMED
-  </div>
-  <div className="card-body">
+    <>
+  <div className="card-header"
+    style={{textAlign:'center',height:40, paddingTop:4}}>
+         <h3><b> Welcome to EMED </b></h3>
+     </div>
     <div className='container'>
       <h2 className='page-header'>Register</h2>
       <div className='form'>
@@ -132,12 +132,10 @@ function Register() {
         </div>
        </div>
       </div>
-    </div>
-  </div>
    <footer className="footer"> copyright CDAC@2025 EMED-Project <a href="/aboutUs" style={{marginRight:30,marginLeft:20}}>About-Us</a> <a href="/contectUs">Contact-Us</a></footer>
   </div>
-  
+  </>
   )
 }
 
-export default Register
+export default Register;

@@ -26,6 +26,8 @@ import AddNewAdmin from './pages/admin/AddNewAdmin'
 import AllDoctorsList from './pages/admin/AllDoctorsList'
 import AcceptedAppointments from './pages/doctor/AcceptedAppointments';
 import Register from './pages/auth/register';
+import ViewDoctorDetails from './pages/patient/ViewDoctorDetails'
+import DoctorDetails from './pages/admin/DoctorDetails'
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState("null");
@@ -70,6 +72,10 @@ function App() {
              path="allDoctorsList" 
              element={<AllDoctorsList/>} 
           />
+          <Route 
+             path="doctorDetails" 
+             element={<DoctorDetails/>} 
+          />
           </Route>
           <Route
             path='doctorHome'
@@ -112,6 +118,10 @@ function App() {
             path='patientEditProfile'
             element={<PatientEditProfile/>}
           />
+          <Route
+            path='viewDoctorDetails'
+            element={<ViewDoctorDetails/>}
+          /> 
           <Route
             path='bookAppointment'
             element={<BookAppointment/>}
