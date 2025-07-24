@@ -187,7 +187,7 @@ function PatientNavbar({ doctors, setFilteredDoctors }) {
               <Link
                 className="nav-link"
                 aria-current="page"
-                to="/patientHome/aboutUs"
+                to="/aboutUs"
               >
                 About-Us
               </Link>
@@ -196,9 +196,9 @@ function PatientNavbar({ doctors, setFilteredDoctors }) {
               <Link
                 className="nav-link"
                 aria-current="page"
-                to="/patientHome/contectUs"
+                to="/contectUs"
               >
-                Contect-Us
+                Contact-Us
               </Link>
             </li>
           </ul>

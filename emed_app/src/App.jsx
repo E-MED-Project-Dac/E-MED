@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from './pages/auth/Login'
-import Register from './pages/auth/Register'
 import { ToastContainer } from 'react-toastify'
 import ApproveAppointmentList from './pages/doctor/ApproveAppointments'
 import PatientProfile from './pages/patient/PatientProfile'
@@ -26,6 +25,7 @@ import AdminEditProfile from './pages/admin/AdminEditProfile'
 import AddNewAdmin from './pages/admin/AddNewAdmin'
 import AllDoctorsList from './pages/admin/AllDoctorsList'
 import AcceptedAppointments from './pages/doctor/AcceptedAppointments';
+import Register from './pages/auth/register';
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState("null");
@@ -40,7 +40,7 @@ function App() {
           />
           <Route
             path='register'
-            element={<Register />}
+            element={<Register/>}
           />
           <Route 
              path="aboutUs" 
@@ -70,14 +70,6 @@ function App() {
              path="allDoctorsList" 
              element={<AllDoctorsList/>} 
           />
-          <Route 
-             path="aboutUs" 
-             element={<AboutUs />} 
-          />
-          <Route 
-             path="contectUs" 
-             element={<ContactUs />} 
-          />
           </Route>
           <Route
             path='doctorHome'
@@ -103,14 +95,6 @@ function App() {
              path="editAvailability" 
              element={<EditAvailability />} 
           />
-          <Route 
-             path="aboutUs" 
-             element={<AboutUs />} 
-          />
-          <Route 
-             path="contectUs" 
-             element={<ContactUs />} 
-          />
           </Route>
           <Route
              path='patientHome'
@@ -127,14 +111,6 @@ function App() {
            <Route
             path='patientEditProfile'
             element={<PatientEditProfile/>}
-          />
-          <Route 
-             path="aboutUs" 
-             element={<AboutUs />} 
-          />
-          <Route 
-             path="contectUs" 
-             element={<ContactUs />} 
           />
           <Route
             path='bookAppointment'
