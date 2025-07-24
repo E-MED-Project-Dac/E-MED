@@ -12,7 +12,7 @@ function DoctorNavbar() {
       <div className="container-fluid">
         <Link 
           className="navbar-brand fs-5" 
-          to="/doctorNavbar"
+          to="/doctorHome/acceptedAppointments"
         >
           Home
         </Link>
@@ -53,7 +53,7 @@ function DoctorNavbar() {
               <Link 
                 className="nav-link" 
                 aria-current="page" 
-                to="/doctorHome/aboutUs"
+                to="/aboutUs"
               >
                 About-Us
               </Link>
@@ -62,9 +62,9 @@ function DoctorNavbar() {
               <Link 
                 className="nav-link" 
                 aria-current="page" 
-                to="/doctorHome/contectUs"
+                to="/contectUs"
               >
-                Contect-Us
+                Contact-Us
               </Link>
             </li>
           </ul>

@@ -6,6 +6,10 @@ function ContactUs() {
     navigate(-1)
   }
   return (
+    <>    <div className="card-header"
+    style={{textAlign:'center',height:40, paddingTop:4}}>
+         <h3><b> Welcome to EMED </b></h3>
+     </div>
     <div className='container mt-5'>
       <h2 className='mb-4' style={{textAlign:'center'}}>Contact Us</h2>
        <hr />
@@ -57,7 +61,9 @@ function ContactUs() {
        <div>
         <button className='btn btn-secondary' onClick={onBack}>Back</button>
       </div>
+       <footer className="footer"> copyright CDAC@2025 EMED-Project <a href="/aboutUs" style={{marginRight:30,marginLeft:20}}>About-Us</a> <a href="/contectUs">Contact-Us</a></footer>
     </div>
+  </>  
   )
 }
 

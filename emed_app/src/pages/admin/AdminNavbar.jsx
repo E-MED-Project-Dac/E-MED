@@ -55,7 +55,7 @@ return (
               <Link 
                 className="nav-link" 
                 aria-current="page" 
-                to="/adminHome/aboutUs"
+                to="/aboutUs"
               >
                 About-Us
               </Link>
@@ -64,9 +64,9 @@ return (
               <Link 
                 className="nav-link" 
                 aria-current="page" 
-                to="/adminHome/contectUs"
+                to="/contectUs"
               >
-                Contect-Us
+                Contact-Us
               </Link>
             </li>
         </ul>

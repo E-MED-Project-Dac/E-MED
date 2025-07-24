@@ -61,11 +61,8 @@ function AcceptedAppointments() {
               <th>Patients Name</th>
               <th>Age</th>
               <th>Gender</th>
-              <th>DoctorName</th>
               <th>Date</th>
               <th>Time Slot</th>
-              <th>Fees</th>
-              <th>Status</th>
               <th></th>
             </tr>
           </thead>
@@ -75,11 +72,8 @@ function AcceptedAppointments() {
                 <td>{appointment.patientName}</td>
                 <td>{appointment.age}</td>
                 <td>{appointment.gender}</td>
-                <td>{appointment.doctorName}</td>
                 <td>{appointment.date}</td>
                 <td>{appointment.timeSlot}</td>
-                <td>{appointment.fee}</td>
-                <td>{appointment.status}</td>
                 <td>
                   <div>
                     <button
