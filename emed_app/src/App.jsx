@@ -4,7 +4,6 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import { ToastContainer } from 'react-toastify'
-import PatientNavbar from './pages/patient/PatientNavbar'
 import ApproveAppointmentList from './pages/doctor/ApproveAppointments'
 import PatientProfile from './pages/patient/PatientProfile'
 import DoctorProfile from './pages/doctor/DoctorProfile'
@@ -13,7 +12,6 @@ import DoctorEdit from './pages/doctor/DoctorEdit'
 import BookAppointment from './pages/patient/BookAppointment'
 import EditAvailability from "./pages/doctor/EditAvailability";
 import DoctorsList from './pages/patient/DoctorsList'
-import DoctorNavbar from './pages/doctor/doctorNavbar'
 import AppointmentHistory from './pages/patient/AppointmentHistory'
 import PatientAppointment from './pages/patient/PatientAppointment';
 import PatientHome from './pages/patient/PatientHome'
@@ -22,6 +20,11 @@ import DoctorHome from './pages/doctor/DoctorHome'
 import AboutUs from './pages/utils/AboutUs'
 import ContactUs from './pages/utils/ContactUs'
 import RescheduleAppointment from './pages/patient/RescheduleAppointment'
+import AdminHome from './pages/admin/AdminHome'
+import AdminProfile from './pages/admin/AdminProfile'
+import AdminEditProfile from './pages/admin/AdminEditProfile'
+import AddNewAdmin from './pages/admin/AddNewAdmin'
+import AllDoctorsList from './pages/admin/AllDoctorsList'
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState("null");
@@ -47,9 +50,42 @@ function App() {
              element={<ContactUs />} 
           />
           <Route
+            path='adminHome'
+            element={user ? <AdminHome /> : <Navigate to='/' />}
+          >
+          <Route 
+             path="adminProfile" 
+             element={<AdminProfile />} 
+          />
+          <Route
+            path='adminEditProfile'
+            element={<AdminEditProfile/>}
+          />
+          <Route 
+             path="addNewAdmin" 
+             element={<AddNewAdmin/>} 
+          />
+          <Route 
+             path="allDoctorsList" 
+             element={<AllDoctorsList/>} 
+          />
+          <Route 
+             path="aboutUs" 
+             element={<AboutUs />} 
+          />
+          <Route 
+             path="contectUs" 
+             element={<ContactUs />} 
+          />
+          </Route>
+          <Route
             path='doctorHome'
             element={user ? <DoctorHome /> : <Navigate to='/' />}
           >
+            <Route 
+            path='acceptedAppointments'
+            element={<AcceptedAppointment/>}
+          />
           <Route 
             path='approveAppointment'
             element={<ApproveAppointmentList/>}

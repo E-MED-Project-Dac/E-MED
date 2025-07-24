@@ -1,9 +1,10 @@
 import React from 'react';
-import './DoctorsList.css'; // Import external CSS file
+import './AllDoctorsList.css'; // Import external CSS file
 import { useNavigate } from 'react-router-dom';
-const DoctorsList = () => {
 
-  const navigate = useNavigate()
+const AllDoctorsList = () => {
+
+    const navigate = useNavigate()
 
     const onBack = () => {
         navigate(-1)
@@ -12,6 +13,7 @@ const DoctorsList = () => {
 const onDetails = () => {
     //write logic
     }
+
   // Sample doctor data
   const doctors = [
     {
@@ -58,7 +60,7 @@ const onDetails = () => {
 
   return (
     <>
-    <h3 style={{textAlign:'center',paddingTop:10}}>Available Doctors's</h3>
+     <h3 style={{textAlign:'center',paddingTop:10}}>Doctors's</h3>
     <hr />
     <div className="doctors-container">
       {doctors.map((doctor) => (
@@ -78,8 +80,8 @@ const onDetails = () => {
             <button 
               className="view-details-btn"
               onClick={onDetails}
-            >
-              View Details
+              >
+                View Details
             </button>
           </div>
         </div>
@@ -92,8 +94,8 @@ const onDetails = () => {
         />
       </div>
     </div>
-  </>  
+  </>
   );
 };
 
-export default DoctorsList;
+export default AllDoctorsList;
