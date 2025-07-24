@@ -22,7 +22,7 @@ function BookAppointment(){
 
 return (
     <div className='container'>
-      <h2 className='page-header'>Edit Profile</h2>
+      <h2 className='page-header'>Book Appointment</h2>
       <div className='form'>
         <div className='mb-3'>
           <label htmlFor=''>First Name</label>

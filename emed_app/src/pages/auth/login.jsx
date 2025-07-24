@@ -18,13 +18,12 @@ function Login(){
 
 return(
 <>
- <div class="card text-center">
-  <div class="card-header">
-    Welcome to EMED
-  </div>
-  <div class="card-body">
-     <h2 className="page-header">Login</h2>
+ <div className="card-header"
+    style={{textAlign:'center',height:40, paddingTop:4}}>
+         <h3><b> Welcome to EMED </b></h3>
+ </div>
      <div className="container">
+        <h2 className="page-header">Login</h2>
         <div className="form">
             <div className="mb-3">
                 <label htmlFor="">Email</label>
@@ -35,7 +34,6 @@ return(
                     placeholder="username@test.com"
                 />
             </div>
-
             <div className="mb-3">
                 <label htmlFor="">Password</label>
                 <input
@@ -57,8 +55,6 @@ return(
                 </button>
             </div>
         </div>
-    </div>
-  </div>
    <footer className="footer"> copyright CDAC@2025 EMED-Project <a href="/aboutUs" style={{marginRight:30,marginLeft:20}}>About-Us</a> <a href="/contectUs">Contact-Us</a></footer>
  </div>
 </> 

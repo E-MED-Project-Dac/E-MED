@@ -88,18 +88,16 @@ function EditAvailability() {
               </div>
               <div className="mt-2 d-flex justify-content-between">
                 <button
-                  className="btn btn-success"
-                  style={{ width: "150px" }}
-                  onClick={onSubmit}
-                >
-                  Submit
-                </button>
-                <button
                   className="btn btn-danger"
-                  style={{ width: "150px" }}
                   onClick={onBack}
                 >
                   Cancel
+                </button>
+                <button
+                  className="btn btn-success"
+                  onClick={onSubmit}
+                >
+                  Submit
                 </button>
               </div>
             </div>

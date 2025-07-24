@@ -141,11 +141,11 @@ function DoctorEdit() {
             </div>
           </div>
           <div className="mt-2 d-flex justify-content-between">
-            <button className="btn btn-success" style={{ width: "150px" }} onClick={onUpdate}>
-              Update
-            </button>
-            <button className="btn btn-danger" style={{ width: "150px" }} onClick={onCancel}>
+            <button className="btn btn-danger" onClick={onCancel}>
               Cancel
+            </button>
+            <button className="btn btn-success" onClick={onUpdate}>
+              Update
             </button>
           </div>
         </div>

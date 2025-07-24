@@ -11,6 +11,7 @@ const DoctorsList = () => {
 
 const onDetails = () => {
     //write logic
+    navigate('/patientHome/viewDoctorDetails')
     }
   // Sample doctor data
   const doctors = [

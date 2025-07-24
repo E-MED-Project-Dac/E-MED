@@ -34,7 +34,6 @@ const onDetails = (appNo) => {
             <th>Time Slot</th>
             <th>Fees</th>
             <th>Status</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -47,9 +46,6 @@ const onDetails = (appNo) => {
               <td>{appointment.timeSlot}</td>
               <td>{appointment.fees}</td>
               <td>{appointment.status}</td>
-              <td>           
-                    <button className="btn btn-info" onClick={() => onDetails(appointment.appNo)}>Details</button>
-              </td>
             </tr>
           )}
         </tbody>
