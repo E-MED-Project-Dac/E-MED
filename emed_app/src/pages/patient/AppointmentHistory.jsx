@@ -51,7 +51,7 @@ const onDetails = (appNo) => {
         </tbody>
       </table>
       <div>
-        <button className="btn btn-warning" onClick={onBack}>
+        <button className="btn btn-secondary" onClick={onBack}>
          Back
         </button>
       </div>
