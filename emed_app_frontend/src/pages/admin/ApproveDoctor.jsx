@@ -1,8 +1,8 @@
 import React from 'react';
-import './AllDoctorsList.css'; // Import external CSS file
+import './ApproveDoctor.css'; // Import external CSS file
 import { useNavigate } from 'react-router-dom';
 
-const AllDoctorsList = () => {
+const ApproveDoctor = () => {
 
     const navigate = useNavigate()
 
@@ -12,7 +12,7 @@ const AllDoctorsList = () => {
 
 const onDetails = () => {
     //write logic
-    navigate('/adminHome/doctorDetails')
+    navigate('/adminHome/beforeVerifying')
     }
 
   // Sample doctor data
@@ -61,7 +61,7 @@ const onDetails = () => {
 
   return (
     <>
-     <h3 style={{textAlign:'center',paddingTop:10}}>Doctor's</h3>
+     <h3 style={{textAlign:'center',paddingTop:10}}>Newly Registered Doctors</h3>
     <hr />
     <div className="doctors-container">
       {doctors.map((doctor) => (
@@ -98,5 +98,4 @@ const onDetails = () => {
   </>
   );
 };
-
-export default AllDoctorsList;
+export default ApproveDoctor;

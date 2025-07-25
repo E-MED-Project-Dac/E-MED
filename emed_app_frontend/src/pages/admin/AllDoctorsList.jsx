@@ -1,8 +1,9 @@
+
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DoctorProfileBeforeVerifying from './DoctorProfileBeforeVerifying';
-function ApproveDoctor(){
+function AllDoctorsList(){
   const navigate = useNavigate();
   const [registeredDoctors,setRegisteredDoctors]=useState([
     {
@@ -36,12 +37,12 @@ function ApproveDoctor(){
   }
 
   const onViewDetails = () =>{
-    navigate('/adminHome/beforeVerifying');
+    navigate('/adminHome/doctorDetails');
   }
   return(
 <>
      <div>
-        <h2 style={{textAlign:'center'}}>Newly Registered Doctors</h2>
+        <h2 style={{textAlign:'center'}}>Doctor's</h2>
         <hr/>
         <div style={{margin:30}}>
           <table className='table table-stripped border-1'>
@@ -88,4 +89,4 @@ function ApproveDoctor(){
 </>
   );
 }
-export default ApproveDoctor;
+export default AllDoctorsList;
