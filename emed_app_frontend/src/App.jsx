@@ -30,123 +30,139 @@ import ViewDoctorDetails from './pages/patient/ViewDoctorDetails'
 import DoctorDetails from './pages/admin/DoctorDetails'
 import ApproveDoctor from './pages/admin/ApproveDoctor'
 import DoctorProfileBeforeVerifying from './pages/admin/DoctorProfileBeforeVerifying'
+
+function MainLayout() {
+  const location = useLocation();
+  const hideLayout =
+    location.pathname === "/login" || location.pathname === "/register";
+
+  return (
+    <>
+      {!hideLayout && <Navbar />}
+      <Outlet />
+      {!hideLayout && <Footer />}
+    </>
+  );
+}
+
 function App() {
   // create a state member for keeping user details
   const [user, setUser] = useState("null");
 
   return (
     <>
-      <AuthContext value={{user , setUser}}>
+      <AuthContext value={{ user, setUser }}>
         <Routes>
+          <Route element={MainLayout}/>
           <Route
             path='/'
             element={<Login />}
           />
           <Route
             path='register'
-            element={<Register/>}
+            element={<Register />}
           />
-          <Route 
-             path="aboutUs" 
-             element={<AboutUs />} 
+          <Route
+            path="aboutUs"
+            element={<AboutUs />}
           />
-          <Route 
-             path="contectUs" 
-             element={<ContactUs />} 
+          <Route
+            path="contectUs"
+            element={<ContactUs />}
           />
           <Route
             path='adminHome'
             element={user ? <AdminHome /> : <Navigate to='/' />}
           >
-          <Route 
-             path="approveDoctors" 
-             element={<ApproveDoctor />} 
-          />
-          <Route 
-             path="beforeVerifying" 
-             element={<DoctorProfileBeforeVerifying />} 
-          />
-          <Route 
-             path="adminProfile" 
-             element={<AdminProfile />} 
-          />
-          <Route
-            path='adminEditProfile'
-            element={<AdminEditProfile/>}
-          />
-          <Route 
-             path="addNewAdmin" 
-             element={<AddNewAdmin/>} 
-          />
-          <Route 
-             path="allDoctorsList" 
-             element={<AllDoctorsList/>} 
-          />
-          <Route 
-             path="doctorDetails" 
-             element={<DoctorDetails/>} 
-          />
+            <Route
+              path="approveDoctors"
+              element={<ApproveDoctor />}
+            />
+            <Route
+              path="beforeVerifying"
+              element={<DoctorProfileBeforeVerifying />}
+            />
+            <Route
+              path="adminProfile"
+              element={<AdminProfile />}
+            />
+            <Route
+              path='adminEditProfile'
+              element={<AdminEditProfile />}
+            />
+            <Route
+              path="addNewAdmin"
+              element={<AddNewAdmin />}
+            />
+            <Route
+              path="allDoctorsList"
+              element={<AllDoctorsList />}
+            />
+            <Route
+              path="doctorDetails"
+              element={<DoctorDetails />}
+            />
           </Route>
           <Route
             path='doctorHome'
             element={user ? <DoctorHome /> : <Navigate to='/' />}
           >
-            <Route 
-            path='acceptedAppointments'
-            element={<AcceptedAppointments/>}
-          />
-          <Route 
-            path='approveAppointment'
-            element={<ApproveAppointmentList/>}
-          />
-          <Route
-            path='doctorProfile'
-            element={<DoctorProfile/>}
-          />
-           <Route
-            path='doctorEditProfile'
-            element={<DoctorEdit/>}
-          />
-          <Route 
-             path="editAvailability" 
-             element={<EditAvailability />} 
-          />
+            <Route
+              path='acceptedAppointments'
+              element={<AcceptedAppointments />}
+            />
+            <Route
+              path='approveAppointment'
+              element={<ApproveAppointmentList />}
+            />
+            <Route
+              path='doctorProfile'
+              element={<DoctorProfile />}
+            />
+            <Route
+              path='doctorEditProfile'
+              element={<DoctorEdit />}
+            />
+            <Route
+              path="editAvailability"
+              element={<EditAvailability />}
+            />
           </Route>
           <Route
-             path='patientHome'
-             element={user ? <PatientHome /> : <Navigate to='/' />}
+            path='patientHome'
+            element={user ? <PatientHome /> : <Navigate to='/' />}
           >
-          <Route 
-            path='doctorslist'
-            element={<DoctorsList/>}
-          />
-          <Route 
-            path='patientProfile'
-            element={<PatientProfile/>}
-          />
-           <Route
-            path='patientEditProfile'
-            element={<PatientEditProfile/>}
-          />
-          <Route
-            path='viewDoctorDetails'
-            element={<ViewDoctorDetails/>}
-          /> 
-          <Route
-            path='bookAppointment'
-            element={<BookAppointment/>}
-          />
-          <Route
-            path='upcomingAppointmentList'
-            element={<PatientAppointment/>}
+            <Route
+              path='doctorslist'
+              element={<DoctorsList />}
             />
-             <Route
-            path='rescheduleAppointment'
-            element={<RescheduleAppointment/>}
+            <Route
+              path='patientProfile'
+              element={<PatientProfile />}
             />
-          <Route
-            path='appointmentHistory'
-            element={<AppointmentHistory/>}
+            <Route
+              path='patientEditProfile'
+              element={<PatientEditProfile />}
+            />
+            <Route
+              path='viewDoctorDetails'
+              element={<ViewDoctorDetails />}
+            />
+            <Route
+              path='bookAppointment'
+              element={<BookAppointment />}
+            />
+            <Route
+              path='upcomingAppointmentList'
+              element={<PatientAppointment />}
+            />
+            <Route
+              path='rescheduleAppointment'
+              element={<RescheduleAppointment />}
+            />
+            <Route
+              path='appointmentHistory'
+              element={<AppointmentHistory />}
             />
           </Route>
         </Routes>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import Footer from '../patient/Footer'
 function ContactUs() {
   const navigate = useNavigate()
   const onBack = () => {
@@ -61,8 +62,9 @@ function ContactUs() {
        <div>
         <button className='btn btn-secondary' onClick={onBack}>Back</button>
       </div>
-       <footer className="footer"> copyright CDAC@2025 EMED-Project <a href="/aboutUs" style={{marginRight:30,marginLeft:20}}>About-Us</a> <a href="/contectUs">Contact-Us</a></footer>
+       {/* <footer className="footer"> copyright CDAC@2025 EMED-Project <a href="/aboutUs" style={{marginRight:30,marginLeft:20}}>About-Us</a> <a href="/contectUs">Contact-Us</a></footer> */}
     </div>
+    <Footer/>
   </>  
   )
 }
