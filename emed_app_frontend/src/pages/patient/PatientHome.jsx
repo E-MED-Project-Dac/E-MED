@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import PatientNavbar from './PatientNavbar';
+import Footer from './Footer';
 function PatientHome(){
   return(
 <>
@@ -10,7 +11,9 @@ function PatientHome(){
   >
      <Outlet/>
   </main>
-  <footer className='footer'>copyright CDAC@2025 EMED-Project</footer>
+  {/* <footer className='footer bg-dark text-white py-3 '>copyright CDAC@2025 EMED-Project</footer>
+   */}
+   <Footer/>
 </>
   )
 }
