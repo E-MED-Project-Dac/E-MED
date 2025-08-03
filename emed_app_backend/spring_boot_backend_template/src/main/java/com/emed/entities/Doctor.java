@@ -1,12 +1,19 @@
 package com.emed.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,13 +41,23 @@ public class Doctor extends BaseEntity {
     private String email;
 	
 	@Column(length=300)
-    private String password;
+    private String password; 
+	
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 	
 	@Column(name="is_verified")
     private boolean isVerified;
 
 	@Column(name="is_deleted")
     private boolean isDeleted;
+	
+	@OneToMany
+	private List<Appointment> appointments = new ArrayList<>();
+	
+	@OneToOne
+	@JoinColumn(name="user_id")
+	private User user;
 
 	public Doctor(String firstName, String lastName, LocalDate dob, String mobile, String email, String password) {
 		super();
@@ -53,5 +70,14 @@ public class Doctor extends BaseEntity {
 	}
 
 	
+	public  void addAppointmentToDoctor(Appointment appointment) {
+		this.appointments.add(appointment);
+		appointment.setDoctor(this);
+	}
 	
+
+	public  void removeAppointmentFromDoctor(Appointment appointment) {
+		this.appointments.remove(appointment);
+		appointment.setDoctor(null);
+	}
 }
