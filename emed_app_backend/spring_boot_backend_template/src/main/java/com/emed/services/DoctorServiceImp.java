@@ -1,6 +1,7 @@
 package com.emed.services;
 
 import org.modelmapper.ModelMapper;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,5 +24,8 @@ public class DoctorServiceImp implements DoctorService {
 		doctorDao.save(newDoctor);
 		return new ApiResponse("Doctor registered Successfullt...!");
 	}
+	
+	
+	
 
 }
