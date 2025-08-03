@@ -45,6 +45,18 @@ public class DoctorBasicDetails {
 	
 	@Column(name="years_of_experience")
 	private Integer yearsOfExperience;
+
+	public DoctorBasicDetails(Doctor doctor, String specialization, String licenceNo, String qualification,
+			String institute, @Min(1900) @Max(2100) Integer yearOfGraduation, Integer yearsOfExperience) {
+		super();
+		this.doctor = doctor;
+		this.specialization = specialization;
+		this.licenceNo = licenceNo;
+		this.qualification = qualification;
+		this.institute = institute;
+		this.yearOfGraduation = yearOfGraduation;
+		this.yearsOfExperience = yearsOfExperience;
+	}
 	
 	
 }

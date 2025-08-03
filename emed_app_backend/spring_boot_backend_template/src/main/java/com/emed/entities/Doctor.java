@@ -4,19 +4,16 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter  @NoArgsConstructor
 @Entity
-public class Doctor {
+public class Doctor extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="doctor_id")
@@ -39,9 +36,6 @@ public class Doctor {
 	@Column(length=300)
     private String password;
 	
-	@Transient
-	private String confirmPassword;
-	
 	@Column(name="is_verified")
     private boolean isVerified;
 
@@ -56,6 +50,8 @@ public class Doctor {
 		this.mobile = mobile;
 		this.email = email;
 		this.password = password;
-	}	
+	}
+
+	
 	
 }
