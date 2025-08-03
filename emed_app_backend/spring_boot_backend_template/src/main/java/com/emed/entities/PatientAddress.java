@@ -1,5 +1,6 @@
 package com.emed.entities;
 
+public class PatientAddress {
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
