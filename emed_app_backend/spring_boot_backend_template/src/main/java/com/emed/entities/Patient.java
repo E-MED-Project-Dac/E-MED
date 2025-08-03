@@ -16,11 +16,11 @@ import lombok.Setter;
 
 @Getter @Setter  @NoArgsConstructor
 @Entity
-public class Doctor {
+public class Patient {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="doctor_id")
-    private Long doctorId;
+	@Column(name="patient_id")
+    private Long patientId;
 	
 	@Column(name="first_name", length=15)
     private String firstName;
@@ -42,13 +42,11 @@ public class Doctor {
 	@Transient
 	private String confirmPassword;
 	
-	@Column(name="is_verified")
-    private boolean isVerified;
 
 	@Column(name="is_deleted")
     private boolean isDeleted;
 
-	public Doctor(String firstName, String lastName, LocalDate dob, String mobile, String email, String password) {
+	public Patient(String firstName, String lastName, LocalDate dob, String mobile, String email, String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
