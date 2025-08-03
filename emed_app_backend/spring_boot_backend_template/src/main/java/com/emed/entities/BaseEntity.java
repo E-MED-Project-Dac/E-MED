@@ -21,6 +21,7 @@ public class BaseEntity {
     @CreationTimestamp
     @Column(name = "creation_date")
     private LocalDate creationDate;
+    
     @UpdateTimestamp
     @Column(name = "updated_on")
     private LocalDateTime updatedOn;

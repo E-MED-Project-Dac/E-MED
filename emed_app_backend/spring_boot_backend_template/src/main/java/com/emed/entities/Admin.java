@@ -3,12 +3,17 @@ package com.emed.entities;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Entity @Getter @Setter @NoArgsConstructor
 public class Admin extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +37,20 @@ public class Admin extends BaseEntity {
     private boolean isDeleted;
 
     private LocalDate dob;
+    
     @Enumerated(EnumType.STRING)
     private Gender gender;
+	public Admin(String firstName, String lastName, String mobile, String email, String password, LocalDate dob,
+			Gender gender) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.mobile = mobile;
+		this.email = email;
+		this.password = password;
+		this.dob = dob;
+		this.gender = gender;
+	}
 
+    
 }

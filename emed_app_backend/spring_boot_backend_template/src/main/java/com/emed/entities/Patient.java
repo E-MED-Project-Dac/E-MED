@@ -4,19 +4,16 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter  @NoArgsConstructor
 @Entity
-public class Patient {
+public class Patient extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="patient_id")
@@ -39,10 +36,6 @@ public class Patient {
 	@Column(length=300)
     private String password;
 	
-	@Transient
-	private String confirmPassword;
-	
-
 	@Column(name="is_deleted")
     private boolean isDeleted;
 
