@@ -9,6 +9,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,6 +42,11 @@ public class Admin extends BaseEntity {
     
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    
+    @OneToOne
+	@JoinColumn(name="user_id")
+	private User user;
+    
 	public Admin(String firstName, String lastName, String mobile, String email, String password, LocalDate dob,
 			Gender gender) {
 		super();

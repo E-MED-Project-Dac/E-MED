@@ -20,7 +20,7 @@ public class PatientAddress {
 	@Column(name="address_id")
 	private Long addressId;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "address")
 	@JoinColumn(name="patient_id")
 	private Patient patient;
 	
