@@ -1,0 +1,27 @@
+package com.emed.entities;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@MappedSuperclass
+@Getter
+@Setter
+@ToString
+public class BaseEntity {
+
+    @CreationTimestamp
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
+    @UpdateTimestamp
+    @Column(name = "updated_on")
+    private LocalDateTime updatedOn;
+}
