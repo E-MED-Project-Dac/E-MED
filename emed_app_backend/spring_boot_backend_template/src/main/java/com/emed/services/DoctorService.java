@@ -5,6 +5,8 @@ import com.emed.dtos.RegisterDto;
 
 public interface DoctorService {
 
-	 ApiResponse addNewDoctor(RegisterDto doctorDto);
+	ApiResponse addNewDoctor(RegisterDto doctorDto);
+
+	ApiResponse removeDoctor(Long doctorId);
 
 }
