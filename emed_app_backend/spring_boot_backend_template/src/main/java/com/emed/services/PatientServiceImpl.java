@@ -8,12 +8,14 @@ import com.emed.custom_exceptions.InvalidInputException;
 import com.emed.custom_exceptions.ResourceNotFoundException;
 import com.emed.daos.PatientDAO;
 import com.emed.dtos.ApiResponse;
+
 import com.emed.dtos.PatientDto;
-import com.emed.dtos.RegisterDto;
+import com.emed.dtos.RegisterDTO;
 import com.emed.entities.Patient;
 import com.emed.entities.PatientAddress;
 
 import lombok.AllArgsConstructor;
+
 
 @Service
 @Transactional
@@ -24,7 +26,7 @@ public class PatientServiceImpl implements PatientService {
 	private final ModelMapper modelMapper;
 
 	@Override
-	public ApiResponse addNewPatient(RegisterDto patientDto) {
+	public ApiResponse addNewPatient(RegisterDTO patientDto) {
 		if (patientDao.existsByEmail(patientDto.getEmail())) {
 			throw new InvalidInputException("Duplicate Patient Exist");
 		}
@@ -55,5 +57,5 @@ public class PatientServiceImpl implements PatientService {
 		//to Save patient (address will come through cascade)
 		patientDao.save(entity);
 		return new ApiResponse("Updated Patients Details");
-	}
+     }
 }
