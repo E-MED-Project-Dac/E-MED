@@ -1,11 +1,12 @@
 package com.emed.services;
 
 import com.emed.dtos.ApiResponse;
+import com.emed.dtos.DoctorEditDto;
 import com.emed.dtos.RegisterDTO;
 
 public interface DoctorService {
 
 	ApiResponse addNewDoctor(RegisterDTO doctorDto);
     ApiResponse removeDoctor(Long doctorId);
-
+    ApiResponse updateDoctor(DoctorEditDto doctorEditDto);
 }

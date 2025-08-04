@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -51,6 +52,12 @@ public class Doctor extends BaseEntity {
 
 	@Column(name="is_deleted")
     private boolean isDeleted;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private DoctorBasicDetails basicDetails;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private DoctorClinicDetails clinicDetails;
 	
 	@OneToMany
 	private List<Appointment> appointments = new ArrayList<>();
