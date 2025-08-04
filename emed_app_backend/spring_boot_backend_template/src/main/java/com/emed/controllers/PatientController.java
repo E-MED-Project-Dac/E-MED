@@ -13,7 +13,7 @@ import com.emed.services.PatientService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("/patientHome")
 @AllArgsConstructor
 public class PatientController {
 

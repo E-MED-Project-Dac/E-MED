@@ -1,96 +1,83 @@
 package com.emed.security;
 
-import java.util.List;
-
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import lombok.AllArgsConstructor;
-
-@Configuration // to declare config class - to declare spring beans - @Bean)
-@EnableWebSecurity // to customize spring security
-@EnableMethodSecurity // to enable method level annotations
-//(@PreAuthorize , @PostAuthorize..) to specify  authorization rules
-@AllArgsConstructor
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfiguration {
-	//depcy - password encoder
-	private final PasswordEncoder encoder;
-	private final CustomJwtFilter customJwtFilter;
-	private JwtAuthEntryPoint jwtAuthEntryPoint;
-/* configure spring bean to customize spring security filter chain
- * disable CSRF protection
- - session creation policy - stateless
- - disable form login based authentication
- - enable basic authentication scheme , for REST clients
- */
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-		//1. Disable CSRF protection
-		http.csrf(csrf -> csrf.disable());
-		//2. Authenticate any request 
-		http.authorizeHttpRequests(request -> 
-		//5.permit all - swagger , view all restaurants , user signin , sign up....
-		request.requestMatchers("/swagger-ui/**","/v**/api-docs/**",
-				"/user/signin","/user/signup","user/contactUs","user/aboutUs").permitAll()
-		//6. restaurants - GET - to get all restaurants  - no authentication
-		//.requestMatchers(HttpMethod.GET, "/patientHome").permitAll()
-		//get restaurant by id - customer
-		.requestMatchers("/patientHome/**")
-		.hasRole("PATIENT")
-		.requestMatchers("/adminHome/**")
-		.hasRole("ADMIN")
-		.requestMatchers("/doctorHome/**")
-		.hasRole("DOCTOR"));
-//		.requestMatchers(HttpMethod.POST,"/patientHome/**")
-//		.hasRole("PATIENT")
-//		.requestMatchers(HttpMethod.POST,"/adminHome/**")
-//		.hasRole("ADMIN")
-//		.requestMatchers(HttpMethod.POST,"/doctorHome/**")
-//		.hasRole("DOCTOR")
-//		.requestMatchers(HttpMethod.PUT,"/patientHome/**")
-//		.hasRole("PATIENT")
-//		.requestMatchers(HttpMethod.PUT,"/adminHome/**")
-//		.hasRole("ADMIN")
-//		.requestMatchers(HttpMethod.PUT,"/doctorHome/**")
-//		.hasRole("DOCTOR"));
-		//update restaurant details - admin
-		//.requestMatchers(HttpMethod.PUT,"/patient/{id}").hasRole("PATIENT")
-		//.anyRequest().authenticated());
-		//3. enable HTTP basic auth
-	    //http.httpBasic(Customizer.withDefaults());
-		//4. set session creation policy - stateless
-		http.sessionManagement(session -> 
-		session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-		//5. add custom JWT filter before -UserNamePasswordAuthFilter 
-		http.addFilterBefore(customJwtFilter
-				, UsernamePasswordAuthenticationFilter.class);
-		//6. Customize error code of SC 401 , in case of authentication failure
-		http.exceptionHandling
-		(ex -> ex.authenticationEntryPoint(jwtAuthEntryPoint));
-		return http.build();
-	}
-	//configure a spring to return Spring security authentication manager
-	@Bean
-	AuthenticationManager authenticationManager
-	(AuthenticationConfiguration mgr) throws Exception {
-		return mgr.getAuthenticationManager();
-	}
-	
-	
+
+    private final CustomJwtFilter customJwtFilter;
+    private final JwtAuthEntryPoint jwtAuthEntryPoint;
+
+    // Use @Lazy to break potential circular dependencies
+    public SecurityConfiguration(@Lazy CustomJwtFilter customJwtFilter, 
+                               JwtAuthEntryPoint jwtAuthEntryPoint) {
+        this.customJwtFilter = customJwtFilter;
+        this.jwtAuthEntryPoint = jwtAuthEntryPoint;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            // Disable CSRF protection
+            .csrf(csrf -> csrf.disable())
+            
+            // Configure authorization rules
+            .authorizeHttpRequests(auth -> auth
+                // Public endpoints
+                .requestMatchers(
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/user/signin",
+                    "/user/signup",
+                    "/user/contactUs",
+                    "/user/aboutUs"
+                ).permitAll()
+                
+                // Role-based access
+                .requestMatchers("/patientHome/**").hasRole("PATIENT")
+                .requestMatchers("/adminHome/**").hasRole("ADMIN")
+                .requestMatchers("/doctorHome/**").hasRole("DOCTOR")
+                
+                // All other requests need authentication
+                .anyRequest().authenticated()
+            )
+            
+            // Set session management to stateless
+            .sessionManagement(session -> 
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            
+            // Add JWT filter
+            .addFilterBefore(customJwtFilter, UsernamePasswordAuthenticationFilter.class)
+            
+            // Configure authentication entry point
+            .exceptionHandling(ex -> 
+                ex.authenticationEntryPoint(jwtAuthEntryPoint));
+
+        return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
 }
