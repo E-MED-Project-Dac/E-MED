@@ -10,11 +10,9 @@ import com.emed.entities.Status;
 
 public interface AppointmentDAO extends JpaRepository<Appointment, Long> {
 	
-	@Query("select a from appointment a where a.patientId:patientId and a.status in:status")
-    List<Appointment> getUpcomingAppointments(Long patientId , List<Status> status);
+    List<Appointment> findByPatient_PatientIdAndStatusIn(Long patientId , List<Status> status);
 	
-	@Query("select a from appointment a where a.patientId:patientId")
-    List<Appointment> getAllAppointments(Long patientId );
+    List<Appointment> findByPatient_PatientId(Long patientId);
 
-	List<Appointment> findByStatusAndDoctorId(Status status, Long doctorId);
+	List<Appointment> findByStatusAndDoctor_DoctorId(Status status, Long doctorId);
 }

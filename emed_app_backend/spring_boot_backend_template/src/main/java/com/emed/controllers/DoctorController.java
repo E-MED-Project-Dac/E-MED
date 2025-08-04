@@ -13,7 +13,7 @@ import com.emed.dtos.RegisterDTO;
 import com.emed.services.DoctorService;
 import lombok.AllArgsConstructor;
 
-@RestController @RequestMapping("/doctor")
+@RestController @RequestMapping("/doctorHome")
 @AllArgsConstructor
 public class DoctorController {
 

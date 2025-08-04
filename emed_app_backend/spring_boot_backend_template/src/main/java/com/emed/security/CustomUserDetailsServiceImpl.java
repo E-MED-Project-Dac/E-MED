@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.emed.daos.UserDao;
+import com.emed.daos.UserDAO;
 import com.emed.entities.User;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CustomUserDetailsServiceImpl implements UserDetailsService {
 	//depcy
-	private final UserDao userDao;
+	private final UserDAO userDao;
 
 	@Override
 	public UserDetails loadUserByUsername(String email) 

@@ -11,14 +11,14 @@ import com.emed.dtos.RegisterDTO;
 import com.emed.services.AdminService;
 import lombok.AllArgsConstructor;
 
-@RestController @RequestMapping("/admin")
+@RestController @RequestMapping("/adminHome")
 @AllArgsConstructor
 public class AdminController {
 
     private final AdminService adminService;
 	
 
-    @PostMapping
+    @PostMapping("/addAdmin")
     public ResponseEntity<?> addAdmin(@RequestBody RegisterDTO adminDto){
     return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addNewAdmin(adminDto));
 }

@@ -27,7 +27,7 @@ private final ModelMapper modelMapper;
 	public List<Appointment> getUpcomingAppointments(Long patientId) {
 		List<Status> status =new ArrayList<>();
 		status.addAll(Arrays.asList(Status.ACCEPTED,Status.PENDING,Status.RESCHEDULED));
-		return appointmentDao.getUpcomingAppointments(patientId , status);
+		return appointmentDao.findByPatient_PatientIdAndStatusIn(patientId , status);
 	}
       
 	@Override
@@ -48,7 +48,7 @@ private final ModelMapper modelMapper;
 
 	@Override
 	public List<Appointment> getAllAppointments(Long patientId) {	
-		return  appointmentDao.getAllAppointments(patientId);	
+		return  appointmentDao.findByPatient_PatientId(patientId);	
 	}
 
 	@Override
@@ -63,13 +63,13 @@ private final ModelMapper modelMapper;
 	@Override
 	public List<Appointment> getDoctorAppointments(Long doctorId) {
 		Status status = Status.PENDING;
-		return appointmentDao.findByStatusAndDoctorId(status , doctorId);
+		return appointmentDao.findByStatusAndDoctor_DoctorId(status , doctorId);
 	}
 
 	@Override
 	public List<Appointment> getBookedAppointments(Long doctorId) {
 		Status status = Status.ACCEPTED;
-		return appointmentDao.findByStatusAndDoctorId(status , doctorId);
+		return appointmentDao.findByStatusAndDoctor_DoctorId(status , doctorId);
 	}
     
 }

@@ -20,38 +20,38 @@ public class AppointmentController {
 	
 	   private final AppointmentService appointmentService;
 	   
-	   @PostMapping("/{patientId}")
+	   @PostMapping("/patientHome/{patientId}/bookAppointment")
 	    public ResponseEntity<?> bookAppointment( @PathVariable Long patientId , @RequestBody AppointmentDTO appointment) {
 	            return ResponseEntity.ok(appointmentService.bookAppointment(patientId,appointment));
 	    }
 	
-	 @GetMapping("patientHome/upcomingAppointmentList/{patientId}")
+	 @GetMapping("/patientHome/upcomingAppointmentList/{patientId}")
 	    public ResponseEntity<?>getUpcomingAppointments(@PathVariable Long patientId){
 	        return ResponseEntity.ok(appointmentService.getUpcomingAppointments(patientId));
 	    }
 	 
-	 @GetMapping("patientHome/allAppointmentList/{patientId}")
+	 @GetMapping("/patientHome/allAppointmentList/{patientId}")
 	    public ResponseEntity<?>getAllAppointments(@PathVariable Long patientId){
 	        return ResponseEntity.ok(appointmentService.getAllAppointments(patientId));
 	    }
 	 
-	 @PutMapping("/{patientId}/cancel")
+	 @PutMapping("/patientHome/{patientId}/cancel")
 	    public ResponseEntity<?> cancelAppointment(@PathVariable Long patientId) {
 	     
 	            return ResponseEntity.ok(appointmentService.cancelAppointment(patientId));
 	    }
 	    
-	    @PutMapping("/{patientId}/reschedule")
+	    @PutMapping("/patientHome/{patientId}/reschedule")
 	    public ResponseEntity<?> rescheduleAppointment( @PathVariable Long patientId , @RequestBody AppointmentDTO appointment) {
 	            return ResponseEntity.ok(appointmentService.rescheduleAppointment(patientId,appointment));
 	    }
 	    
-	    @GetMapping("doctorHome/appointmentList/{doctorId}")
+	    @GetMapping("/doctorHome/appointmentList/{doctorId}")
 	    public ResponseEntity<?>getDoctorAppointments(@PathVariable Long doctorId){
 	        return ResponseEntity.ok(appointmentService.getDoctorAppointments(doctorId));
 	    }
 	    
-	    @GetMapping("doctorHome/bookedAppointmentList/{doctorId}")
+	    @GetMapping("/doctorHome/bookedAppointmentList/{doctorId}")
 	    public ResponseEntity<?>getBookedAppointments(@PathVariable Long doctorId){
 	        return ResponseEntity.ok(appointmentService.getBookedAppointments(doctorId));
 	    }
