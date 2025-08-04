@@ -1,7 +1,5 @@
 package com.emed.services;
 
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +9,7 @@ import com.emed.custom_exceptions.ResourceNotFoundException;
 import com.emed.daos.PatientDAO;
 import com.emed.dtos.ApiResponse;
 import com.emed.dtos.PatientDto;
+import com.emed.dtos.RegisterDto;
 import com.emed.entities.Patient;
 
 import lombok.AllArgsConstructor;
@@ -24,20 +23,20 @@ public class PatientServiceImpl implements PatientService {
 	private final ModelMapper modelMapper;
 
 	@Override
-	public ApiResponse addNewPatient(PatientDto dto) {
-		if (patientDao.existsByEmail(dto.getEmail())) {
+	public ApiResponse addNewPatient(RegisterDto patientDto) {
+		if (patientDao.existsByEmail(patientDto.getEmail())) {
 			throw new InvalidInputException("Duplicate Patient Exist");
 		}
-		Patient entity = modelMapper.map(dto, Patient.class);
+		Patient entity = modelMapper.map(patientDto, Patient.class);
 		entity.setDeleted(false);
-		Patient persistEntity = patientDao.save(entity);
-		return new ApiResponse("Added new Patient Successfully with ID " + persistEntity.getPatientId());
+		patientDao.save(entity);
+		return new ApiResponse("new Patient Added Successfully ");
 	}
 
 	@Override
 	public ApiResponse deletePatient(Long patientId) {
 		Patient patient = patientDao.findById(patientId)
-				.orElseThrow(() -> new ResourceNotFoundException("Patient Not Found  - Invalid Id !!!!"));
+				.orElseThrow(() -> new ResourceNotFoundException("Patient Not Found !!!!"));
 		patient.setDeleted(true);
 		return new ApiResponse("Deleted Patients Details");
 	}
@@ -45,7 +44,7 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public ApiResponse updatePatient(Long patientId, PatientDto dto) {
 		Patient entity = patientDao.findById(patientId)
-				.orElseThrow(() -> new ResourceNotFoundException("Invalid Patient ID !!!!"));
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid Patient !!!!"));
 		modelMapper.map(dto, entity);
 		return new ApiResponse("Updated Patients Details");
 	}
