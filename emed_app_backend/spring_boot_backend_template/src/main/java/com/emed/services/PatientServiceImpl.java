@@ -11,6 +11,7 @@ import com.emed.dtos.ApiResponse;
 import com.emed.dtos.PatientDto;
 import com.emed.dtos.RegisterDto;
 import com.emed.entities.Patient;
+import com.emed.entities.PatientAddress;
 
 import lombok.AllArgsConstructor;
 
@@ -46,6 +47,13 @@ public class PatientServiceImpl implements PatientService {
 		Patient entity = patientDao.findById(patientId)
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Patient !!!!"));
 		modelMapper.map(dto, entity);
+		PatientAddress address = entity.getAddress();
+		modelMapper.map(dto, address);	
+		//To Set updated address back in patient
+		entity.setAddress(address);
+
+		//to Save patient (address will come through cascade)
+		patientDao.save(entity);
 		return new ApiResponse("Updated Patients Details");
 	}
 }

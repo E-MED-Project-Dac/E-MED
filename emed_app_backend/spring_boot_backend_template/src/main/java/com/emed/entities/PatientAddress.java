@@ -1,4 +1,5 @@
 package com.emed.entities;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,34 +18,31 @@ public class PatientAddress {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="address_id")
-	private Long addressId;
-	
+	@Column(name = "address_id")
+	private String addressId;
+
 	@OneToOne(mappedBy = "address")
 	@JoinColumn(name="patient_id")
 	private Patient patient;
-	
+
 	@Column(length=20)
 	private String state;
-	
+
 	@Column(length=15)
 	private String city;
-	
-	@Column(length=6)
-	private Character pincode;
-	
+
+	@Column(length = 6)
+	private String pincode;
+
 	@Column(length=300)
 	private String localAddress;
 
-	public PatientAddress(Patient patient, String state, String city, Character pincode, String localAddress) {
+	public PatientAddress(Patient patient, String state, String city, String pincode, String localAddress) {
 		super();
 		this.patient = patient;
 		this.state = state;
 		this.city = city;
 		this.pincode = pincode;
 		this.localAddress = localAddress;
-	}
-	
-	
-	
+	}	
 }
