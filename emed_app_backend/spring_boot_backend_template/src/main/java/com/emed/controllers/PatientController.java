@@ -11,15 +11,17 @@ import com.emed.dtos.RegisterDto;
 import com.emed.services.PatientService;
 import lombok.AllArgsConstructor;
 
-@RestController @RequestMapping("/patient")
+@RestController
+@RequestMapping("/patient")
 @AllArgsConstructor
 public class PatientController {
 
     private final PatientService patientService;
-    
-    @PostMapping
-    public ResponseEntity<?> addPatient(@RequestBody RegisterDto patientDto){
-    return ResponseEntity.status(HttpStatus.CREATED).body(patientService.addNewPatient(patientDto));
-}
-    
+
+    // @PostMapping
+    // public ResponseEntity<?> addPatient(@RequestBody RegisterDto patientDto){
+    // return
+    // ResponseEntity.status(HttpStatus.CREATED).body(patientService.addNewPatient(patientDto));
+    // }
+
 }
