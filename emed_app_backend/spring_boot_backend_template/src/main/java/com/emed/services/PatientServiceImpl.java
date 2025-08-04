@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.emed.daos.PatientDAO;
 import com.emed.dtos.ApiResponse;
-import com.emed.dtos.RegisterDto;
+import com.emed.dtos.RegisterDTO;
 import com.emed.entities.Patient;
 
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ public class PatientServiceImpl implements PatientService {
 	private final PatientDAO patientDao;
 	private final ModelMapper modelMapper;
 	@Override
-	public ApiResponse addNewPatient(RegisterDto patientDto) {
+	public ApiResponse addNewPatient(RegisterDTO patientDto) {
 		
 		Patient newPatient = modelMapper.map(patientDto, Patient.class);
 		patientDao.save(newPatient);

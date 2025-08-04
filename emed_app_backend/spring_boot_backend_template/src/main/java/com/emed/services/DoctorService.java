@@ -1,10 +1,10 @@
 package com.emed.services;
 
 import com.emed.dtos.ApiResponse;
-import com.emed.dtos.RegisterDto;
+import com.emed.dtos.RegisterDTO;
 
 public interface DoctorService {
 
-	 ApiResponse addNewDoctor(RegisterDto doctorDto);
+	 ApiResponse addNewDoctor(RegisterDTO doctorDto);
 
 }

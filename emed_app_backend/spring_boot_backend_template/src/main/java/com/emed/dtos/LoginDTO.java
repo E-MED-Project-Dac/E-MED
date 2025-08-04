@@ -1,6 +1,6 @@
 package com.emed.dtos;
 
-public class LoginDto {
+public class LoginDTO {
 
 	private String email;
 

@@ -2,7 +2,7 @@ package com.emed.dtos;
 
 import java.time.LocalDate;
 
-public class RegisterDto {
+public class RegisterDTO {
 	
 private String firstName;
 
