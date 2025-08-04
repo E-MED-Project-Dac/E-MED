@@ -1,5 +1,12 @@
 package com.emed.entities;
 
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,7 +20,7 @@ import lombok.Setter;
 
 @Getter @Setter  @NoArgsConstructor
 @Entity
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="user_id")
@@ -38,6 +45,18 @@ private boolean isDeleted;
 		this.role = role;
 	}
 	
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return List.of(new SimpleGrantedAuthority(this.role.name()));
+	}
+
+	@Override
+	public String getUsername() {
+		
+		return this.email;
+	}
 	
 	
 }
