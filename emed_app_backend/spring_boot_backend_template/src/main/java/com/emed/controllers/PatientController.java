@@ -18,10 +18,10 @@ public class PatientController {
 
     private final PatientService patientService;
 
-    // @PostMapping
-    // public ResponseEntity<?> addPatient(@RequestBody RegisterDto patientDto){
-    // return
-    // ResponseEntity.status(HttpStatus.CREATED).body(patientService.addNewPatient(patientDto));
-    // }
+     @PostMapping
+     public ResponseEntity<?> addPatient(@RequestBody RegisterDto patientDto){
+     return
+     ResponseEntity.status(HttpStatus.CREATED).body(patientService.addNewPatient(patientDto));
+     }
 
 }
