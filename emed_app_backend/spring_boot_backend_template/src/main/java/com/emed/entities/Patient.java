@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,38 +25,38 @@ public class Patient extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="patient_id")
-    private Long patientId;
-	
+	private Long patientId;
+
 	@Column(name="first_name", length=15)
-    private String firstName;
+	private String firstName;
 
 	@Column(name="last_name", length=15)
-    private String lastName; 
-	
+	private String lastName;
+
 	private LocalDate dob;
-	
+
 	@Column( length=15)
 	private String mobile;
-	
+
 	@Column(length=50)
-    private String email;
-	
+	private String email;
+
 	@Column(length=300)
-    private String password;
-	 
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-	
+	private String password;
+
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
+
 	@Column(name="is_deleted")
-    private boolean isDeleted;
-	
+	private boolean isDeleted;
+
 	@OneToOne
 	@JoinColumn(name="user_id")
 	private User user;
-	
-	@OneToOne
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private PatientAddress address;
-	
+
 	@OneToMany
 	private List<Appointment> appointments = new ArrayList<>();
 
@@ -67,13 +68,13 @@ public class Patient extends BaseEntity {
 		this.mobile = mobile;
 		this.email = email;
 		this.password = password;
-	}	
-	
+	}
+
 	public  void addAppointmentToPatient(Appointment appointment) {
 		this.appointments.add(appointment);
 		appointment.setPatient(this);
 	}
-	
+
 
 	public  void removeAppointmentFromPatient(Appointment appointment) {
 		this.appointments.remove(appointment);

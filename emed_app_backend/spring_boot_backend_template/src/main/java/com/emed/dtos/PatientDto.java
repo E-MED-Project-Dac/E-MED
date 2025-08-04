@@ -1,7 +1,7 @@
 package com.emed.dtos;
 
 import java.time.LocalDate;
-
+import com.emed.entities.Gender;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,4 +14,9 @@ public class PatientDto extends BaseDto {
     private String mobile;
     private String email;
     private String password;
+    private Gender gender;
+    private String state;
+    private String city;
+    private String pincode;
+    private String address;
 }
