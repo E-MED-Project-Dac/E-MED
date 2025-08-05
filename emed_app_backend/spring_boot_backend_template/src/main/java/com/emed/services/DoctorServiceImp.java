@@ -30,6 +30,11 @@ public class DoctorServiceImp implements DoctorService {
 		doctor.setDeleted(true);
 		return new ApiResponse("Doctor deleted successfully");
 	}
+	
+	@Override
+	public List<Doctor> getAvailableDoctors() {
+		return doctorDao.findByIsApprovedTrueAndIsDeletedFalse();
+	}
 
 	@Override
 	public ApiResponse updateDoctor(DoctorEditDto doctorEditDto) {
