@@ -2,15 +2,16 @@ package com.emed.dtos;
 
 import java.time.LocalDate;
 
+import com.emed.entities.Patient;
 import com.emed.entities.Status;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class AppointmentDTO {
-	
-	private Long patientId;
+public class ResponseAppointmentDTO {
+
+	private Long appointmentId;
 	
     private String firstName;
 

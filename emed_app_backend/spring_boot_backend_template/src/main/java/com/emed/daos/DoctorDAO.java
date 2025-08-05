@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.emed.entities.Doctor;
 
 public interface DoctorDAO extends JpaRepository<Doctor, Long>{
-List<Doctor> findByIsApprovedTrueAndIsDeletedFalse();
+List<Doctor> findByIsVerifiedTrueAndIsDeletedFalse();
     List<Doctor> findByIsVerifiedFalseAndIsDeletedFalse();
 
 }
