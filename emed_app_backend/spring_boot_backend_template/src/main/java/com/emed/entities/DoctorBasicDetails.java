@@ -23,7 +23,7 @@ public class DoctorBasicDetails {
 	@Column(name="doctor_details_id")
 	private Long doctorDetailsId;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "basicDetails")
 	@JoinColumn(name="doctor_id")
 	private Doctor doctor;
 	

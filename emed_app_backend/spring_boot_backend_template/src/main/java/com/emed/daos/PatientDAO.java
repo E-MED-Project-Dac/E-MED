@@ -7,7 +7,6 @@ import com.emed.entities.Patient;
 
 public interface PatientDAO extends JpaRepository<Patient, Long> {
     List<Patient> findByIsDeletedFalse();
-
     boolean existsByEmail(String email);
 
 }
