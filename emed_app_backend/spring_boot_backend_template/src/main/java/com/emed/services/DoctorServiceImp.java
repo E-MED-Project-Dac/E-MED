@@ -16,14 +16,6 @@ public class DoctorServiceImp implements DoctorService {
 
 	private final DoctorDAO doctorDao;
 	private final ModelMapper modelMapper;
-	@Override
-	public ApiResponse addNewDoctor(RegisterDTO doctorDto) {
-		
-		Doctor newDoctor = modelMapper.map(doctorDto, Doctor.class);
-		doctorDao.save(newDoctor);
-		return new ApiResponse("Doctor registered Successfullt...!");
-	}
-	
 	
 	@Override
 	public ApiResponse removeDoctor(Long doctorId) {

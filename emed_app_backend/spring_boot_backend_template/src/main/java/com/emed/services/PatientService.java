@@ -8,8 +8,6 @@ import com.emed.dtos.RegisterDTO;
 
 public interface PatientService {
 
-	ApiResponse addNewPatient(RegisterDTO patientDto);
-
 	ApiResponse deletePatient(Long patientId);
 
 	ApiResponse updatePatient(Long patientId, PatientDto dto);

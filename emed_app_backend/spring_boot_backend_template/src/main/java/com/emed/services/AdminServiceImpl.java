@@ -15,11 +15,5 @@ import lombok.AllArgsConstructor;
 public class AdminServiceImpl implements AdminService {
 	private final AdminDAO adminDao;
 	private final ModelMapper modelMapper;
-	@Override
-	public ApiResponse addNewAdmin(RegisterDTO adminDto) {
-		
-		Admin newAdmin = modelMapper.map(adminDto, Admin.class);
-		adminDao.save(newAdmin);
-		return new ApiResponse("Admin registered Successfullt...!");
-	}
+
 }

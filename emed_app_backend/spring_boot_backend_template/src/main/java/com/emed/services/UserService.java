@@ -3,8 +3,8 @@ package com.emed.services;
 import com.emed.dtos.ApiResponse;
 import com.emed.dtos.RegisterDTO;
 
-public interface DoctorService {
+public interface UserService {
 
-    ApiResponse removeDoctor(Long doctorId);
+	ApiResponse register(RegisterDTO entity);
 
 }
