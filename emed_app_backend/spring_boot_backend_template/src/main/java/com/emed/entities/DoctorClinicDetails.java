@@ -10,12 +10,13 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 @Table(name="doctor_clinic_details")
 public class DoctorClinicDetails {
 	@Id
@@ -39,22 +40,22 @@ public class DoctorClinicDetails {
 	@Column(length = 6)
 	private String pincode;
 	
-	@Column(name="local_address")
-	private String localAddress;
+	@Column(name="clinic_address")
+	private String clinicAddress;
 	
 	@Column(name="clinic_mobile",length=15)
-	private String mobile;
+	private String clinicMobile;
 
 	public DoctorClinicDetails(String clinicName, String state, String city, Doctor doctor, String pincode,
-			String localAddress, String mobile) {
+			String clinicAddress, String clinicMobile) {
 		super();
 		this.clinicName = clinicName;
 		this.state = state;
 		this.city = city;
 		this.doctor = doctor;
 		this.pincode = pincode;
-		this.localAddress = localAddress;
-		this.mobile = mobile;
+		this.clinicAddress = clinicAddress;
+		this.clinicMobile = clinicMobile;
 	}
 	
 	

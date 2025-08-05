@@ -4,20 +4,25 @@ import java.util.List;
 
 import com.emed.dtos.ApiResponse;
 import com.emed.dtos.AppointmentDTO;
+import com.emed.dtos.ResponseAppointmentDTO;
 import com.emed.entities.Appointment;
 
 public interface AppointmentService {
-List<Appointment> getUpcomingAppointments(Long patientId);
+List<ResponseAppointmentDTO> getUpcomingAppointments(Long patientId);
 
-ApiResponse cancelAppointment(Long patientId);
+ApiResponse cancelAppointment(Long appointmentId);
 
-ApiResponse rescheduleAppointment(Long patientId, AppointmentDTO appointment);
+ApiResponse rescheduleAppointment(Long patientId, ResponseAppointmentDTO appointment);
 
-List<Appointment> getAllAppointments(Long patientId);
+List<ResponseAppointmentDTO> getAllAppointments(Long patientId);
 
-ApiResponse bookAppointment(Long patientId, AppointmentDTO appointment);
+ApiResponse bookAppointment(Long doctorId, AppointmentDTO appointment);
 
-List<Appointment> getDoctorAppointments(Long doctorId);
+List<ResponseAppointmentDTO> getDoctorAppointments(Long doctorId);
 
-List<Appointment> getBookedAppointments(Long doctorId);
+List<ResponseAppointmentDTO> getBookedAppointments(Long doctorId);
+
+ApiResponse acceptAppointments(Long appointmentId);
+
+ApiResponse rejectAppointments(Long appointmentId);
 }

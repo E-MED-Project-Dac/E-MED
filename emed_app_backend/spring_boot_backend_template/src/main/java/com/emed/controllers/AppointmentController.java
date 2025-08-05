@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.emed.dtos.AppointmentDTO;
+import com.emed.dtos.ResponseAppointmentDTO;
 import com.emed.services.AppointmentService;
 
 import lombok.AllArgsConstructor;
@@ -20,9 +21,9 @@ public class AppointmentController {
 	
 	   private final AppointmentService appointmentService;
 	   
-	   @PostMapping("/patientHome/{patientId}/bookAppointment")
-	    public ResponseEntity<?> bookAppointment( @PathVariable Long patientId , @RequestBody AppointmentDTO appointment) {
-	            return ResponseEntity.ok(appointmentService.bookAppointment(patientId,appointment));
+	   @PostMapping("/patientHome/{doctorId}/bookAppointment")
+	    public ResponseEntity<?> bookAppointment( @PathVariable Long doctorId , @RequestBody AppointmentDTO appointment) {
+	            return ResponseEntity.ok(appointmentService.bookAppointment(doctorId,appointment));
 	    }
 	
 	 @GetMapping("/patientHome/upcomingAppointmentList/{patientId}")
@@ -35,15 +36,15 @@ public class AppointmentController {
 	        return ResponseEntity.ok(appointmentService.getAllAppointments(patientId));
 	    }
 	 
-	 @PutMapping("/patientHome/{patientId}/cancel")
-	    public ResponseEntity<?> cancelAppointment(@PathVariable Long patientId) {
+	 @PutMapping("/patientHome/{appointmentId}/cancel")
+	    public ResponseEntity<?> cancelAppointment(@PathVariable Long appointmentId) {
 	     
-	            return ResponseEntity.ok(appointmentService.cancelAppointment(patientId));
+	            return ResponseEntity.ok(appointmentService.cancelAppointment(appointmentId));
 	    }
 	    
-	    @PutMapping("/patientHome/{patientId}/reschedule")
-	    public ResponseEntity<?> rescheduleAppointment( @PathVariable Long patientId , @RequestBody AppointmentDTO appointment) {
-	            return ResponseEntity.ok(appointmentService.rescheduleAppointment(patientId,appointment));
+	    @PutMapping("/patientHome/{appointmentId}/reschedule")
+	    public ResponseEntity<?> rescheduleAppointment( @PathVariable Long appointmentId , @RequestBody ResponseAppointmentDTO appointment) {
+	            return ResponseEntity.ok(appointmentService.rescheduleAppointment(appointmentId,appointment));
 	    }
 	    
 	    @GetMapping("/doctorHome/appointmentList/{doctorId}")
@@ -54,5 +55,15 @@ public class AppointmentController {
 	    @GetMapping("/doctorHome/bookedAppointmentList/{doctorId}")
 	    public ResponseEntity<?>getBookedAppointments(@PathVariable Long doctorId){
 	        return ResponseEntity.ok(appointmentService.getBookedAppointments(doctorId));
+	    }
+	    
+	    @PutMapping("/doctorHome/acceptAppointment/{appointmentId}")
+	    public ResponseEntity<?>acceptAppointments(@PathVariable Long appointmentId){
+	        return ResponseEntity.ok(appointmentService.acceptAppointments(appointmentId));
+	    }
+	    
+	    @PutMapping("/doctorHome/rejectAppointment/{appointmentId}")
+	    public ResponseEntity<?>rejectAppointments(@PathVariable Long appointmentId){
+	        return ResponseEntity.ok(appointmentService.acceptAppointments(appointmentId));
 	    }
 }

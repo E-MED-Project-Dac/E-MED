@@ -22,14 +22,14 @@ public class DoctorController {
     private final DoctorService doctorService;
 
     
-    @PutMapping("/{doctorId}")
+    @PutMapping("/{doctorId}/remove")
     public ResponseEntity<?> removeDoctor( @PathVariable Long doctorId){
     return ResponseEntity.status(HttpStatus.OK).body(doctorService.removeDoctor(doctorId));
     }
     
-    @PutMapping("/edit")
-    public ResponseEntity<?> updateDoctor(@RequestBody DoctorEditDto doctorEditDto) {
-        return ResponseEntity.status(HttpStatus.OK).body(doctorService.updateDoctor(doctorEditDto));
+    @PutMapping("/edit/{doctorId}")
+    public ResponseEntity<?> updateDoctor(@PathVariable Long doctorId , @RequestBody DoctorEditDto doctorEditDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(doctorService.updateDoctor(doctorId , doctorEditDto));
     }
     
     @PutMapping("/availability")
