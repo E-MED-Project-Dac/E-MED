@@ -5,6 +5,4 @@ import com.emed.dtos.RegisterDTO;
 
 public interface AdminService {
 
-	ApiResponse addNewAdmin(RegisterDTO adminDto);
-
 }

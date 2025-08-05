@@ -19,10 +19,6 @@ public class DoctorController {
 
     private final DoctorService doctorService;
 
-    @PostMapping
-    public ResponseEntity<?> addDoctor(@RequestBody RegisterDTO doctorDto){
-    return ResponseEntity.status(HttpStatus.CREATED).body(doctorService.addNewDoctor(doctorDto));
-    }
     
     @PutMapping("/{doctorId}")
     public ResponseEntity<?> removeDoctor( @PathVariable Long doctorId){
