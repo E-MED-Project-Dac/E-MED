@@ -1,6 +1,8 @@
 package com.emed.services;
 
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +33,11 @@ public class DoctorServiceImp implements DoctorService {
 		Doctor doctor = doctorDao.findById(doctorId).orElseThrow(() -> new ResourceNotFoundException("Doctor not found"));
 		doctor.setDeleted(true);
 		return new ApiResponse("Doctor deleted successfully");
+	}
+	
+	@Override
+	public List<Doctor> getAvailableDoctors() {
+		return doctorDao.findByIsApprovedTrueAndIsDeletedFalse();
 	}
 
 }
