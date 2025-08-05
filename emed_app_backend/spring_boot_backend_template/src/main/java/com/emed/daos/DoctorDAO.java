@@ -7,4 +7,6 @@ import com.emed.entities.Doctor;
 
 public interface DoctorDAO extends JpaRepository<Doctor, Long>{
 List<Doctor> findByIsApprovedTrueAndIsDeletedFalse();
+    List<Doctor> findByIsVerifiedFalseAndIsDeletedFalse();
+
 }

@@ -3,6 +3,8 @@ package com.emed.services;
 import com.emed.dtos.ApiResponse;
 import com.emed.dtos.RegisterDTO;
 
-public interface AdminService {
+public interface UserService {
+
+	ApiResponse register(RegisterDTO entity);
 
 }

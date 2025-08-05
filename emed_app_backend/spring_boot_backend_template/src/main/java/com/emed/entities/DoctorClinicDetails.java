@@ -33,7 +33,7 @@ public class DoctorClinicDetails {
 	private String city;
 	
 	@JoinColumn(name="doctor_id")
-	@OneToOne
+	@OneToOne(mappedBy = "clinicDetails")
 	private Doctor doctor;
 	
 	@Column(length = 6)

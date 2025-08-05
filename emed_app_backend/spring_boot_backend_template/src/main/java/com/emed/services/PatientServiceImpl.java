@@ -25,16 +25,6 @@ public class PatientServiceImpl implements PatientService {
 	private final PatientDAO patientDao;
 	private final ModelMapper modelMapper;
 
-	@Override
-	public ApiResponse addNewPatient(RegisterDTO patientDto) {
-		if (patientDao.existsByEmail(patientDto.getEmail())) {
-			throw new InvalidInputException("Duplicate Patient Exist");
-		}
-		Patient entity = modelMapper.map(patientDto, Patient.class);
-		entity.setDeleted(false);
-		patientDao.save(entity);
-		return new ApiResponse("new Patient Added Successfully ");
-	}
 
 	@Override
 	public ApiResponse deletePatient(Long patientId) {

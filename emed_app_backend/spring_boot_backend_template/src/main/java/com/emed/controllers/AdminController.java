@@ -18,8 +18,4 @@ public class AdminController {
     private final AdminService adminService;
 	
 
-    @PostMapping("/addAdmin")
-    public ResponseEntity<?> addAdmin(@RequestBody RegisterDTO adminDto){
-    return ResponseEntity.status(HttpStatus.CREATED).body(adminService.addNewAdmin(adminDto));
-}
 }

@@ -22,11 +22,6 @@ public class PatientController {
     private final PatientService patientService;
     private final DoctorService doctorService;
 
-     @PostMapping
-     public ResponseEntity<?> addPatient(@RequestBody RegisterDTO patientDto){
-     return
-     ResponseEntity.status(HttpStatus.CREATED).body(patientService.addNewPatient(patientDto));
-     }   
 
      @GetMapping("/doctorsList")
      public ResponseEntity<?> getAvailableDoctors(){
