@@ -11,9 +11,9 @@ public interface DoctorService {
 
     ApiResponse removeDoctor(Long doctorId);
   
-	  List<Doctor> getAvailableDoctors();
+	  List<DoctorDto> getAvailableDoctors();
 
-    ApiResponse updateDoctor(DoctorEditDto doctorEditDto);
+    ApiResponse updateDoctor(Long doctorId , DoctorEditDto doctorEditDto);
 
     List<DoctorDto> getAllDoctors();
 

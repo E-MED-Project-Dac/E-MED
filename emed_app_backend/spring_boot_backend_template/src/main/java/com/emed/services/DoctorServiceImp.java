@@ -28,17 +28,21 @@ public class DoctorServiceImp implements DoctorService {
 		Doctor doctor = doctorDao.findById(doctorId)
 				.orElseThrow(() -> new ResourceNotFoundException("Doctor not found"));
 		doctor.setDeleted(true);
+		doctor.setVerified(false);
 		return new ApiResponse("Doctor deleted successfully");
 	}
 	
 	@Override
-	public List<Doctor> getAvailableDoctors() {
-		return doctorDao.findByIsApprovedTrueAndIsDeletedFalse();
+	public List<DoctorDto> getAvailableDoctors() {
+		return doctorDao.findByIsVerifiedTrueAndIsDeletedFalse()
+				.stream()
+				.map(entity -> modelMapper.map(entity, DoctorDto.class))
+				.toList();
 	}
 
 	@Override
-	public ApiResponse updateDoctor(DoctorEditDto doctorEditDto) {
-		Doctor existingDoctor = doctorDao.findById(doctorEditDto.getDoctorId())
+	public ApiResponse updateDoctor(Long doctorId , DoctorEditDto doctorEditDto) {
+		Doctor existingDoctor = doctorDao.findById(doctorId)
 				.orElseThrow(() -> new RuntimeException("Doctor Not Found"));
 		modelMapper.map(doctorEditDto, existingDoctor);
 		DoctorBasicDetails basicDetails = modelMapper.map(doctorEditDto, DoctorBasicDetails.class);

@@ -9,7 +9,10 @@ import com.emed.entities.Gender;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class DoctorDto extends BaseDto {
     private Long doctorId;
     private String firstName;

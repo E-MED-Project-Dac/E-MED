@@ -36,12 +36,6 @@ public class DoctorBasicDetails {
 	
 	private String qualification;
 	
-	private String institute;
-	
-	@Column(name="year_of_graduation")
-	@Min(1900)
-	@Max(2100)
-	private Integer yearOfGraduation;
 	
 	@Column(name="years_of_experience")
 	private Integer yearsOfExperience;
@@ -53,8 +47,6 @@ public class DoctorBasicDetails {
 		this.specialization = specialization;
 		this.licenceNo = licenceNo;
 		this.qualification = qualification;
-		this.institute = institute;
-		this.yearOfGraduation = yearOfGraduation;
 		this.yearsOfExperience = yearsOfExperience;
 	}
 	

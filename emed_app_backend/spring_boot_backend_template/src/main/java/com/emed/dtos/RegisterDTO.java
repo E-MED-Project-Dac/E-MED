@@ -2,6 +2,7 @@ package com.emed.dtos;
 
 import java.time.LocalDate;
 
+import com.emed.entities.Gender;
 import com.emed.entities.Role;
 
 import lombok.Getter;
@@ -21,6 +22,8 @@ private String mobile;
 private String password;
 
 private String email;
+
+private Gender gender;
 
 private Role role;
 }
