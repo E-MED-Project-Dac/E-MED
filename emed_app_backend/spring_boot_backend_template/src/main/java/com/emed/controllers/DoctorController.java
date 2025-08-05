@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.emed.dtos.DoctorAvailabilityDTO;
 import com.emed.dtos.DoctorEditDto;
 import com.emed.dtos.RegisterDTO;
 import com.emed.services.DoctorService;
@@ -29,6 +30,11 @@ public class DoctorController {
     @PutMapping("/edit/{doctorId}")
     public ResponseEntity<?> updateDoctor(@PathVariable Long doctorId , @RequestBody DoctorEditDto doctorEditDto) {
         return ResponseEntity.status(HttpStatus.OK).body(doctorService.updateDoctor(doctorId , doctorEditDto));
+    }
+    
+    @PutMapping("/availability")
+    public ResponseEntity<?> updateAvailability(@RequestBody DoctorAvailabilityDTO availabilityDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(doctorService.updateAvailability(availabilityDto));
     }
 
 }
