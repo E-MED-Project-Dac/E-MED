@@ -2,19 +2,59 @@ import React from "react";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../services/user";
 
 function Login() {
   // create state to get input from user
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors , setErrors] = useState({});
 
+  const validateForm = () => {
+  const errors = {};
+  
+  // Required fields
+  if (!email.trim()) errors.email = "Email required";
+  if (!password) errors.password = "Password required"; 
+  // Email format
+  if (email && !/^\S+@\S+\.\S+$/.test(email)) {
+    errors.email = "Invalid email format";
+  }
+  return errors;
+};
   // get navigate function reference
   const navigate = useNavigate();
 
   // button click event handler
   const onLogin = async () => {
     // write logic
-  };
+    const formErrors = validateForm();
+    setErrors(formErrors);
+
+    if (Object.keys(formErrors).length > 0) {
+        // Show all validation errors at once
+        Object.values(formErrors).forEach(error => toast.warn(error));
+        return;
+      }
+
+      try{
+        const result = await login(email , password);
+        if(!result){
+           toast.error('error while  login the user')
+        }else{
+          if(/*write the logic*/true){
+
+          }else{
+             toast.error('Error while login the user')
+          }
+        }
+
+      }catch (error) {
+        // Handle API errors
+        console.error('Logiin failed:', error);
+      }
+
+  }
 
   return (
     <div

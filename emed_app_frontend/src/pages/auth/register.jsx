@@ -69,14 +69,12 @@ function Register() {
         );
         // Handle successful registration
         if(!result){
-        console.log("first")
         toast.error('error while  registering the user')
       }else{
         if(result['status'] == 201){
           toast.success('successfully registered a user')
           navigate(-1)
         }else{
-           console.log("second")
            toast.error('Error while registering the user')
         }
       } 
