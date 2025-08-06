@@ -145,7 +145,7 @@ function App() {
               element={<PatientEditProfile />}
             />
             <Route
-              path='viewDoctorDetails'
+              path='viewDoctorDetails/:doctorId'
               element={<ViewDoctorDetails />}
             />
             <Route

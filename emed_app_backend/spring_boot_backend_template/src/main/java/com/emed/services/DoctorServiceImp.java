@@ -90,6 +90,11 @@ public class DoctorServiceImp implements DoctorService {
 				.toList();
 	}
 
+	@Override
+	public DoctorDto getDoctors(Long doctorId) {
+		return modelMapper.map(doctorDao.findById(doctorId),DoctorDto.class);
+	}
+
 	
 
 }

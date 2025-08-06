@@ -21,3 +21,20 @@ export async function getAvailableDoctors() {
     throw error.response?.data || error.message || 'Unknown  error';
   }
 }
+
+export async function getDoctor(doctorId){
+  try{
+   let url = `${config.serverURL}/patientHome/viewDoctorDetails/${doctorId}`
+  const response = await axios.get(url)
+    if (response.status >= 200 && response.status < 300) {
+      return response
+    }else {
+     throw new Error(response.data?.message || 'failed');
+    }
+  }  catch (error) {
+   console.error(' error:', error);
+    
+    // Re-throw the error or return a structured error object
+    throw error.response?.data || error.message || 'Unknown  error';
+  }
+}

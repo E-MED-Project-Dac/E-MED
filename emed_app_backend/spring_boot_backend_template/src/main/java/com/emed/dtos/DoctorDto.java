@@ -1,14 +1,7 @@
 package com.emed.dtos;
 
 import java.time.LocalDate;
-
-import com.emed.entities.DoctorBasicDetails;
-import com.emed.entities.DoctorClinicDetails;
 import com.emed.entities.Gender;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +15,6 @@ public class DoctorDto extends BaseDto {
     private String email;
     private String password;
     private Gender gender;
-    private DoctorBasicDetails basicDetails;
-    private DoctorClinicDetails clinicDetails;
+    private DoctorBasicDetailsDTO basicDetails;
+    private DoctorClinicDetailsDTO clinicDetails;
 }
