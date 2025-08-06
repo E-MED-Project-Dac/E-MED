@@ -2,6 +2,7 @@ package com.emed.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +18,7 @@ import lombok.AllArgsConstructor;
 
 @RestController @RequestMapping("/doctorHome")
 @AllArgsConstructor
+@CrossOrigin(origins =  "http://localhost:5173")
 public class DoctorController {
 
     private final DoctorService doctorService;
