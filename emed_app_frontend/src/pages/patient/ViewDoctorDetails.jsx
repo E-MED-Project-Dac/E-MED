@@ -1,7 +1,12 @@
-import React , {useState} from "react";
-import { useNavigate } from "react-router-dom";
+import React , {useEffect, useState} from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getDoctor as getDoctorFromServer } from "../../services/patient";
+import defaultImage from '../../images/defaultimage.png'
+
 
 function ViewDoctorDetails(){
+  const { doctorId } = useParams(); // Get ID from URL
+  const [doctor , setDoctor] = useState({})
   const navigate = useNavigate();
   
   const onBack = () => {
@@ -12,6 +17,25 @@ function ViewDoctorDetails(){
     //write logic 
     navigate('/patientHome/bookAppointment')
   };
+ const getDoctor = async(doctorId) => {
+  console.log(doctorId)
+     const result = await getDoctorFromServer(doctorId)
+         if (!result) {
+           toast.error('Error while loading  doctor')
+         } else {
+           if (result['status'] == 200) {
+             setDoctor(result['data'])
+             console.log(result['data'])
+           } else {
+             toast.error(result['error'])
+           }
+         }
+ }
+
+
+ useEffect(() =>{
+     getDoctor(doctorId)
+   },[])
 
   return(
     <>
@@ -21,20 +45,20 @@ function ViewDoctorDetails(){
                <div className="col col-4">
                  <div className="profile-image-container">
                    <img 
-                    src=""
-                    alt="Profile-image" 
+                    src={doctor.image || defaultImage}
+                    alt={doctor.firstName} 
                     className="profile-image"
                    />   
                  </div>
                 </div>
                 <div className="col col-8">
-                  <h3>Saransh</h3>
-                  <p><strong>Email:</strong> saranshvats041@gmail.com</p>
-                  <p><strong>Bio:</strong> abc</p>
+                  <h3>{"Dr. "+doctor.firstName+" "+doctor.lastName}</h3>
+                  <p><strong>Email:</strong>{doctor.email}</p>
+                  {/* <p><strong>Bio:</strong> abc</p>
                   <p>.</p>
                   <p>.</p>
                   <p>.</p>
-                  <p>.</p>
+                  <p>.</p> */}
                 </div>
             </div>
             <hr />

@@ -20,5 +20,7 @@ public interface DoctorService {
 
     List<DoctorDto> getAllDoctors();
 
+	DoctorDto getDoctors(Long doctorId);
+
 
 }

@@ -5,42 +5,68 @@ import { getAvailableDoctors as getAvailableDoctorsFromserver } from '../../serv
 import defaultImage from '../../images/defaultimage.png'
 const DoctorsList = () => {
 
-  const [doclorList , setDoctorList] = useState([]);
+  const [doctorList , setDoctorList] = useState([]);
+  const [loading, setLoading] = useState(true); // Added loading state
   const navigate = useNavigate()
 
     const onBack = () => {
         navigate(-1)
     }
 
-const onDetails = () => {
+const onDetails = (doctorId) =>  {
     //write logic
-    navigate('/patientHome/viewDoctorDetails')
+    navigate(`/patientHome/viewDoctorDetails/${doctorId}`)
     }
-
     const getAvailableDoctors = async () => {
-    const result = await getAvailableDoctorsFromserver()
-    if (!result) {
-      toast.error('Error while loading all doctors')
-    } else {
-      if (result['status'] == 200) {
-        setDoctorList(result['data'])
-        console.log(result['data'])
-      } else {
-        toast.error(result['error'])
+       try {
+      setLoading(true);
+      const result = await getAvailableDoctorsFromserver();
+      
+      if (!result) {
+        throw new Error('No response from server');
       }
+
+      if (result.status === 200) {
+        setDoctorList(result.data);
+      } else {
+        throw new Error(result.error || 'Failed to load doctors');
+      }
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
+    // const result = await getAvailableDoctorsFromserver()
+    // if (!result) {
+    //   toast.error('Error while loading all doctors')
+    // } else {
+    //   if (result['status'] == 200) {
+    //     setDoctorList(result['data'])
+    //     console.log(result['data'])
+    //   } else {
+    //     toast.error(result['error'])
+    //   }
+    // }
   }
 
   useEffect(() =>{
     getAvailableDoctors()
   },[])
 
+  if (loading) {
+    return <div className="loading">Loading doctors...</div>;
+  }
+
+  if (!doctorList.length) {
+    return <div className="no-doctors">No doctors available</div>;
+  }
+
   return (
     <>
     <h3 style={{textAlign:'center',paddingTop:10}}>Available Doctors's</h3>
     <hr />
     <div className="doctors-container">
-      {doclorList.map((doctor) => (
+      {doctorList.map((doctor) => (
         <div key={doctor.doctorId} className="doctor-card">
           <img 
             src={doctor.image  || defaultImage} 
@@ -56,7 +82,7 @@ const onDetails = () => {
             </div> */}
             <button 
               className="view-details-btn"
-              onClick={onDetails}
+              onClick={() => onDetails(doctor.doctorId)}
             >
               View Details
             </button>
