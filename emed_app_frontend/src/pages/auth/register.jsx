@@ -1,17 +1,46 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { register } from "../../services/user";
 
 function Register() {
   // create state members
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("patient");
-  const [showDob, setShowDob] = useState("");
+  const [role, setRole] = useState("");
+  const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
+  const [errors , setErrors] = useState({});
+
+  const validateForm = () => {
+  const errors = {};
+  
+  // Required fields
+  if (!firstName.trim()) errors.firstName = "First name required";
+  if (!lastName.trim()) errors.lastName = "Last name required";
+  if (!email.trim()) errors.email = "Email required";
+  if (!mobile.trim()) errors.mobile = "Mobile required";
+  if (!password) errors.password = "Password required";
+  if (password !== confirmPassword) errors.confirmPassword = "Passwords don't match";
+   if (!gender.trim()) errors.gender = "Gender required";
+  if (!role.trim()) errors.role = "Role required";
+  
+  // Email format
+  if (email && !/^\S+@\S+\.\S+$/.test(email)) {
+    errors.email = "Invalid email format";
+  }
+  
+  // Password strength (min 8 chars)
+  if (password && password.length < 8) {
+    errors.password = "Password must be 8+ characters";
+  }
+  
+  return errors;
+};
 
   // get the navigate function reference
   const navigate = useNavigate();
@@ -23,6 +52,38 @@ function Register() {
   // click event handler
   const onRegister = async () => {
     // write the logic
+    const formErrors = validateForm();
+    setErrors(formErrors);
+
+    if (Object.keys(formErrors).length > 0) {
+    // Show all validation errors at once
+    Object.values(formErrors).forEach(error => toast.warn(error));
+    return;
+  }
+
+      // No errors - proceed with registration
+      try {
+        const result = await register(
+          firstName, lastName, email, mobile, 
+          password, dob, gender, role
+        );
+        // Handle successful registration
+        if(!result){
+        console.log("first")
+        toast.error('error while  registering the user')
+      }else{
+        if(result['status'] == 201){
+          toast.success('successfully registered a user')
+          navigate(-1)
+        }else{
+           console.log("second")
+           toast.error('Error while registering the user')
+        }
+      } 
+    }catch (error) {
+        // Handle API errors
+        console.error('Registration failed:', error);
+      }
   };
 
   return (
@@ -59,7 +120,6 @@ function Register() {
             <div className="row mb-4">
               <div className="col-md-6">
                 <label htmlFor="firstName" className="form-label fw-semibold">
-                  <i className="fas fa-user me-2 text-primary"></i>
                   First Name
                 </label>
                 <input
@@ -68,13 +128,13 @@ function Register() {
                   type="text"
                   className="form-control form-control-lg border-2"
                   placeholder="Enter first name"
+                  required
                   value={firstName}
                   style={{ borderRadius: "10px" }}
                 />
               </div>
               <div className="col-md-6">
                 <label htmlFor="lastName" className="form-label fw-semibold">
-                  <i className="fas fa-user me-2 text-primary"></i>
                   Last Name
                 </label>
                 <input
@@ -83,6 +143,7 @@ function Register() {
                   type="text"
                   className="form-control form-control-lg border-2"
                   placeholder="Enter last name"
+                  required
                   value={lastName}
                   style={{ borderRadius: "10px" }}
                 />
@@ -92,7 +153,6 @@ function Register() {
             <div className="row mb-4">
               <div className="col-md-6">
                 <label htmlFor="email" className="form-label fw-semibold">
-                  <i className="fas fa-envelope me-2 text-primary"></i>
                   Email Address
                 </label>
                 <input
@@ -101,22 +161,23 @@ function Register() {
                   type="email"
                   className="form-control form-control-lg border-2"
                   placeholder="Enter email address"
+                  required
                   value={email}
                   style={{ borderRadius: "10px" }}
                 />
               </div>
               <div className="col-md-6">
                 <label htmlFor="phone" className="form-label fw-semibold">
-                  <i className="fas fa-phone me-2 text-primary"></i>
-                  Phone Number
+                  Mobile Number
                 </label>
                 <input
                   id="phone"
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) => setMobile(e.target.value)}
                   type="tel"
                   className="form-control form-control-lg border-2"
                   placeholder="Enter phone number"
-                  value={phone}
+                  required
+                  value={mobile}
                   style={{ borderRadius: "10px" }}
                 />
               </div>
@@ -125,7 +186,6 @@ function Register() {
             <div className="row mb-4">
               <div className="col-md-6">
                 <label htmlFor="password" className="form-label fw-semibold">
-                  <i className="fas fa-lock me-2 text-primary"></i>
                   Password
                 </label>
                 <input
@@ -134,6 +194,7 @@ function Register() {
                   type="password"
                   className="form-control form-control-lg border-2"
                   placeholder="Create password"
+                  required
                   value={password}
                   style={{ borderRadius: "10px" }}
                 />
@@ -143,7 +204,6 @@ function Register() {
                   htmlFor="confirmPassword"
                   className="form-label fw-semibold"
                 >
-                  <i className="fas fa-lock me-2 text-primary"></i>
                   Confirm Password
                 </label>
                 <input
@@ -152,6 +212,7 @@ function Register() {
                   type="password"
                   className="form-control form-control-lg border-2"
                   placeholder="Confirm password"
+                  required
                   value={confirmPassword}
                   style={{ borderRadius: "10px" }}
                 />
@@ -160,40 +221,39 @@ function Register() {
             <div className="row mb-4">
               <div className="col-md-6">
                 <label htmlFor="dob" className="form-label fw-semibold">
-                  <i className="fas fa-calendar me-2 text-primary"></i>
                   Date of Birth
                 </label>
                 <input
                   id="dob"
-                  onChange={(e) => setShowDob(e.target.value)}
+                  onChange={(e) => setDob(e.target.value)}
                   type="date"
                   className="form-control form-control-lg border-2"
-                  value={showDob}
+                  required
+                  value={dob}
                   style={{ borderRadius: "10px" }}
                 />
               </div>
               <div className="col-md-6">
                 <label htmlFor="gender" className="form-label fw-semibold">
-                  <i className="fas fa-venus-mars me-2 text-primary"></i>
                   Gender
                 </label>
                 <select
                   className="form-select form-select-lg border-2"
                   id="gender"
+                  required
                   value={gender}
                   onChange={(e) => setGender(e.target.value)}
                   style={{ borderRadius: "10px" }}
                 >
-                  <option value="">Select Gender</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Others">Others</option>
+                  <option value="" disabled selected hidden>Select Gender</option>
+                  <option value="MALE">MALE</option>
+                  <option value="FEMALE">FEMALE</option>
+                  <option value="OTHER">OTHER</option>
                 </select>
               </div>
             </div>
             <div className="mb-4">
               <label htmlFor="role" className="form-label fw-semibold">
-                <i className="fas fa-user-md me-2 text-primary"></i>
                 Register As
               </label>
               <select
@@ -203,13 +263,15 @@ function Register() {
                 onChange={(e) => setRole(e.target.value)}
                 style={{ borderRadius: "10px" }}
               >
-                <option value="patient">
-                  <i className="fas fa-user me-2"></i>
-                  Patient
+                <option value="" 
+                disabled selected hidden>
+                  Select Role
+                  </option>
+                <option value="PATIENT">
+                  PATIENT
                 </option>
-                <option value="doctor">
-                  <i className="fas fa-user-md me-2"></i>
-                  Doctor
+                <option value="DOCTOR">
+                  DOCTOR
                 </option>
               </select>
             </div>
