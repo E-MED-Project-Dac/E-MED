@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { TextCenter } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
 import './PatientProfile.css';
+import defaultImage from '../../images/defaultimage.png'
 function PatientProfile(){
+  const [patient , setPatient] = useState('')
      const navigate = useNavigate();
      const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
      const onUpdate = () => {
@@ -29,8 +31,8 @@ function PatientProfile(){
                <div className="profile-content">
                  <div className="profile-image-container">
                    <img 
-                    src=""
-                    alt="Profile-image" 
+                     src={patient.image  || defaultImage} 
+                     alt={patient.firstName}
                     className="profile-image"
                    />   
                  </div>
