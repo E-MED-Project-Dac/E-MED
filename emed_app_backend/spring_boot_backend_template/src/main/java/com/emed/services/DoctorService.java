@@ -12,7 +12,6 @@ public interface DoctorService {
 
     ApiResponse removeDoctor(Long doctorId);
 
-    ApiResponse updateDoctor(DoctorEditDto doctorEditDto);
   
     ApiResponse updateAvailability(DoctorAvailabilityDTO availabilityDTO);
   
