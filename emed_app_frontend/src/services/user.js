@@ -13,18 +13,24 @@ export async function login(email, password) {
     }
 
     // call Post API
-    const response = await axios.post(url, body)
+    const response = await axios.post(url, body ,{
+        headers:{
+            'Content-Type':'application/json',
+        },
+  })
 
     // check if response is OK
-    if (response.status == 200) {
+    if (response.status >= 200 && response.status < 300) {
       // send the response body
       return response.data
     } else {
-      // send null result
-      return null
+     throw new Error(response.data?.message || 'Logiin failed');
     }
-  } catch (ex) {
-    console.log(`exception: `, ex)
+  } catch (error) {
+   console.error('Login error:', error);
+    
+    // Re-throw the error or return a structured error object
+    throw error.response?.data || error.message || 'Unknown Login error';
   }
 }
 
