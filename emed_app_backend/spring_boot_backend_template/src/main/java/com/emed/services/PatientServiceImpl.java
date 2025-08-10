@@ -9,7 +9,9 @@ import com.emed.custom_exceptions.ResourceNotFoundException;
 import com.emed.daos.PatientDAO;
 import com.emed.dtos.ApiResponse;
 
-import com.emed.dtos.PatientDto;
+import com.emed.dtos.PatientDTO;
+import com.emed.dtos.PatientEditDTO;
+import com.emed.dtos.PatientResponseDTO;
 import com.emed.dtos.RegisterDTO;
 import com.emed.entities.Patient;
 import com.emed.entities.PatientAddress;
@@ -31,11 +33,12 @@ public class PatientServiceImpl implements PatientService {
 		Patient patient = patientDao.findById(patientId)
 				.orElseThrow(() -> new ResourceNotFoundException("Patient Not Found !!!!"));
 		patient.setDeleted(true);
-		return new ApiResponse("Deleted Patients Details");
+		patient.getUser().setDeleted(true);
+		return new ApiResponse("Deleted Patients Details successfully...!");
 	}
 
 	@Override
-	public ApiResponse updatePatient(Long patientId, PatientDto dto) {
+	public ApiResponse updatePatient(Long patientId, PatientDTO dto) {
 		Patient entity = patientDao.findById(patientId)
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid Patient !!!!"));
 		modelMapper.map(dto, entity);
@@ -48,4 +51,16 @@ public class PatientServiceImpl implements PatientService {
 		patientDao.save(entity);
 		return new ApiResponse("Updated Patients Details");
      }
+
+	@Override
+	public PatientResponseDTO getPatient(Long patientId) {
+		return modelMapper.map(patientDao.findById(patientId).orElseThrow(() -> new ResourceNotFoundException("Patient Not Found !!!!")), PatientResponseDTO.class);
+	}
+
+	@Override
+	public ApiResponse updatePatient(PatientEditDTO editPatient) {
+		Patient patient = patientDao.findById(editPatient.getPatientId()).orElseThrow(() -> new ResourceNotFoundException("Patient Not Found !!!!"));
+		modelMapper.map(editPatient, patient);
+		return new ApiResponse("User Updated Successfully");
+	}
 }

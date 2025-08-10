@@ -1,73 +1,154 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import { UpdatePatient as UpdatePatientFromServer } from "../../services/patient";
 function PatientEditProfile() {
   // create state members
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [showDob, setShowDob] = useState("");
-  const [gender, setGender] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [pincode, setPincode] = useState("");
-  const [address, setAddress] = useState("");
+  const location = useLocation();
+  const { patient } = location.state || {};
+  const [errors , setErrors] = useState({})
+  const [editPatient , setEditPatient] = useState({
+      patientId: patient.patientId,
+      firstName: patient.firstName,
+      lastName: patient.lastName,
+      mobile: patient.mobile,
+      dob: patient.dob,
+      gender: patient.gender,
+      address: {
+        state: patient.address ?.state|| '',
+        city: patient.address ?.city || '',
+        pincode: patient.address ?.pincode || '',
+        localAddress: patient.address ?.localAddress || ''
+  }})
+
+
 
   const navigate = useNavigate();
-  const onBack = () => {
-    navigate(-1);
-  };
+    const onBack = () => {
+      navigate(-1);
+    };
+
+
+  const validateForm = () => {
+  const errors = {};
+  
+  // Required fields
+  if (!patient.firstName.trim()) errors.firstName = "First name required";
+  if (!patient.lastName.trim()) errors.lastName = "Last name required";
+  if (!patient.mobile.trim()) errors.mobile = "Mobile required";
+  if (!patient.dob) errors.password = "Date of Birth required";
+  if (!patient.gender.trim()) errors.gender = "Gender required";
+  
+  return errors;
+};
 
   const onUpdate = async () => {
     //write the logic
+    const formErrors = validateForm();
+        setErrors(formErrors);
+    
+        if (Object.keys(formErrors).length > 0) {
+        // Show all validation errors at once
+        Object.values(formErrors).forEach(error => toast.warn(error));
+        return;
+      }
+      try {
+              const result = await UpdatePatientFromServer(editPatient);
+              // Handle successful updation
+              if(!result){
+              toast.error('error while  updating the user')
+            }else{
+              if(result['status'] === 200){
+                toast.success('successfully updated a user')
+                navigate(-1)
+              }else{
+                 toast.error('Error while updating the user')
+              }
+            } 
+          }catch (error) {
+              // Handle API errors
+              console.error('updation failed:', error);
+            }
   };
 
   return (
     <div className="container">
       <h2 className="page-header">Edit Profile</h2>
       <div className="form">
+         <div className="mb-3">
+            <input
+              hidden
+              type="text"
+              className="form-control"
+              value={editPatient.patientId}
+              onChange={(e) => setEditPatient(prev => ({
+                                 ...prev,
+                                patientId: e.target.value
+                              }))}
+            />
+          </div>
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="">First Name</label>
             <input
-              onChange={(e) => setFirstName(e.target.value)}
+             onChange={(e) => setEditPatient(prev => ({
+                                 ...prev,
+                                firstName: e.target.value
+                              }))}
               type="text"
               className="form-control"
-              value={firstName}
+              value={editPatient.firstName}
             />
           </div>
           <div className="col">
             <label htmlFor="">Last Name</label>
             <input
-              onChange={(e) => setLastName(e.target.value)}
+             onChange={(e) => setEditPatient(prev => ({
+                                 ...prev,
+                                lastName: e.target.value
+                              }))}
               type="text"
               className="form-control"
-              value={lastName}
+              value={editPatient.lastName}
             />
           </div>
         </div>
         <div className="row mb-3">
-          <div className="col">
-            <label htmlFor="">Email</label>
+            <div className="col">
+            <label htmlFor="">Date of birth</label>
             <input
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
+             onChange={(e) => setEditPatient(prev => ({
+                                 ...prev,
+                                dob: e.target.value
+                              }))}
+              type="date"
               className="form-control"
-              value={email}
+              value={editPatient.dob}
             />
           </div>
           <div className="col">
             <label htmlFor="">Phone Number</label>
             <input
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => setEditPatient(prev => ({
+                                 ...prev,
+                                mobile: e.target.value
+                              }))}
               type="tel"
               className="form-control"
-              value={phone}
+              value={editPatient.mobile}
             />
           </div>
         </div>
-        <div className="row mb-3">
+        {/* <div className="row mb-3">
+           <div className="col">
+            <label htmlFor="">Email</label>
+            <input
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              className="form-control"
+              value={patient.email}
+            />
+          </div>
           <div className="col">
             <label htmlFor="">Password</label>
             <input
@@ -77,16 +158,7 @@ function PatientEditProfile() {
               value={password}
             />
           </div>
-          <div className="col">
-            <label htmlFor="">Date of birth</label>
-            <input
-              onChange={(e) => setShowDob(e.target.value)}
-              type="date"
-              className="form-control"
-              value={showDob}
-            />
-          </div>
-        </div>
+        </div> */}
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="gender" className="form-label">
@@ -96,12 +168,15 @@ function PatientEditProfile() {
               className="form-select"
               name="gender"
               id="genderselect"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
+              value={editPatient.gender}
+              onChange={(e) => setEditPatient(prev => ({
+                                 ...prev,
+                                gender: e.target.value
+                              }))}
             >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Others">Others</option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+              <option value="OTHER">Others</option>
             </select>
           </div>
 
@@ -111,10 +186,16 @@ function PatientEditProfile() {
             </label>
             <input
               id="state"
-              type="password"
+              type="text"
               className="form-control"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
+              value={editPatient.address.state}
+              onChange={(e) => setEditPatient(prev => ({
+                               ...prev,
+                               address: {
+                               ...prev.address,
+                               state: e.target.value
+                                }
+                              }))}
             />
           </div>
         </div>
@@ -122,32 +203,50 @@ function PatientEditProfile() {
           <div className="col">
             <label htmlFor="">City</label>
             <input
-              onChange={(e) => setCity(e.target.value)}
-              type="password"
+              type="text"
               className="form-control"
-              value={city}
+              value={editPatient.address.city}
+              onChange={(e) => setEditPatient(prev => ({
+                               ...prev,
+                               address: {
+                               ...prev.address,
+                               city: e.target.value
+                                }
+                              }))}
             />
           </div>
           <div className="col">
             <label htmlFor="">Pincode</label>
             <input
-              onChange={(e) => setPincode(e.target.value)}
               type="text"
               className="form-control"
-              value={pincode}
+              value={editPatient.address.pincode}
+              onChange={(e) => setEditPatient(prev => ({
+                               ...prev,
+                               address: {
+                               ...prev.address,
+                               pincode: e.target.value
+                                }
+                              }))}
             />
           </div>
         </div>
         <div className="row mb-3">
           <div className="col">
-            <label htmlFor="">Address</label>
+            <label htmlFor="">"Local Address</label>
             <textarea
               name=""
               className="form-control"
               rows={2}
               type="text"
-              onChange={(e) => setAddress(e.target.value)}
-              value={address}
+              value={editPatient.address.localAddress}
+              onChange={(e) => setEditPatient(prev => ({
+                               ...prev,
+                               address: {
+                               ...prev.address,
+                               localAddress: e.target.value
+                                }
+                              }))}
             />
           </div>
         </div>

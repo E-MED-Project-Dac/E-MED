@@ -36,17 +36,6 @@ const onDetails = (doctorId) =>  {
     } finally {
       setLoading(false);
     }
-    // const result = await getAvailableDoctorsFromserver()
-    // if (!result) {
-    //   toast.error('Error while loading all doctors')
-    // } else {
-    //   if (result['status'] == 200) {
-    //     setDoctorList(result['data'])
-    //     console.log(result['data'])
-    //   } else {
-    //     toast.error(result['error'])
-    //   }
-    // }
   }
 
   useEffect(() =>{

@@ -13,19 +13,18 @@ function ViewDoctorDetails(){
     navigate(-1);
   }
 
-  const onBook = () => {
+  const onBook = (doctorId) => {
     //write logic 
-    navigate('/patientHome/bookAppointment')
+    navigate(`/patientHome/bookAppointment/${doctorId}`)
   };
  const getDoctor = async(doctorId) => {
-  console.log(doctorId)
      const result = await getDoctorFromServer(doctorId)
          if (!result) {
            toast.error('Error while loading  doctor')
          } else {
            if (result['status'] == 200) {
              setDoctor(result['data'])
-             console.log(result['data'])
+            // console.log(result['data'])
            } else {
              toast.error(result['error'])
            }
@@ -73,7 +72,7 @@ function ViewDoctorDetails(){
                   Back
                  </button>
                  <button 
-                   onClick={onBook}
+                   onClick={() =>onBook(doctor.doctorId)}
                    className="btn btn-success"
                   >
                    Book Appointment

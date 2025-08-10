@@ -51,8 +51,8 @@ private final ModelMapper modelMapper;
     }
 
 	@Override
-	public ApiResponse rescheduleAppointment(Long appointmentId, ResponseAppointmentDTO appointment) {
-		 Appointment rescheduleAppointment = appointmentDao.findById( appointmentId)
+	public ApiResponse rescheduleAppointment( ResponseAppointmentDTO appointment) {
+		 Appointment rescheduleAppointment = appointmentDao.findById( appointment.getAppointmentId())
 				 .orElseThrow(() -> new IllegalStateException("Appointment not found"));
 		 modelMapper.map(appointment, rescheduleAppointment);
 		 rescheduleAppointment.setStatus(Status.RESCHEDULED);
@@ -110,6 +110,11 @@ private final ModelMapper modelMapper;
 		Appointment appointment = appointmentDao.findById(appointmentId).orElseThrow(()->new ResourceNotFoundException("Appointment  not found"));
 		appointment.setStatus(Status.REJECTED);
 		return new ApiResponse("appointment rejected");
+	}
+
+	@Override
+	public ResponseAppointmentDTO getAppointment(Long appointmentId) {
+		return modelMapper.map(appointmentDao.findById(appointmentId).orElseThrow(()->new ResourceNotFoundException("Appointment  not found")), ResponseAppointmentDTO.class);
 	}
     
 }

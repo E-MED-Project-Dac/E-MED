@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
-import { TextCenter } from 'react-bootstrap-icons';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PatientProfile.css';
+import defaultImage from '../../images/defaultimage.png'
+import { GetPatient as getPatientFromServer } from '../../services/patient';
+import { toast } from 'react-toastify';
+import { DeletePatient as DeletePatientFromServer } from '../../services/patient';
+
 function PatientProfile(){
+     const [patient , setPatient] = useState({})
+     const [patientId , setPatientId] = useState('1')
      const navigate = useNavigate();
      const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
      const onUpdate = () => {
       //go to the update profile page
-    navigate('/patientHome/patientEditProfile');  
+    navigate('/patientHome/patientEditProfile',{
+      state: {patient: patient}
+    });  
   };
    const onBack = () => {
     navigate(-1); // Goes back to previous page
@@ -15,13 +23,45 @@ function PatientProfile(){
   const onDeleteAccount = () => {
     setShowDeleteConfirmation(true);
   };
-  const onConfirmDelete = () => {
+  const onConfirmDelete = async() =>{
     //write the api for delete 
-    navigate('/');
+    const result = await DeletePatientFromServer(patientId)
+     if (!result) {
+               toast.error('Error while loading  patient')
+             } else {
+               if (result['status'] == 200) {
+                 toast.success('delete user successfully...!')
+                 navigate('/');
+               } else {
+                 toast.error(result['error'])
+               }
+             }
   };
   const onCancelDelete = () => {
     setShowDeleteConfirmation(false);
   };
+
+
+  
+    const GetPatient = async(patientId) => {
+         const result = await getPatientFromServer(patientId)
+             if (!result) {
+               toast.error('Error while loading  patient')
+             } else {
+               if (result['status'] == 200) {
+                 setPatient(result['data'])
+               } else {
+                 toast.error(result['error'])
+               }
+             }
+     }
+    
+    
+     useEffect(() =>{
+         GetPatient(patientId)
+       },[])
+
+
     return (
     <>
         <div className="container">
@@ -29,7 +69,7 @@ function PatientProfile(){
                <div className="profile-content">
                  <div className="profile-image-container">
                    <img 
-                    src=""
+                    src={patient.image || defaultImage}
                     alt="Profile-image" 
                     className="profile-image"
                    />   
@@ -39,9 +79,10 @@ function PatientProfile(){
                    </div>
           
                  <div className="profile-details">
-                  <h3>Girvindar</h3>
-                  <p><strong>Email:</strong> gurvindarbhalla29@gmail.com</p>
-                  <p><strong>Bio:</strong> xyz</p>
+                  <h3>{patient.firstName+" "+patient.lastName}</h3>
+                  <p><strong>Email : </strong>{patient.email}</p>
+                  <p><strong>Mobile : </strong>{patient.mobile}</p>
+                  <p><strong>Gender : </strong>{patient.gender}</p>
                  </div>
                 </div>
                 <div 

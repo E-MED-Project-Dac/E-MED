@@ -1,29 +1,97 @@
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { useParams } from "react-router-dom";
+import { BookAppointment as BookAppointmentFromServer } from "../../services/patient"
+import { toast } from "react-toastify";
 function BookAppointment(){
+      const { doctorId } = useParams();
       const [firstName, setFirstName] = useState('')
       const [lastName, setLastName] = useState('')
       const [email, setEmail] = useState('')
-      const [phone, setPhone] = useState('')
-      const [showDob, setShowDob] = useState('')
+      const [mobile, setMobile] = useState('')
+      const [dob, setDob] = useState('')
       const [gender, setGender] = useState('')
-      const [appointmentDate, setAppointmentDate] = useState('')
+      const [dateOfAppointment, setDateOfAppointment] = useState('')
       const [timeSlot, setTimeSlot] = useState('')
-     
+      const [patientId, setPatientId] = useState('1')
+      const [errors , setErrors] = useState({});
+
       const navigate = useNavigate()
+
+      const validateForm = () => {
+      const errors = {};
+  
+  // Required fields
+  if (!firstName.trim()) errors.firstName = "First name required";
+  if (!lastName.trim()) errors.lastName = "Last name required";
+  if (!email.trim()) errors.email = "Email required";
+  if (!mobile.trim()) errors.mobile = "Mobile required";
+  if (!gender.trim()) errors.gender = "Gender required";
+  if (!dob.trim()) errors.dob = "Date of birth required";
+  if (!dateOfAppointment.trim()) errors.dateOfAppointment = "appointment date is required";
+  if (!timeSlot.trim()) errors.timeSlot = "time slot is required";
+  // Email format
+  if (email && !/^\S+@\S+\.\S+$/.test(email)) {
+    errors.email = "Invalid email format";
+  }
+   return errors;
+}
+     
+      
 
       const onCancel = () => {
             navigate(-1)
       }
 
-      const onBook = () => {
+      const onBook = async(doctorId) => {
            //write logic
+           const formErrors = validateForm();
+          setErrors(formErrors);
+
+          if (Object.keys(formErrors).length > 0) {
+              // Show all validation errors at once
+              Object.values(formErrors).forEach(error => toast.warn(error));
+              return;
+            }
+          try {
+                  const result = await BookAppointmentFromServer(
+                    patientId,
+                    firstName, lastName, email, mobile, 
+                     dob, gender,dateOfAppointment,timeSlot,
+                     doctorId,
+                  );
+                  // Handle successful registration
+                  if(!result){
+                  toast.error('error while  booking appointment')
+                }else{
+                  if(result['status'] == 201){
+                    toast.success('successfully Booked an appointment')
+                    navigate(-1)
+                  }else{
+                     toast.error('Error while Booking  appointment')
+                  }
+                } 
+              }catch (error) {
+                  // Handle API errors
+                  console.error('booking failed:', error);
+                }
+          
+
       }
 
 return (
     <div className='container'>
       <h2 className='page-header'>Book Appointment</h2>
       <div className='form'>
+         <div className='mb-3'>
+          <input
+          onChange={(e) => setPatientId(e.target.value)}
+            type='text'
+            className='form-control'
+            value={patientId}
+            hidden
+          />
+        </div>
         <div className='mb-3'>
           <label htmlFor=''>First Name</label>
           <input
@@ -54,44 +122,46 @@ return (
         <div className='mb-3'>
           <label htmlFor=''>Phone Number</label>
           <input
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(e) => setMobile(e.target.value)}
             type='tel'
             className='form-control'
-            value={phone}
+            value={mobile}
           />
         </div>
         <div className='mb-3'>
           <label htmlFor=''>Date of birth</label>
           <input
-            onChange={(e) => setShowDob(e.target.value)}
+            onChange={(e) => setDob(e.target.value)}
             type='date'
             className='form-control'
-            value={showDob}
+            value={dob}
           />
         </div>
        <div className='mb-3'>
          <label htmlFor="gender" className='form-label'>Gender</label>
          <select className='form-select' name="gender" id="genderselect" value={gender} onChange={(e) =>setGender(e.target.value) }>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-           <option value="Others">Others</option>
+           <option value="" disabled hidden>Select Gender</option>
+          <option value="MALE">Male</option>
+          <option value="FEMALE">Female</option>
+           <option value="OTHER">Others</option>
          </select>
         </div>
          <div className='mb-3'>
           <label htmlFor=''>Appointment Date</label>
           <input
-            onChange={(e) => setAppointmentDate(e.target.value)}
+            onChange={(e) => setDateOfAppointment(e.target.value)}
             type='date'
             className='form-control'
-            value={appointmentDate}
+            value={dateOfAppointment}
           />
         </div>
          <div className='mb-3'>
          <label htmlFor="timeSlot" className='form-label'>Time Slot</label>
          <select className='form-select' name="timeSlot" id="timeSlotSelect" value={timeSlot} onChange={(e) =>setTimeSlot(e.target.value) }>
-          <option value="">08:00 - 08:15</option>
-          <option value="">08:15 - 08:30</option>
-          <option value="">08:30 - 08:45</option>
+          <option value="" disabled hidden>Select TimeSlot</option>
+          <option value="08:00 - 08:15">08:00 - 08:15</option>
+          <option value="08:15 - 08:30">08:15 - 08:30</option>
+          <option value="08:30 - 08:45">08:30 - 08:45</option>
          </select>
         </div>
         <div className='mb-3' style={{display:"flex" , justifyContent:"space-between"}}>
@@ -105,7 +175,7 @@ return (
           </div>
           <div className="mb-3">
           <button
-            onClick={onBook}
+            onClick={() => onBook(doctorId)}
             className='btn btn-success'
           >
             Book
