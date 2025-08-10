@@ -12,7 +12,7 @@ export async function getAvailableDoctors() {
     if (response.status >= 200 && response.status < 300) {
       return response
     }else {
-     throw new Error(response.data?.message || 'Logiin failed');
+     throw new Error(response.data?.message || 'Login failed');
     }
   }  catch (error) {
    console.error(' error:', error);

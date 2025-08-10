@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.emed.dtos.DoctorDto;
@@ -29,6 +30,10 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
         return ResponseEntity.ok(unVerifiedDoctors);
+    }
+    @GetMapping("/viewAdminDetails/{adminId}")
+    public ResponseEntity<?> getAdmin(@PathVariable Long adminId){
+   	 return ResponseEntity.ok(adminService.getAdmin(adminId));
     }
 
 }

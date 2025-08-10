@@ -69,8 +69,8 @@ function PatientProfile(){
                <div className="profile-content">
                  <div className="profile-image-container">
                    <img 
-                    src={patient.image || defaultImage}
-                    alt="Profile-image" 
+                     src={patient.image  || defaultImage} 
+                     alt={patient.firstName}
                     className="profile-image"
                    />   
                  </div>

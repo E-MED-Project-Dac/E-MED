@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./DoctorEdit.css";
 import { useNavigate } from "react-router-dom";
+import { updateAvailability as updateAvailabilityFromServer } from "../../services/doctor";
+import { toast } from "react-toastify";
 function EditAvailability() {
   const days = [
     "Monday",
@@ -22,9 +24,31 @@ function EditAvailability() {
   const onBack = () => {
     navigate(-1);
   };
-  const onSubmit = () => {
+  const onSubmit = (doctorId) => {
     // write logic here
+    navigate('/doctorHome/editAvailability/')
   };
+
+  const updateAvailability = async () => {
+    const result = await updateAvailabilityFromServer()
+    if(!result){
+      toast.error('Error while loading all doctors')
+    }
+    else{
+      if(result['status']==200){
+        setAvailability(result['data'])
+        console.log(result['data'])
+      }
+      else{
+        toast.error(result['error'])
+      }
+    }
+  }
+
+  useEffect(() =>{
+    updateAvailability()
+  },[])
+
   return (
     <>
       <div className="container">
