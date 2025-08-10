@@ -2,7 +2,7 @@ package com.emed.dtos;
 
 import java.time.LocalDate;
 
-import com.emed.entities.Patient;
+import com.emed.entities.Gender;
 import com.emed.entities.Status;
 
 import lombok.Getter;
@@ -26,6 +26,8 @@ public class ResponseAppointmentDTO {
 	private String mobile;
 	
     private String email;
+    
+    private Gender gender;
     
     private Status status;
 }

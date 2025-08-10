@@ -1,28 +1,59 @@
-import React,{ useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { cancelAppointment as  cancelAppointmentFromserver, upcomingAppointmentList as upcomingAppointmentListFromServer } from '../../services/patient';
+import { toast } from 'react-toastify';
 const PatientAppointment =()=>{
-    const [Patientappointments,setPatientAppointment]=useState([
-
-  {patientName: "Vikram Joshi",age: 50,gender: "Male",doctorName: "Dr. Gurvinder",date:"21-10-2025",timeSlot: "04:45 PM",fee:"1000",status:"accepted"},
-  {patientName: "Ananya Reddy", age: 19,gender: "Female",doctorName: "Dr. Pulkit",date:"21-10-2025",timeSlot: "01:00 PM",fee:"1000",status:"accepted"},
-  {patientName: "Sanjay Verma", age: 38,gender: "Male",doctorName: "Dr. Saransh",date:"21-10-2025",timeSlot: "03:30 PM",fee:"1000",status:"accepted"},
-  { patientName: "Pooja Mehta",age: 27,gender: "Female",doctorName: "Dr. Adarsh",date:"21-10-2025",timeSlot: "11:00 AM",fee:"1000",status:"accepted"}
-]);
-const navigate = useNavigate()
-  const onCancle= (appNo) =>{
+  const [Patientappointments,setPatientAppointment]=useState([]);
+  const [patientId , setPatientId] = useState('1');
+  const navigate = useNavigate()
+  const onCancle= async(appointmentId) =>{
       //write logic 
+      try {
+            const result = await cancelAppointmentFromserver(appointmentId);
+          if (!result) {
+            throw new Error('No response from server');
+          }
+    
+          if (result.status === 200) {
+           toast.success("Appointment Canceled Successfully");
+           upcomingAppointmentList();
+          } else {
+            throw new Error(result.error || 'Failed to load appointments');
+          }
+        } catch (error) {
+          toast.error(error.message);
+        }
   };
 
-   const onReschedule=(appNo)=>{
-       navigate('/patientHome/rescheduleAppointment')
+   const onReschedule=(appointmentId)=>{
+       navigate(`/patientHome/rescheduleAppointment/${appointmentId}`)
   };
   const onHistory=()=>{
-      navigate('/patientHome/appointmentHistory')
+      navigate(`/patientHome/appointmentHistory/${patientId}`)
   };
 
    const onBack= () =>{
        navigate(-1)
   };
+
+  const upcomingAppointmentList = async() => {
+         try {
+            const result = await upcomingAppointmentListFromServer(patientId);
+          if (!result) {
+            throw new Error('No response from server');
+          }
+    
+          if (result.status === 200) {
+            setPatientAppointment(result.data);
+          } else {
+            throw new Error(result.error || 'Failed to load appointments');
+          }
+        } catch (error) {
+          toast.error(error.message);
+        }
+  }
+
+  useEffect(()=>{upcomingAppointmentList()},[])
 
   return (
     <div >
@@ -33,31 +64,31 @@ const navigate = useNavigate()
         <thead>
           <tr>
             <th>Patients Name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>DoctorName</th>
-             <th>Date</th>
+            <th>dob</th>
+            {/* <th>Gender</th> */}
+            {/* <th>DoctorName</th> */}
+             <th>DateOfAppointment</th>
             <th>Time Slot</th>
-            <th>Fees</th>
+            {/* <th>Fees</th> */}
             <th >Status</th>
              <th ></th>
           </tr>
         </thead>
         <tbody>
           { Patientappointments.map((appointment) => 
-            <tr key={appointment.appNo}>
-              <td>{appointment.patientName}</td>
-              <td>{appointment.age}</td>
-              <td>{appointment.gender}</td>
-              <td>{appointment.doctorName}</td>
-              <td>{appointment.date}</td>
+            <tr key={appointment.appointmentId}>
+              <td>{appointment.firstName}</td>
+              <td>{appointment.dob}</td>
+              {/* <td>{appointment.gender}</td> */}
+              {/* <td>{appointment.doctor.firstName}</td> */}
+              <td>{appointment.dateOfAppointment}</td>
               <td>{appointment.timeSlot}</td>
-              <td>{appointment.fee}</td>
+              {/* <td>{appointment.fee}</td> */}
                <td>{appointment.status}</td>
               <td>    
                 <div  style={{display:'flex', justifyContent:'space-evenly'}}>       
-                    <button className='btn btn-danger' onClick={() => onCancle(appointment.appNo)}>Cancel</button>
-                    <button className='btn btn-primary' onClick={() => onReschedule(appointment.appNo)}>Reschedule</button>              
+                    <button className='btn btn-danger' onClick={() => onCancle(appointment.appointmentId)}>Cancel</button>
+                    <button className='btn btn-primary' onClick={() => onReschedule(appointment.appointmentId)}>Reschedule</button>              
                 </div>     
               </td>
             </tr>

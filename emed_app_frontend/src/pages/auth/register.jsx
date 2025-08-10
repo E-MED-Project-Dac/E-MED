@@ -243,7 +243,7 @@ function Register() {
                   onChange={(e) => setGender(e.target.value)}
                   style={{ borderRadius: "10px" }}
                 >
-                  <option value="" disabled selected hidden>Select Gender</option>
+                  <option value="" disabled hidden>Select Gender</option>
                   <option value="MALE">MALE</option>
                   <option value="FEMALE">FEMALE</option>
                   <option value="OTHER">OTHER</option>
@@ -262,7 +262,7 @@ function Register() {
                 style={{ borderRadius: "10px" }}
               >
                 <option value="" 
-                disabled selected hidden>
+                disabled hidden>
                   Select Role
                   </option>
                 <option value="PATIENT">

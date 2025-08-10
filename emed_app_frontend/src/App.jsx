@@ -149,7 +149,7 @@ function App() {
               element={<ViewDoctorDetails />}
             />
             <Route
-              path='bookAppointment'
+              path='bookAppointment/:doctorId'
               element={<BookAppointment />}
             />
             <Route
@@ -157,11 +157,11 @@ function App() {
               element={<PatientAppointment />}
             />
             <Route
-              path='rescheduleAppointment'
+              path='rescheduleAppointment/:appointmentId'
               element={<RescheduleAppointment />}
             />
             <Route
-              path='appointmentHistory'
+              path='appointmentHistory/:patientId'
               element={<AppointmentHistory />}
             />
           </Route>

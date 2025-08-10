@@ -9,6 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -59,7 +60,7 @@ public class Doctor extends BaseEntity {
 	@OneToOne(cascade = CascadeType.ALL)
 	private DoctorClinicDetails clinicDetails;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "doctor" , cascade = CascadeType.ALL , fetch = FetchType.LAZY )
 	private List<Appointment> appointments = new ArrayList<>();
 	
 	@OneToOne

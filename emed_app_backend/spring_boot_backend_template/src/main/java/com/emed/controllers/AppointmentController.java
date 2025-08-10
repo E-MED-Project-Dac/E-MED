@@ -1,6 +1,7 @@
 package com.emed.controllers;
 
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +24,9 @@ public class AppointmentController {
 	
 	   private final AppointmentService appointmentService;
 	   
-	   @PostMapping("/patientHome/{doctorId}/bookAppointment")
+	   @PostMapping("/patientHome/bookAppointment/{doctorId}")
 	    public ResponseEntity<?> bookAppointment( @PathVariable Long doctorId , @RequestBody AppointmentDTO appointment) {
-	            return ResponseEntity.ok(appointmentService.bookAppointment(doctorId,appointment));
+	            return ResponseEntity.status(HttpStatus.CREATED).body(appointmentService.bookAppointment(doctorId,appointment));
 	    }
 	
 	 @GetMapping("/patientHome/upcomingAppointmentList/{patientId}")
@@ -38,15 +39,15 @@ public class AppointmentController {
 	        return ResponseEntity.ok(appointmentService.getAllAppointments(patientId));
 	    }
 	 
-	 @PutMapping("/patientHome/{appointmentId}/cancel")
+	 @PutMapping("/patientHome/cancel/{appointmentId}")
 	    public ResponseEntity<?> cancelAppointment(@PathVariable Long appointmentId) {
 	     
 	            return ResponseEntity.ok(appointmentService.cancelAppointment(appointmentId));
 	    }
 	    
-	    @PutMapping("/patientHome/{appointmentId}/reschedule")
-	    public ResponseEntity<?> rescheduleAppointment( @PathVariable Long appointmentId , @RequestBody ResponseAppointmentDTO appointment) {
-	            return ResponseEntity.ok(appointmentService.rescheduleAppointment(appointmentId,appointment));
+	    @PutMapping("/patientHome/reschedule")
+	    public ResponseEntity<?> rescheduleAppointment( @RequestBody ResponseAppointmentDTO appointment) {
+	            return ResponseEntity.ok(appointmentService.rescheduleAppointment(appointment));
 	    }
 	    
 	    @GetMapping("/doctorHome/appointmentList/{doctorId}")
@@ -67,5 +68,10 @@ public class AppointmentController {
 	    @PutMapping("/doctorHome/rejectAppointment/{appointmentId}")
 	    public ResponseEntity<?>rejectAppointments(@PathVariable Long appointmentId){
 	        return ResponseEntity.ok(appointmentService.acceptAppointments(appointmentId));
+	    }
+	    
+	    @GetMapping("/appointment/{appointmentId}")
+	    public ResponseEntity<?>getAppointment(@PathVariable Long appointmentId){
+	        return ResponseEntity.ok(appointmentService.getAppointment(appointmentId));
 	    }
 }

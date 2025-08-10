@@ -26,5 +26,4 @@ public class AppointmentDTO {
 	
     private String email;
     
-    private Status status;
 }
