@@ -1,15 +1,16 @@
-import React,{ useEffect, useState } from 'react';
+import React,{ useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cancelAppointment as  cancelAppointmentFromserver, upcomingAppointmentList as upcomingAppointmentListFromServer } from '../../services/patient';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../../context/auth.context';
 const PatientAppointment =()=>{
+    const { user } = useContext(AuthContext);
   const [Patientappointments,setPatientAppointment]=useState([]);
-  const [patientId , setPatientId] = useState('1');
   const navigate = useNavigate()
   const onCancle= async(appointmentId) =>{
       //write logic 
       try {
-            const result = await cancelAppointmentFromserver(appointmentId);
+            const result = await cancelAppointmentFromserver(appointmentId , user?.token);
           if (!result) {
             throw new Error('No response from server');
           }
@@ -29,7 +30,7 @@ const PatientAppointment =()=>{
        navigate(`/patientHome/rescheduleAppointment/${appointmentId}`)
   };
   const onHistory=()=>{
-      navigate(`/patientHome/appointmentHistory/${patientId}`)
+      navigate(`/patientHome/appointmentHistory`)
   };
 
    const onBack= () =>{
@@ -38,7 +39,7 @@ const PatientAppointment =()=>{
 
   const upcomingAppointmentList = async() => {
          try {
-            const result = await upcomingAppointmentListFromServer(patientId);
+            const result = await upcomingAppointmentListFromServer(user?.id , user?.token);
           if (!result) {
             throw new Error('No response from server');
           }

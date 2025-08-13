@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from './../../context/auth.context';
 
 function PatientNavbar({ doctors, setFilteredDoctors }) {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
-
+  const { setUser } = useContext(AuthContext);
   const filterOptions = {
     Specialization: [
       "Cardiologist",
@@ -19,6 +20,7 @@ function PatientNavbar({ doctors, setFilteredDoctors }) {
 
   const onLogout = () => {
     // write logout logic
+    setUser(null);
     navigate("/");
   };
 

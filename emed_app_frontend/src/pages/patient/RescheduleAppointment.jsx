@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { useState , useEffect } from "react";
+import { useState , useEffect, useContext } from "react";
 import { getAppointment as getAppointmentFromServer} from "../../services/patient";
 import { RescheduleAppointment as RescheduleAppointmentFromServer } from "../../services/patient";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../context/auth.context";
 
 function RescheduleAppointment(){
 
+    const { user } = useContext(AuthContext);
 const [errors , setErrors] = useState({});
 const [appointment, setAppointment] = useState({
   appointmentId: '',
@@ -47,7 +49,7 @@ const navigate = useNavigate()
                     return;
                   }
                 try {
-                        const result = await RescheduleAppointmentFromServer(appointment);
+                        const result = await RescheduleAppointmentFromServer(appointment , user?.token);
                         // Handle successful registration
                         if(!result){
                         toast.error('error while  reschedulling appointment')
@@ -67,7 +69,7 @@ const navigate = useNavigate()
     }
 
     const getAppointment = async(appointmentId) =>{
-      const result = await getAppointmentFromServer(appointmentId)
+      const result = await getAppointmentFromServer(appointmentId , user?.token)
               if (!result) {
                 toast.error('Error while loading  Appointment')
               } else {

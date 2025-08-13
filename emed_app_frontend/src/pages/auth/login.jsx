@@ -3,13 +3,15 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/user";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/auth.context";
 
 function Login() {
   // create state to get input from user
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors , setErrors] = useState({});
-
+  const { setUser } = useAuth();
   const validateForm = () => {
   const errors = {};
   
@@ -39,19 +41,26 @@ function Login() {
 
       try{
         const result = await login(email , password);
-        if(!result){
-           toast.error('error while  login the user')
+         setUser({
+                id: result.id,
+                firstName: result.firstName,
+                lastName: result.lastName,
+                email: result.email,
+                role: result.role,
+                token: result.jwt // Storing JWT token
+            });
+        toast.success('login successfull');
+        if(result.role=="ROLE_ADMIN"){
+            navigate('/adminHome/approveDoctors')
+        }else if(result.role=="ROLE_DOCTOR"){
+            navigate('/doctorHome/acceptedAppointments')
         }else{
-          if(/*write the logic*/true){
-
-          }else{
-             toast.error('Error while login the user')
-          }
+             navigate('/patientHome/doctorsList')
         }
 
       }catch (error) {
         // Handle API errors
-        console.error('Logiin failed:', error);
+        toast.error(error.error)
       }
 
   }

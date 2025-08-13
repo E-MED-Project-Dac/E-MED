@@ -2,6 +2,7 @@ package com.emed.dtos;
 
 import java.time.LocalDate;
 
+import com.emed.entities.Gender;
 import com.emed.entities.Status;
 
 import lombok.Getter;
@@ -15,6 +16,8 @@ public class AppointmentDTO {
     private String firstName;
 
     private String lastName; 
+    
+    private Gender gender;
 	
 	private LocalDate dob;
 	

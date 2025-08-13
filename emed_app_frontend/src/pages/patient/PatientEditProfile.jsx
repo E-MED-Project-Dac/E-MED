@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate , useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UpdatePatient as UpdatePatientFromServer } from "../../services/patient";
+import { AuthContext } from "../../context/auth.context";
 function PatientEditProfile() {
   // create state members
+    const { user } = useContext(AuthContext);
   const location = useLocation();
   const { patient } = location.state || {};
   const [errors , setErrors] = useState({})
@@ -53,7 +55,7 @@ function PatientEditProfile() {
         return;
       }
       try {
-              const result = await UpdatePatientFromServer(editPatient);
+              const result = await UpdatePatientFromServer(editPatient , user?.token);
               // Handle successful updation
               if(!result){
               toast.error('error while  updating the user')

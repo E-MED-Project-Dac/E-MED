@@ -3,6 +3,10 @@ package com.emed.entities;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +21,11 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter @Setter  @NoArgsConstructor
+@Getter @Setter  @NoArgsConstructor @ToString
 @Entity
-public class User extends BaseEntity{ //implements UserDetails{
+public class User extends BaseEntity implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="user_id")
@@ -45,18 +50,22 @@ private boolean isDeleted;
 		this.role = role;
 	}
 	
-//	
-//	@Override
-//	public Collection<? extends GrantedAuthority> getAuthorities() {
-//		// TODO Auto-generated method stub
-//		return List.of(new SimpleGrantedAuthority(this.role.name()));
-//	}
-//
-//	@Override
-//	public String getUsername() {
-//		
-//		return this.email;
-//	}
 	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return List.of(new SimpleGrantedAuthority(this.role.name()));
+	}
+
+	@Override
+	public String getUsername() {
+		
+		return this.email;
+	}
+	
+	@Override
+    public boolean isEnabled() {
+        return !isDeleted; // Critical: Soft-deleted users are "disabled"
+    }
 	
 }

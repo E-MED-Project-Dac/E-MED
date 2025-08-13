@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
-import { BookAppointment as BookAppointmentFromServer } from "../../services/patient"
+import { BookAppointment as BookAppointmentFromServer, GetPatient as GetPatientFromServer} from "../../services/patient"
 import { toast } from "react-toastify";
+import { AuthContext } from "../../context/auth.context";
 function BookAppointment(){
+      const { user } = useContext(AuthContext);
       const { doctorId } = useParams();
       const [firstName, setFirstName] = useState('')
       const [lastName, setLastName] = useState('')
@@ -13,9 +15,9 @@ function BookAppointment(){
       const [gender, setGender] = useState('')
       const [dateOfAppointment, setDateOfAppointment] = useState('')
       const [timeSlot, setTimeSlot] = useState('')
-      const [patientId, setPatientId] = useState('1')
       const [errors , setErrors] = useState({});
-
+      
+      
       const navigate = useNavigate()
 
       const validateForm = () => {
@@ -37,6 +39,31 @@ function BookAppointment(){
    return errors;
 }
      
+
+ const GetPatient = async() => {
+
+      const token = user?.token; 
+     const result = await GetPatientFromServer(user?.id , token)
+         if (!result) {
+           toast.error('Error while loading  patient')
+         } else {
+           if (result['status'] == 200) {
+             setFirstName(result.data.firstName )
+             setLastName(result.data.lastName)
+             setEmail(result.data.email)
+             setMobile(result.data.mobile)
+             setGender(result.data.gender)
+             setDob(result.data.dob)
+           } else {
+             toast.error(result['error'])
+           }
+         }
+ }
+
+
+ useEffect(() =>{
+     GetPatient()
+   },[])
       
 
       const onCancel = () => {
@@ -54,11 +81,12 @@ function BookAppointment(){
               return;
             }
           try {
+                  const token = user?.token;
                   const result = await BookAppointmentFromServer(
-                    patientId,
+                    user?.id,
                     firstName, lastName, email, mobile, 
                      dob, gender,dateOfAppointment,timeSlot,
-                     doctorId,
+                     doctorId,token
                   );
                   // Handle successful registration
                   if(!result){
@@ -85,10 +113,10 @@ return (
       <div className='form'>
          <div className='mb-3'>
           <input
-          onChange={(e) => setPatientId(e.target.value)}
+            readOnly
             type='text'
             className='form-control'
-            value={patientId}
+            value={user?.id}
             hidden
           />
         </div>
@@ -98,7 +126,7 @@ return (
             onChange={(e) => setFirstName(e.target.value)}
             type='text'
             className='form-control'
-            value={firstName}
+            value={firstName ||''}
           />
         </div>
         <div className='mb-3'>
@@ -107,7 +135,7 @@ return (
             onChange={(e) => setLastName(e.target.value)}
             type='text'
             className='form-control'
-            value={lastName}
+            value={lastName || ''}
           />
         </div>
         <div className='mb-3'>
@@ -116,7 +144,7 @@ return (
             onChange={(e) => setEmail(e.target.value)}
             type='email'
             className='form-control'
-            value={email}
+            value={email || ''}
           />
         </div>
         <div className='mb-3'>
@@ -125,7 +153,7 @@ return (
             onChange={(e) => setMobile(e.target.value)}
             type='tel'
             className='form-control'
-            value={mobile}
+            value={mobile || ''} 
           />
         </div>
         <div className='mb-3'>
@@ -134,7 +162,7 @@ return (
             onChange={(e) => setDob(e.target.value)}
             type='date'
             className='form-control'
-            value={dob}
+            value={dob || ''}
           />
         </div>
        <div className='mb-3'>
@@ -152,7 +180,7 @@ return (
             onChange={(e) => setDateOfAppointment(e.target.value)}
             type='date'
             className='form-control'
-            value={dateOfAppointment}
+            value={dateOfAppointment || ''}
           />
         </div>
          <div className='mb-3'>

@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PatientProfile.css';
 import defaultImage from '../../images/defaultimage.png'
 import { GetPatient as getPatientFromServer } from '../../services/patient';
 import { toast } from 'react-toastify';
 import { DeletePatient as DeletePatientFromServer } from '../../services/patient';
+import { AuthContext } from '../../context/auth.context';
 
 function PatientProfile(){
+     const { user } = useContext(AuthContext);
      const [patient , setPatient] = useState({})
-     const [patientId , setPatientId] = useState('1')
      const navigate = useNavigate();
      const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
      const onUpdate = () => {
@@ -25,7 +26,7 @@ function PatientProfile(){
   };
   const onConfirmDelete = async() =>{
     //write the api for delete 
-    const result = await DeletePatientFromServer(patientId)
+    const result = await DeletePatientFromServer(user?.id , user?.token) 
      if (!result) {
                toast.error('Error while loading  patient')
              } else {
@@ -43,8 +44,8 @@ function PatientProfile(){
 
 
   
-    const GetPatient = async(patientId) => {
-         const result = await getPatientFromServer(patientId)
+    const GetPatient = async() => {
+         const result = await getPatientFromServer(user?.id , user?.token)
              if (!result) {
                toast.error('Error while loading  patient')
              } else {
@@ -58,7 +59,7 @@ function PatientProfile(){
     
     
      useEffect(() =>{
-         GetPatient(patientId)
+         GetPatient()
        },[])
 
 

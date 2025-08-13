@@ -265,10 +265,10 @@ function Register() {
                 disabled hidden>
                   Select Role
                   </option>
-                <option value="PATIENT">
+                <option value="ROLE_PATIENT">
                   PATIENT
                 </option>
-                <option value="DOCTOR">
+                <option value="ROLE_DOCTOR">
                   DOCTOR
                 </option>
               </select>

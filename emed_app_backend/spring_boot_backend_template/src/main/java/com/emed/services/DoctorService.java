@@ -6,6 +6,7 @@ import com.emed.dtos.ApiResponse;
 import com.emed.dtos.DoctorAvailabilityDTO;
 import com.emed.dtos.DoctorEditDto;
 import com.emed.entities.Doctor;
+import com.emed.entities.User;
 import com.emed.dtos.DoctorDto;
 
 public interface DoctorService {
@@ -21,6 +22,8 @@ public interface DoctorService {
     List<DoctorDto> getAllDoctors();
 
 	DoctorDto getDoctors(Long doctorId);
+
+	Doctor findByUser(User user);
 
 
 }

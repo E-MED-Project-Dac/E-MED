@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from './../../context/auth.context';
 
 function DoctorNavbar() {
   const navigate = useNavigate()
-
+   const { setUser } = useContext(AuthContext);
   const onLogout = () => {
       //write logic
+     setUser(null);
       navigate('/')
   }
   return (

@@ -1,11 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAllAppointments as GetAllAppointmentsFromServer } from "../../services/patient";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../context/auth.context";
 function AppointmentHistory(){
 
 const [appointments, setAppointments] = useState([]);
-const {patientId} = useParams()
+  const { user } = useContext(AuthContext);
 const navigate = useNavigate()
 const onBack = () => {
     navigate(-1)
@@ -13,7 +14,7 @@ const onBack = () => {
 
 const GetAllAppointments = async() => {
          try {
-            const result = await GetAllAppointmentsFromServer(patientId);
+            const result = await GetAllAppointmentsFromServer(user?.id , user?.token);
           if (!result) {
             throw new Error('No response from server');
           }

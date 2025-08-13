@@ -1,12 +1,14 @@
-import React , {useEffect, useState} from "react";
+import React , {useContext, useEffect, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getDoctor as getDoctorFromServer } from "../../services/patient";
 import defaultImage from '../../images/defaultimage.png'
+import { AuthContext } from "../../context/auth.context";
 
 
 function ViewDoctorDetails(){
   const { doctorId } = useParams(); // Get ID from URL
   const [doctor , setDoctor] = useState({})
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   
   const onBack = () => {
@@ -18,7 +20,8 @@ function ViewDoctorDetails(){
     navigate(`/patientHome/bookAppointment/${doctorId}`)
   };
  const getDoctor = async(doctorId) => {
-     const result = await getDoctorFromServer(doctorId)
+      const token = user?.token; 
+     const result = await getDoctorFromServer(doctorId , token)
          if (!result) {
            toast.error('Error while loading  doctor')
          } else {

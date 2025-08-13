@@ -1,32 +1,31 @@
 import axios from "axios"
 import { config } from './../config';
 
-export async function getAvailableDoctors() {
+export async function getAvailableDoctors(token) {
   try {
     let url = `${config.serverURL}/patientHome/doctorsList`
-   // const token = sessionStorage.getItem('token')
-   // const response = await axios.get(url, {
-     // headers: { token },
-    //})
-    const response = await axios.get(url)
+        const response = await axios.get(url,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }})
     if (response.status >= 200 && response.status < 300) {
       return response
     }else {
      throw new Error(response.data?.message || 'Login failed');
     }
   }  catch (error) {
-   console.error(' error:', error);
-    
-    // Re-throw the error or return a structured error object
     throw error.response?.data || error.message || 'Unknown  error';
   }
 }
 
 
-export async function getDoctor(doctorId){
+export async function getDoctor(doctorId,token){
   try{
    let url = `${config.serverURL}/patientHome/viewDoctorDetails/${doctorId}`
-  const response = await axios.get(url)
+  const response = await axios.get(url,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }})
     if (response.status >= 200 && response.status < 300) {
       return response
     }else {
@@ -51,7 +50,8 @@ export async function BookAppointment(
   gender,
   dateOfAppointment,
   timeSlot,
-  doctorId
+  doctorId,
+  token,
 ) {
   try {
     // create the required url
@@ -74,6 +74,7 @@ export async function BookAppointment(
     const response = await axios.post(url, body ,{
         headers:{
             'Content-Type':'application/json',
+             Authorization: `Bearer ${token}`
         },
     })
 
@@ -93,10 +94,13 @@ export async function BookAppointment(
 }
 
 
-export async function upcomingAppointmentList(patientId){
+export async function upcomingAppointmentList(patientId , token){
   try{
    let url = `${config.serverURL}/patientHome/upcomingAppointmentList/${patientId}`
-  const response = await axios.get(url)
+  const response = await axios.get(url,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }})
     if (response.status >= 200 && response.status < 300) {
       return response
     }else {
@@ -111,10 +115,13 @@ export async function upcomingAppointmentList(patientId){
 }
 
 
-export async function cancelAppointment(appointmentId){
+export async function cancelAppointment(appointmentId , token){
   try{
    let url = `${config.serverURL}/patientHome/cancel/${appointmentId}`
-  const response = await axios.put(url)
+  const response = await axios.put(url,null,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }})
     if (response.status >= 200 && response.status < 300) {
       return response
     }else {
@@ -129,10 +136,13 @@ export async function cancelAppointment(appointmentId){
 }
 
 
-export async function getAppointment(appointmentId){
+export async function getAppointment(appointmentId , token){
   try{
    let url = `${config.serverURL}/appointment/${appointmentId}`
-  const response = await axios.get(url)
+  const response = await axios.get(url,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }})
     if (response.status >= 200 && response.status < 300) {
       return response
     }else {
@@ -147,7 +157,7 @@ export async function getAppointment(appointmentId){
 }
 
 
-export async function RescheduleAppointment(appointment) {
+export async function RescheduleAppointment(appointment , token) {
   try {
     const {appointmentId, firstName,lastName,email,mobile,dob,gender,dateOfAppointment,timeSlot} = appointment;
     // create the required url
@@ -170,6 +180,7 @@ export async function RescheduleAppointment(appointment) {
     const response = await axios.put(url, body ,{
         headers:{
             'Content-Type':'application/json',
+            Authorization: `Bearer ${token}`
         },
     })
 
@@ -189,10 +200,13 @@ export async function RescheduleAppointment(appointment) {
 }
 
 
-export async function getAllAppointments(patientId){
+export async function getAllAppointments(patientId , token){
   try{
    let url = `${config.serverURL}/patientHome/allAppointmentList/${patientId}`
-  const response = await axios.get(url)
+  const response = await axios.get(url,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }})
     if (response.status >= 200 && response.status < 300) {
       return response
     }else {
@@ -207,10 +221,13 @@ export async function getAllAppointments(patientId){
 }
 
 
-export async function GetPatient(patientId){
+export async function GetPatient(patientId , token){
   try{
    let url = `${config.serverURL}/patientHome/getPatient/${patientId}`
-  const response = await axios.get(url)
+  const response = await axios.get(url,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }})
     if (response.status >= 200 && response.status < 300) {
       return response
     }else {
@@ -225,12 +242,15 @@ export async function GetPatient(patientId){
 }
 
 
-export async function UpdatePatient(editPatient){
+export async function UpdatePatient(editPatient , token){
   try{
     
    let url = `${config.serverURL}/patientHome/updatePatient`
    let body =  editPatient
-  const response = await axios.put(url,body)
+  const response = await axios.put(url,body,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }})
     if (response.status >= 200 && response.status < 300) {
       return response
     }else {
@@ -245,11 +265,14 @@ export async function UpdatePatient(editPatient){
 }
 
 
-export async function DeletePatient(patientId){
+export async function DeletePatient(patientId , token){
   try{
     
    let url = `${config.serverURL}/patientHome/deletePatient/${patientId}`
-  const response = await axios.put(url)
+  const response = await axios.put(url,null,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }})
     if (response.status >= 200 && response.status < 300) {
       return response
     }else {
