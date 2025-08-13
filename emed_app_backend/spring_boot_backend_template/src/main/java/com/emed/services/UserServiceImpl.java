@@ -1,10 +1,14 @@
 package com.emed.services;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.DisabledException;
+//import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.emed.custom_exceptions.InvalidInputException;
+import com.emed.custom_exceptions.ResourceNotFoundException;
 import com.emed.daos.AdminDAO;
 import com.emed.daos.DoctorDAO;
 import com.emed.daos.PatientDAO;
@@ -27,6 +31,7 @@ public class UserServiceImpl implements UserService {
 	private final DoctorDAO doctorDao;
 	private final PatientDAO patientDao;
 	private final AdminDAO adminDao;
+	private final PasswordEncoder passwordEncoder;
 	
 	@Override
 	public ApiResponse register(RegisterDTO entity) {
@@ -35,13 +40,15 @@ public class UserServiceImpl implements UserService {
 		}
 		else {
 			User user = modelMapper.map(entity, User.class);
+			String encodedPass = passwordEncoder.encode(user.getPassword());
+			user.setPassword(encodedPass);
 			User persistUser = userDao.save(user);
-			if((entity.getRole()==Role.ADMIN)) {
+			if((entity.getRole()==Role.ROLE_ADMIN)) {
 				Admin admin = modelMapper.map(entity, Admin.class);
 				admin.setUser(persistUser);
 				adminDao.save(admin);
 			}
-			else if((entity.getRole()==Role.DOCTOR)) {
+			else if((entity.getRole()==Role.ROLE_DOCTOR)) {
 				Doctor doctor = modelMapper.map(entity, Doctor.class);
 				doctor.setUser(persistUser);
 				doctorDao.save(doctor);
@@ -53,6 +60,16 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		return new ApiResponse("User registered Successfullly...!");
+	}
+	
+	
+	@Override
+	public User loadUserByUserName(String userEmail) {
+		User user =  userDao.findByEmail(userEmail).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+	    if(user.isDeleted()) {
+	    	throw new DisabledException("Account is deleted");
+	    }
+	    return user;
 	}
 
 }

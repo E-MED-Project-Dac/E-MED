@@ -17,8 +17,7 @@ export async function login(email, password) {
         headers:{
             'Content-Type':'application/json',
         },
-  })
-
+  })    
     // check if response is OK
     if (response.status >= 200 && response.status < 300) {
       // send the response body
@@ -27,8 +26,6 @@ export async function login(email, password) {
      throw new Error(response.data?.message || 'Logiin failed');
     }
   } catch (error) {
-   console.error('Login error:', error);
-    
     // Re-throw the error or return a structured error object
     throw error.response?.data || error.message || 'Unknown Login error';
   }

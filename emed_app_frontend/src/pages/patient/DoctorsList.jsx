@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './DoctorsList.css'; // Import external CSS file
 import { useNavigate } from 'react-router-dom';
 import { getAvailableDoctors as getAvailableDoctorsFromserver } from '../../services/patient';
 import defaultImage from '../../images/defaultimage.png'
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../context/auth.context';
 const DoctorsList = () => {
 
   const [doctorList , setDoctorList] = useState([]);
   const [loading, setLoading] = useState(true); // Added loading state
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate()
 
     const onBack = () => {
@@ -20,7 +23,8 @@ const onDetails = (doctorId) =>  {
     const getAvailableDoctors = async () => {
        try {
       setLoading(true);
-      const result = await getAvailableDoctorsFromserver();
+      const token = user?.token;
+      const result = await getAvailableDoctorsFromserver(token);
       
       if (!result) {
         throw new Error('No response from server');

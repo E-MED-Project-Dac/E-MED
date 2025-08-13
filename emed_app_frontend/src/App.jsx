@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
-import Login from './pages/auth/Login'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import Login from './pages/auth/login'
 import { ToastContainer } from 'react-toastify'
 import ApproveAppointmentList from './pages/doctor/ApproveAppointments'
 import PatientProfile from './pages/patient/PatientProfile'
@@ -47,11 +47,11 @@ function MainLayout() {
 
 function App() {
   // create a state member for keeping user details
-  const [user, setUser] = useState("null");
+  const [user, setUser] = useState(null);
 
   return (
     <>
-      <AuthContext value={{ user, setUser }}>
+      <AuthContext.Provider value={{ user, setUser }}>
         <Routes>
           <Route element={MainLayout}/>
           <Route
@@ -161,12 +161,12 @@ function App() {
               element={<RescheduleAppointment />}
             />
             <Route
-              path='appointmentHistory/:patientId'
+              path='appointmentHistory'
               element={<AppointmentHistory />}
             />
           </Route>
         </Routes>
-      </AuthContext>
+      </AuthContext.Provider>
 
       <ToastContainer />
     </>

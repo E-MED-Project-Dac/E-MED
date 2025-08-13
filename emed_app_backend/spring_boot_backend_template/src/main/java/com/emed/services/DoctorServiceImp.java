@@ -14,7 +14,7 @@ import com.emed.entities.Doctor;
 import com.emed.entities.DoctorAvailability;
 import com.emed.entities.DoctorBasicDetails;
 import com.emed.entities.DoctorClinicDetails;
-
+import com.emed.entities.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.AllArgsConstructor;
@@ -93,6 +93,11 @@ public class DoctorServiceImp implements DoctorService {
 	@Override
 	public DoctorDto getDoctors(Long doctorId) {
 		return modelMapper.map(doctorDao.findById(doctorId),DoctorDto.class);
+	}
+
+	@Override
+	public Doctor findByUser(User user) {
+			return doctorDao.findByUser(user).orElseThrow(()-> new ResourceNotFoundException("Doctor data not found"));
 	}
 
 	

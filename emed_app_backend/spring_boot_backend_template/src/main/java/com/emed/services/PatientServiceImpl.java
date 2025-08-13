@@ -15,6 +15,7 @@ import com.emed.dtos.PatientResponseDTO;
 import com.emed.dtos.RegisterDTO;
 import com.emed.entities.Patient;
 import com.emed.entities.PatientAddress;
+import com.emed.entities.User;
 
 import lombok.AllArgsConstructor;
 
@@ -62,5 +63,10 @@ public class PatientServiceImpl implements PatientService {
 		Patient patient = patientDao.findById(editPatient.getPatientId()).orElseThrow(() -> new ResourceNotFoundException("Patient Not Found !!!!"));
 		modelMapper.map(editPatient, patient);
 		return new ApiResponse("User Updated Successfully");
+	}
+
+	@Override
+	public Patient findByUser(User user) {
+			return patientDao.findByUser(user).orElseThrow(()-> new ResourceNotFoundException("Patient data not found"));
 	}
 }

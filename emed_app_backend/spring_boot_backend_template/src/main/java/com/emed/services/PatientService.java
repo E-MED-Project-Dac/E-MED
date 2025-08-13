@@ -5,6 +5,8 @@ import com.emed.dtos.ApiResponse;
 import com.emed.dtos.PatientDTO;
 import com.emed.dtos.PatientEditDTO;
 import com.emed.dtos.PatientResponseDTO;
+import com.emed.entities.Patient;
+import com.emed.entities.User;
 
 
 public interface PatientService {
@@ -16,5 +18,7 @@ public interface PatientService {
 	PatientResponseDTO getPatient(Long patientId);
 
 	ApiResponse updatePatient(PatientEditDTO editPatient);
+
+	Patient findByUser(User user);
 
 }
