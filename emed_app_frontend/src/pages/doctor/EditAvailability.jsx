@@ -1,134 +1,126 @@
 import React, { useEffect, useState } from "react";
 import "./DoctorEdit.css";
-import { useNavigate } from "react-router-dom";
-import { updateAvailability as updateAvailabilityFromServer } from "../../services/doctor";
+import { useNavigate, useParams } from "react-router-dom";
+import { updateAvailability } from "../../services/doctor";
 import { toast } from "react-toastify";
+
 function EditAvailability() {
-  const days = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
-  const [availability, setAvailability] = useState([]);
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const { doctorId } = useParams();
+  const [formData, setFormData] = useState({
+    availableDays: [],
+    startTime: "",
+    endTime: "",
+    consultantFee: ""
+  });
+  const navigate = useNavigate();
+
+  // Initialize with default values
+  useEffect(() => {
+    setFormData({
+      availableDays: [],
+      startTime: "09:00",
+      endTime: "17:00",
+      consultantFee: "500"
+    });
+  }, []);
 
   const handleCheckboxChange = (day) => {
-    setAvailability((prev) =>
-      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
-    );
-  };
-  const navigate = useNavigate();
-  const onBack = () => {
-    navigate(-1);
-  };
-  const onSubmit = (doctorId) => {
-    // write logic here
-    navigate('/doctorHome/editAvailability/')
+    setFormData(prev => ({
+      ...prev,
+      availableDays: prev.availableDays.includes(day)
+        ? prev.availableDays.filter(d => d !== day)
+        : [...prev.availableDays, day]
+    }));
   };
 
-  const updateAvailability = async () => {
-    const result = await updateAvailabilityFromServer()
-    if(!result){
-      toast.error('Error while loading all doctors')
-    }
-    else{
-      if(result['status']==200){
-        setAvailability(result['data'])
-        console.log(result['data'])
-      }
-      else{
-        toast.error(result['error'])
-      }
-    }
-  }
+  const onBack = () => navigate(-1);
 
-  useEffect(() =>{
-    updateAvailability()
-  },[])
+  const onSubmit = async () => {
+    try {
+      const result = await updateAvailability({
+        doctorId,
+        ...formData
+      });
+      toast.success("Availability updated successfully!");
+      navigate("/doctorHome");
+    } catch (error) {
+      toast.error(error.message || "Failed to update availability");
+    }
+  };
 
   return (
-    <>
-      <div className="container">
-        <div className="form">
-          <div className="card">
-            <div className="card-header" style={{ textAlign: "center" }}>
-              Edit Availability/ Time Slot/ Consultant Fee
-            </div>
-            <div className="card-body">
-              <div className="row mb-3">
-                <label>Select Availability:</label>
-                <div className="d-flex flex-wrap gap-9 mt-2">
-                  {days.map((day) => (
-                    <div key={day} className="form-check form-check-inline">
-                      <input
-                        type="checkbox"
-                        className="form-check-input"
-                        id={day}
-                        checked={availability.includes(day)}
-                        onChange={() => handleCheckboxChange(day)}
-                      />
-                      <label className="form-check-label" htmlFor={day}>
-                        {day}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-                <br />
+    <div className="container">
+      <div className="form">
+        <div className="card">
+          <div className="card-header text-center">
+            Edit Availability/Time Slot/Consultant Fee
+          </div>
+          <div className="card-body">
+            <div className="row mb-3">
+              <label>Select Availability:</label>
+              <div className="d-flex flex-wrap gap-3 mt-2">
+                {days.map(day => (
+                  <div key={day} className="form-check">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      id={day}
+                      checked={formData.availableDays.includes(day)}
+                      onChange={() => handleCheckboxChange(day)}
+                    />
+                    <label className="form-check-label" htmlFor={day}>{day}</label>
+                  </div>
+                ))}
               </div>
-              <div className="row mb-3">
-                <div className="col">
-                  <label htmlFor="">Time Slot:</label>
-                  <br />
-                  <div className="row mb-3">
-                    <div className="col">
-                      <input
-                        type="text"
-                        placeholder="Start Time"
-                        style={{ width: "100%" }}
-                        className="form-control"
-                      />
-                    </div>
-                    <div className="col">
-                      <input
-                        type="text"
-                        placeholder="End Time"
-                        style={{ width: "100%" }}
-                        className="form-control"
-                      />
-                    </div>
+            </div>
+
+            <div className="row mb-3">
+              <div className="col">
+                <label>Time Slot:</label>
+                <div className="row mt-2">
+                  <div className="col">
+                    <input
+                      type="time"
+                      className="form-control"
+                      value={formData.startTime}
+                      onChange={(e) => setFormData({...formData, startTime: e.target.value})}
+                    />
+                  </div>
+                  <div className="col">
+                    <input
+                      type="time"
+                      className="form-control"
+                      value={formData.endTime}
+                      onChange={(e) => setFormData({...formData, endTime: e.target.value})}
+                    />
                   </div>
                 </div>
               </div>
-              <div className="row mb-3">
-                <label htmlFor="">Consultant Fee:</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  style={{ width: "97%", marginLeft: "10px" }}
-                />
-              </div>
-              <div className="mt-2 d-flex justify-content-between">
-                <button
-                  className="btn btn-danger"
-                  onClick={onBack}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="btn btn-success"
-                  onClick={onSubmit}
-                >
-                  Submit
-                </button>
-              </div>
+            </div>
+
+            <div className="row mb-3">
+              <label>Consultant Fee:</label>
+              <input
+                type="number"
+                className="form-control"
+                value={formData.consultantFee}
+                onChange={(e) => setFormData({...formData, consultantFee: e.target.value})}
+              />
+            </div>
+
+            <div className="d-flex justify-content-between mt-3">
+              <button className="btn btn-danger" onClick={onBack}>
+                Cancel
+              </button>
+              <button className="btn btn-success" onClick={onSubmit}>
+                Submit
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
